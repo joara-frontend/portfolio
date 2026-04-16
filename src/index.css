@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard", ui-sans-serif, system-ui, sans-serif;
+
+  --color-base: #141621;
+  --color-surface: #1b2233;
+  --color-card: #242c40;
+
+  --color-main: #f0f4f8;
+  --color-sub: #dfdfdf;
+
+  --color-point: #38bdf8;
+  --color-divider: #4a5568;
+  --color-selection: #4f46e5;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("./assets/fonts/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("./assets/fonts/Pretendard-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    font-family: "Pretendard", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--color-text-main);
+  }
+}
+
+a,
+button,
+input,
+div,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+dt,
+dd,
+ul,
+li {
+  transition-property: color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+::selection {
+  color: #fff;
+  background-color: var(--color-selection);
+}
