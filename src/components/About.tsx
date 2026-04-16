@@ -2,6 +2,7 @@ import subHeaderArr from "../assets/icons/sub_header_arrow.svg";
 import gitHubIco from "../assets/icons/github.svg";
 import mailIco from "../assets/icons/mail.svg";
 // import notionIco from "../assets/icons/notion.svg";
+import linkIco from "../assets/icons/link.svg";
 import { PROJECT_DATA } from "../constants/projects";
 import { Layers, Sprout, Trees } from "lucide-react";
 import AccordionItem from "./AccordionItem";
@@ -121,9 +122,37 @@ function About() {
                   </div>
                   <div className="w-full font-regular">
                     <div className="pb-[5px] border-b border-white border-dotted">
-                      <h3 className="text-[20px] font-bold">
-                        글로벌노마드 (GlobalNomad)
-                      </h3>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://21-sprint-1team-globalnomad.vercel.app/"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[18px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                          <a
+                            href="https://github.com/joara-frontend/21-sprint-1team-globalnomad"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="GitHub 저장소 바로가기"
+                          >
+                            <img
+                              className="w-[18px]"
+                              src={gitHubIco}
+                              alt="저장소 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h3 className="text-[20px] font-bold">
+                          글로벌노마드 (GlobalNomad)
+                        </h3>
+                      </div>
                       <p className="text-[14px]">
                         여행 상품 등록 및 예약 관리 기능을 제공하는 체험 중심의
                         여행 커뮤니티 플랫폼
@@ -286,9 +315,37 @@ function About() {
                   </div>
                   <div className="w-full font-regular">
                     <div className="pb-[5px] border-b border-white border-dotted">
-                      <h3 className="text-[20px] font-bold">
-                        태스키파이 (Taskify)
-                      </h3>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://21-sprint-2-team-taskify.vercel.app/"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[18px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                          <a
+                            href="https://github.com/joara-frontend/21-Sprint-2Team_Taskify"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="GitHub 저장소 바로가기"
+                          >
+                            <img
+                              className="w-[18px]"
+                              src={gitHubIco}
+                              alt="저장소 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h3 className="text-[20px] font-bold">
+                          태스키파이 (Taskify)
+                        </h3>
+                      </div>
                       <p className="text-[14px]">
                         칸반 보드 형식을 활용한 팀 프로젝트 일정 및 태스크 관리
                         대시보드
@@ -455,6 +512,126 @@ function About() {
                         [퍼블리싱] 법무·특허·세무 전문 플랫폼 통합 구축 및 SEO
                         최적화
                       </h3>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://thr-pat.co.kr/"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                          <a
+                            href="https://github.com/joara-frontend/rebuild-patent"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="GitHub 저장소 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={gitHubIco}
+                              alt="저장소 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h4 className="text-[18px] font-bold">
+                          특허법인 테헤란
+                        </h4>
+                      </div>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://try-once.co.kr/"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                          <a
+                            href="https://github.com/joara-frontend/rebuild-tryonce"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="GitHub 저장소 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={gitHubIco}
+                              alt="저장소 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h4 className="text-[18px] font-bold">
+                          법무법인 트라이원스
+                        </h4>
+                      </div>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://law-eden.com/"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                          <a
+                            href="https://github.com/joara-frontend/rebuild-eden"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="GitHub 저장소 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={gitHubIco}
+                              alt="저장소 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h4 className="text-[18px] font-bold">법무법인 아든</h4>
+                      </div>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://lawfirm-hero.com/"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                          <a
+                            href="https://github.com/joara-frontend/rebuild-hero"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="GitHub 저장소 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={gitHubIco}
+                              alt="저장소 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h4 className="text-[18px] font-bold">법무법인 영웅</h4>
+                      </div>
                       <ul className="flex flex-wrap gap-[3.5px] text-[12px] font-regular text-main opacity-[20%] group-hover/outer:opacity-[100%] ">
                         <li className="inline-flex px-[3.5px] rounded-[1.75] bg-divider">
                           Semantic Markup
@@ -537,10 +714,26 @@ function About() {
                   </div>
                   <div className="w-full font-regular">
                     <div className="pb-[5px] border-b border-white border-dotted">
-                      <h3 className="text-[20px] font-bold">
-                        [퍼블리싱] Genesis 2.0 Global - 다국어(RTL) 대응 및
-                        현지화
-                      </h3>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://www.genesis.com/sa-dammam/ar/main.html"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[18px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h3 className="text-[20px] font-bold">
+                          [퍼블리싱] Genesis 2.0 Global - 다국어(RTL) 대응 및
+                          현지화
+                        </h3>
+                      </div>
                       <ul className="flex flex-wrap gap-[3.5px] text-[12px] font-regular text-main opacity-[20%] group-hover/outer:opacity-[100%] ">
                         <li className="inline-flex px-[3.5px] rounded-[1.75] bg-divider">
                           RTL (Right-to-Left)
@@ -606,6 +799,42 @@ function About() {
                         [퍼블리싱] 도메인별 웹 플랫폼 구축 및 클라이언트 기술
                         지원
                       </h3>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://rootenergy.kr/"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h4 className="text-[18px] font-bold">루트에너지</h4>
+                      </div>
+                      <div className="flex items-center gap-[5px]">
+                        <div className="flex gap-2 mr-1">
+                          <a
+                            href="https://www.omron-healthcare.co.kr/main"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="서비스 바로가기"
+                          >
+                            <img
+                              className="w-[16px]"
+                              src={linkIco}
+                              alt="서비스 바로가기"
+                            />
+                          </a>
+                        </div>
+                        <h4 className="text-[18px] font-bold">
+                          오므론헬스케어
+                        </h4>
+                      </div>
                       <ul className="flex flex-wrap gap-[3.5px] text-[12px] font-regular text-main opacity-[20%] group-hover/outer:opacity-[100%] ">
                         <li className="inline-flex px-[3.5px] rounded-[1.75] bg-divider">
                           Multi-Stack Adaptability
