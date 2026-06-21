@@ -968,3 +968,152 @@ footer {
     font-size: 30px;
   }
 }
+
+/* ── Detail Page ── */
+.detail-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+.detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #5a5e80;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 22px;
+  transition: color 0.25s ease;
+}
+.detail-back:hover {
+  color: var(--acc-deep);
+}
+.detail-back-icon {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 18px -10px rgba(90, 100, 180, 0.4);
+  font-size: 16px;
+  transition: transform 0.25s ease;
+}
+.detail-back:hover .detail-back-icon {
+  transform: translateX(-2px);
+}
+
+/* Slider nav buttons — wrapping div handles translateY(-50%), so scale is clean */
+.detail-nav-btn {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 24px -10px rgba(90, 100, 180, 0.5);
+  font-size: 22px;
+  color: #2b2d42;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.3),
+    background 0.3s ease;
+}
+.detail-nav-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+/* Link chips */
+.detail-link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.3),
+    box-shadow 0.3s ease;
+}
+.detail-link-chip:hover {
+  transform: translateY(-2px);
+}
+.detail-link-chip.live {
+  background: linear-gradient(135deg, var(--acc1), var(--acc2));
+  color: #fff;
+  box-shadow: 0 10px 20px -8px rgba(108, 124, 240, 0.7);
+}
+.detail-link-chip.live:hover {
+  box-shadow: 0 16px 28px -10px rgba(108, 124, 240, 0.8);
+}
+.detail-link-chip.github {
+  background: var(--acc-soft);
+  color: var(--acc-deep);
+}
+
+/* Bottom back button */
+.detail-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 15px 28px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  color: #2b2d42;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow:
+    0 16px 30px -16px rgba(90, 100, 180, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.3),
+    box-shadow 0.3s ease;
+}
+.detail-btn-back:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 640px) {
+  .detail-inner {
+    padding: 24px 16px 60px;
+  }
+}
+
+/* ── Feature detail: image / code 높이 제한 ── */
+.detail-feat-img {
+  width: 100%;
+  height: auto;
+  max-height: 550px;
+  display: block;
+  object-fit: contain;
+  object-position: top;
+}
+.detail-feat-code {
+  max-height: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+@media (max-width: 640px) {
+  .detail-feat-img {
+    max-height: 350px;
+  }
+  .detail-feat-code {
+    max-height: 300px;
+  }
+}

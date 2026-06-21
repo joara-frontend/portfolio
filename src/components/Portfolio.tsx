@@ -12,8 +12,8 @@ function ProjectCard({ project }: { project: Project }) {
     if (project.path) {
       const url = project.path;
       router.push(url);
-    } else {
-      const url = project.links[0]?.href;
+    } else if (project.links && project.links.length > 0) {
+      const url = project.links[0].href;
       if (url) window.open(url, "_blank", "noopener,noreferrer");
     }
   };
@@ -40,7 +40,7 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
         <p className="project-desc">{project.desc}</p>
         <div className="project-links">
-          {project.links.map((link: ProjectLink, i: number) => (
+          {project.links?.map((link: ProjectLink, i: number) => (
             <a
               key={i}
               className="project-link no-underline text-inherit"

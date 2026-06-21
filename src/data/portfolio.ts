@@ -24,7 +24,7 @@ export interface Project {
   thumb: string;
   desc: string;
   path?: string;
-  links: ProjectLink[];
+  links?: ProjectLink[];
 }
 
 export const career: TimelineItem[] = [
@@ -167,28 +167,43 @@ export const projectsPrimary: Project[] = [
 
 export const projectsMore: Project[] = [
   {
-    title: "루트에너지 · 오므론헬스케어",
-    en: "Client Sites",
-    thumb: "/assets/projects/root_thumbnail.png",
-    desc: "도메인별 웹 플랫폼 구축 및 클라이언트 기술 지원을 담당한 퍼블리싱 작업.",
-    path: "/portfolio/kimjimin",
+    title: "롯데인터넷면세점",
+    en: "Localization",
+    thumb: "/assets/projects/lotte_thumbnail.jpg",
+    desc: "롯데인터넷면세점 국문, 영문, 일문, 중문(간체/번체) 총 5개 언어 사이트의 혜택 및 이벤트 페이지 퍼블리싱 유지보수.",
+    path: "/portfolio/lotte",
     links: [
-      { label: "Site1 Live ↗", href: "https://rootenergy.kr/" },
       {
-        label: "Site2 Live ↗",
-        href: "https://www.omron-healthcare.co.kr/main",
+        label: "Live ↗",
+        href: "https://kor.lottedfs.com/kr/shopmain/home",
       },
     ],
   },
   {
-    title: "더 많은 작업물",
-    en: "Full Archive",
-    thumb: "/assets/projects/github_thumbnail.png",
-    desc: "GitHub에서 그동안 진행한 프로젝트와 코드를 모두 확인하실 수 있습니다.",
+    title: "JT 금융그룹",
+    en: "Client Sites",
+    thumb: "/assets/projects/jt_thumbnail.jpg",
+    desc: "홈페이지 리뉴얼 이후 사이트 전체 운영 및 유지보수 담당.",
+    path: "/portfolio/jt",
+  },
+  {
+    title: "루트에너지",
+    en: "Client Sites",
+    thumb: "/assets/projects/root_thumbnail.png",
+    desc: "홈페이지 구축 시 사용자 페이지와 어드민 페이지 함께 퍼블리싱 및 프론트엔드 작업 진행.",
+    path: "/portfolio/root",
+    links: [{ label: "Live ↗", href: "https://rootenergy.kr/" }],
+  },
+  {
+    title: "오므론헬스케어",
+    en: "Client Sites",
+    thumb: "/assets/projects/omron_thumbnail.jpg",
+    desc: "리뉴얼 프로젝트에 참여하여 PHP 기반 구조로 전환된 전체 페이지의 퍼블리싱 작업 담당.",
+    path: "/portfolio/omron",
     links: [
       {
-        label: "GitHub 전체 보기 ↗",
-        href: "https://github.com/joara-frontend",
+        label: "Live ↗",
+        href: "https://www.omron-healthcare.co.kr/main",
       },
     ],
   },
