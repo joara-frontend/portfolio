@@ -1,4 +1,7 @@
-import type { ProjectDetailData, ProjectDetailLink } from "@/data/projectDetails";
+import type {
+  ProjectDetailData,
+  ProjectDetailLink,
+} from "@/data/projectDetails";
 
 interface ProjectMetaProps {
   project: ProjectDetailData;
@@ -43,7 +46,13 @@ function MetaRow({
       >
         {label}
       </span>
-      <span style={{ fontSize: "15px", color: "#52566f", fontVariantNumeric: "tabular-nums" }}>
+      <span
+        style={{
+          fontSize: "15px",
+          color: "#52566f",
+          fontVariantNumeric: "tabular-nums",
+        }}
+      >
         {value}
       </span>
     </div>
@@ -144,7 +153,7 @@ export default function ProjectMeta({ project }: ProjectMetaProps) {
       </div>
 
       {/* Link chips — flex-wrap, up to 8 without breaking */}
-      {project.links.length > 0 && (
+      {project.links && project.links.length > 0 && (
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           {project.links.map((link) => (
             <LinkChip key={link.label} link={link} />

@@ -153,7 +153,7 @@ export const projectsPrimary: Project[] = [
   {
     title: "Genesis 2.0 Global",
     en: "Localization",
-    thumb: "/assets/projects/genesis_thumbnail.png",
+    thumb: "/assets/projects/genesis_thumbnail.jpg",
     desc: "다국어(RTL) 대응 및 현지화를 적용한 제네시스 글로벌 사이트 퍼블리싱.",
     path: "/portfolio/genesis",
     links: [

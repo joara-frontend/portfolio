@@ -48,7 +48,7 @@ export interface ProjectDetailData {
   role?: string;
   description: string;
   stacks: string[];
-  links: ProjectDetailLink[];
+  links?: ProjectDetailLink[];
   images: string[];
   features?: ProjectFeatureNumType[] | ProjectFeatureNotNumType[];
 }
@@ -349,12 +349,12 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
   },
 
   lawfirm: {
-    title: "법무·특허·세무 플랫폼 퍼블리싱",
+    title: "법무·특허·세무 플랫폼",
     period: "2024.07 — 2025.05",
     members: "퍼블리셔 1명 (단독)",
     role: "UI/UX 퍼블리싱 전담",
     description:
-      "법무·특허·세무 분야의 전문 서비스를 통합 구축한 웹 플랫폼입니다. 도메인별로 분리된 계열사 사이트를 일관된 컴포넌트 체계로 구축하고 SEO를 최적화했습니다.",
+      "법무·특허·세무 분야의 전문 서비스를 통합 구축한 웹 플랫폼입니다.",
     stacks: [
       "Semantic Markup",
       "SEO Optimization",
@@ -423,7 +423,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     members: "퍼블리셔 3명",
     role: "다국어 · RTL 현지화 퍼블리싱",
     description:
-      "제네시스 글로벌 사이트의 다국어(RTL) 대응 및 현지화를 적용한 퍼블리싱 프로젝트입니다.",
+      "현대자동차의 독립 럭셔리 브랜드 '제네시스'의 글로벌 브랜드 정체성을 전파하고 각 국가별(북미, 유럽, 중동, 아시아 등) 웹사이트를 유기적으로 연결하는 글로벌 통합 온라인 플랫폼입니다.",
     stacks: [
       "RTL (Right-to-Left)",
       "Localization",
@@ -450,6 +450,153 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           "복잡한 구조의 글로벌 사이트를 현지 언어와 사용자 흐름에 맞게 정리하여, 아랍어권 등 RTL 언어를 사용하는 국가에서도 일관된 사용자 경험을 제공할 수 있도록 UI를 구성",
           "언어, 방향, 브라우저 환경 등 다양한 조건에 따른 UI 반응성과 템플릿 유연성 확보를 통해 사이트의 완성도와 접근성을 높였으며, 결과적으로 중동 전역의 사이트가 예정 일정 내 성공적으로 롤아웃.",
           "해외 사용자 중심의 설계 경험을 통해 글로벌 웹 프로젝트의 흐름을 이해하고, 국가별 콘텐츠 요구사항을 조율하는 실전 경험을 쌓을 수 있었음.",
+        ],
+      },
+    ],
+  },
+
+  lotte: {
+    title: "롯데인터넷면세점",
+    period: "2019.01 — 2020.09",
+    members: "퍼블리셔 약 10명",
+    role: "글로벌 5개 채널의 반응형 이벤트 페이지 퍼블리싱 전담 및 마케팅 특화 인터랙티브 UI/UX 애니메이션 구현.",
+    description:
+      "5개 국어(국·영·일·중 간/번체)로 서비스되는 대한민국 대표 글로벌 이커머스 플랫폼으로, 대규모 트래픽 환경에서 실시간 마케팅 캠페인과 고도화된 인터랙티브 이벤트 페이지를 제공하는 면세 쇼핑 서비스입니다.",
+    stacks: ["Interactive UI", "HTML5/CSS3", "Animation", "웹 웹접근성(WA)"],
+    links: [
+      { label: "Live ↗", url: "https://kor.lottedfs.com/kr" },
+      {
+        label: "GitHub",
+        url: "https://github.com/joara-frontend/clone-lotte",
+      },
+    ],
+    images: [
+      "/assets/projects/lotte_detail_01.png",
+      "/assets/projects/lotte_detail_02.png",
+    ],
+    features: [
+      {
+        contributions: [
+          "롯데인터넷면세점 국문, 영문, 일문, 중문(간체/번체) 총 5개 언어 사이트의 혜택 및 이벤트 페이지 퍼블리싱 유지보수 담당.",
+          "웹과 웹앱 환경에 최적화된 반응형 구조 및 크로스 플랫폼 퍼블리싱 수행.",
+          "마케팅팀에서 요청한 기획서에 따라 이벤트 페이지를 빠르게 구현하고 시각적 흥미를 유도하기 위해 다양한 CSS 및 JavaScript 기반의 애니메이션을 적용.",
+          "검색엔진 노출을 고려하여 대체 텍스트 및 시맨틱 마크업을 철저히 반영.",
+          "캠페인 성격에 맞춰 시기에 따라 스크롤 트리거, 호버 인터랙션, 타이밍 기반 모션 효과 등 적용.",
+        ],
+        result: [
+          "애니메이션 요소를 활용한 시각적 임팩트로 고객 반응률 향상.",
+          "각국 사용자 환경에 맞는 페이지 구성 및 콘텐츠 최적화로 글로벌 사용자 경험 일관성 유지.",
+          "빠른 퍼블리싱 대응 및 SEO 최적화로 검색 노출률 및 클릭 전환율 개선에 기여.",
+          "마케팅과 퍼블리싱 간 협업 체계를 강화하며 다양한 이벤트 운영의 퍼포먼스를 안정적으로 지원.",
+        ],
+      },
+    ],
+  },
+
+  jt: {
+    title: "JT 금융그룹",
+    period: "2017.04 — 2018.01",
+    members: "퍼블리셔 및 프론트엔드 개발자 1명 (단독)",
+    role: "JT금융그룹 메인 리뉴얼 및 왕왕 콘테스트(시즌 1·2) 등 이벤트들의 반응형 웹 퍼블리싱 및 프론트엔드 개발 100% 전담.",
+    description:
+      "과거 JT친애저축은행, JT저축은행, JT캐피탈 등 한국 내 계열사를 하나로 통합하여 그룹의 정체성과 신뢰도를 홍보하던 종합 금융그룹의 브랜드 포털 웹사이트입니다.",
+    stacks: [
+      "Node.js ",
+      "Responsive UI",
+      "Zeplin",
+      "UI/UX Publishing",
+      "Frontend Development",
+    ],
+    images: [
+      "/assets/projects/jt_detail_01.jpg",
+      "/assets/projects/jt_detail_02.jpg",
+    ],
+    features: [
+      {
+        contributions: [
+          "기획자와의 직접 소통을 통해 프로젝트 방향을 파악하고 콘테스트 페이지 기획-디자인-퍼블리싱 전 과정을 단독 수행.",
+          "왕왕 콘테스트 1·2회차의 퍼블리싱 및 프론트엔드 개발 100% 참여, 핵심 콘텐츠의 구조와 기능 구현 주도.",
+          "Node.js 환경에서의 운영 경험이 없어도 직접 학습하며 새로운 기술에 유연하게 대응, 실무 적용까지 성공적으로 수행.",
+        ],
+        result: [
+          "시즌2 전체 콘테스트 운영과 일정 관리를 통해 프로젝트 안정성과 효율성 향상.",
+          "고객사 요청사항에 따른 빠른 대응 및 커스터마이징 능력 강화.",
+          "새로운 프레임워크(Node.js) 기반 프로젝트에 빠르게 적응하며 기술 확장성과 문제 해결 역량 입증.",
+        ],
+      },
+    ],
+  },
+
+  root: {
+    title: "루트에너지",
+    period: "2017.01 — 2018.01",
+    members: "개발자 2명",
+    role: "UI 퍼블리싱 전담 및 프론트엔드 개발 참여 (퍼블리싱 100%, 프론트엔드 50% 기여)",
+    description:
+      "시민 참여형 재생에너지 투자 및 자산 관리를 제공하는 에너지 핀테크 플랫폼으로, 일반 사용자용 반응형 투자 대시보드와 복잡한 채권 관리를 위한 어드민 백오피스 시스템이 핵심인 웹 서비스입니다.",
+    stacks: [
+      "React",
+      "Responsive UI",
+      "Admin 웹 플랫폼",
+      "퍼블리싱 & 프론트 전담",
+    ],
+    links: [
+      {
+        label: "Live ↗",
+        url: "https://www.rootenergy.co.kr/",
+      },
+    ],
+    images: [
+      "/assets/projects/root_detail_01.jpg",
+      "/assets/projects/root_detail_02.jpg",
+    ],
+    features: [
+      {
+        contributions: [
+          "홈페이지 구축 시 사용자 페이지뿐 아니라 어드민(Admin) 페이지까지 함께 퍼블리싱 및 프론트엔드 작업 진행.",
+          "React 기반 구조를 학습하며 컴포넌트 단위 개발 방식에 적응하고 실무에 바로 적용.",
+          "인터랙션 요소와 UI 개선 중심으로 사용자 및 관리자 모두를 고려한 화면 구성에 기여.",
+          "프로젝트 시작부터 유지보수까지 전반적으로 참여하며 사이트 완성도 향상.",
+        ],
+        result: [
+          "어드민 페이지까지 포함한 전 영역 퍼블리싱 경험 확보로 다양한 사용자 환경에 대한 이해도 향상.",
+          "UI 및 인터랙션 개선을 통해 사용자 만족도 상승 및 업무 편의성 개선.",
+          "React 기반 퍼블리싱 및 기능 구현 경험을 통해 기술 확장성과 개발 협업 역량 강화.",
+        ],
+      },
+    ],
+  },
+
+  omron: {
+    title: "오므론 헬스케어",
+    period: "2016.01 — 2018.01",
+    members: "개발자 2명",
+    role: "PHP 환경 기반의 반응형 UI 퍼블리싱 전담 및 이메일 템플릿을 포함한 레거시 코드 리팩토링(기여도 50%)",
+    description:
+      "세계적인 가정용 의료기기(혈압계, 네블라이저 등) 브랜드의 한국 공식 웹사이트로, 글로벌 가이드라인에 맞춘 제품 정보 제공과 대고객 커뮤니케이션을 위한 PHP 기반의 반응형 브랜드 포털입니다.",
+    stacks: ["PHP", "Responsive UI", "UI 리팩토링"],
+    links: [
+      {
+        label: "Live ↗",
+        url: "https://www.omron-healthcare.co.kr/",
+      },
+    ],
+    images: [
+      "/assets/projects/omron_detail_01.jpg",
+      "/assets/projects/omron_detail_02.jpg",
+      "/assets/projects/omron_detail_03.jpg",
+    ],
+    features: [
+      {
+        contributions: [
+          "이메일 페이지 포함 사이트의 리뉴얼 프로젝트에 참여하여 PHP 기반 구조로 전환된 전체 페이지의 퍼블리싱 작업 담당.",
+          "리뉴얼 완료 이후에도 유지보수 전반에 지속적으로 참여하며 사이트의 안정성과 가독성 확보를 위한 코드 개선 및 구조 정리 수행.",
+          "불필요한 중복 코드 제거 및 구조 재정비를 통해 유지보수가 용이한 퍼블리싱 환경 구축.",
+        ],
+        result: [
+          "PHP 기반 사이트의 구조 최적화 및 코드 리팩토링을 통해 안정성 확보.",
+          "페이지 로딩 속도 개선 및 브라우저 호환성 강화.",
+          "이메일 페이지와 기타 콘텐츠의 시각적 완성도 및 기능적 일관성 유지로 브랜드 신뢰도 향상에 기여.",
         ],
       },
     ],
