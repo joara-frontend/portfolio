@@ -5,9 +5,12 @@ import { useState } from "react";
 import Image from "next/image";
 import { projectsPrimary, projectsMore } from "@/data/portfolio";
 import type { Project, ProjectLink } from "@/data/portfolio";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function ProjectCard({ project }: { project: Project }) {
   const router = useRouter();
+  const [thumbLoaded, setThumbLoaded] = useState(false);
+
   const handleCardClick = () => {
     if (project.path) {
       const url = project.path;
@@ -25,12 +28,16 @@ function ProjectCard({ project }: { project: Project }) {
       onClick={handleCardClick}
     >
       <div className="project-thumb">
+        {!thumbLoaded && (
+          <Skeleton style={{ position: "absolute", inset: 0, borderRadius: 0 }} />
+        )}
         <Image
           src={project.thumb}
           fill
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", opacity: thumbLoaded ? 1 : 0, transition: "opacity .3s ease" }}
           className="object-cover"
           alt={project.title}
+          onLoad={() => setThumbLoaded(true)}
         />
       </div>
       <div className="project-body">
