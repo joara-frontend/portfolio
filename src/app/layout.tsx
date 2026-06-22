@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 export const metadata: Metadata = {
   title: "조아라 포트폴리오 | Frontend Developer",
@@ -41,7 +42,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <div className="page">
           <Header />
           {children}
-          <Footer />
+          <FadeIn><Footer /></FadeIn>
         </div>
       </body>
     </html>

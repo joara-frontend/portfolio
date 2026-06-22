@@ -11,6 +11,7 @@ import ProjectMeta from "@/components/detail/ProjectMeta";
 import FeatureSection from "@/components/detail/FeatureNumTypeSection";
 import TroubleSection from "@/components/detail/FeatureNotNumTypeSection";
 import LotteFrame from "@/components/detail/LotteFrame";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 function isNumType(
   features: ProjectFeatureNumType[] | ProjectFeatureNotNumType[]
@@ -36,30 +37,32 @@ export default function LottePage() {
         </Link>
 
         {/* ── Hero slider ── */}
-        <HeroSlider images={project.images} title={project.title} />
+        <FadeIn><HeroSlider images={project.images} title={project.title} /></FadeIn>
 
         {/* ── Meta: title / period / members / role / stacks / links ── */}
-        <ProjectMeta project={project} />
+        <FadeIn delay={0.1}><ProjectMeta project={project} /></FadeIn>
 
         {/* ── 기여 및 성과 (NotNumType) 또는 주요 기능 (NumType) ── */}
         {project.features && project.features.length > 0 &&
           (isNumType(project.features) ? (
-            <FeatureSection features={project.features} />
+            <FadeIn delay={0.1}><FeatureSection features={project.features} /></FadeIn>
           ) : (
-            <TroubleSection troubles={project.features} />
+            <FadeIn delay={0.1}><TroubleSection troubles={project.features} /></FadeIn>
           ))}
 
         {/* ── 이벤트 페이지 iframe — footer 직전 배치 ── */}
-        <LotteFrame />
+        <FadeIn><LotteFrame /></FadeIn>
 
         {/* ── Bottom back ── */}
-        <div
-          style={{ display: "flex", justifyContent: "center", marginTop: "60px" }}
-        >
-          <Link href="/#portfolio" className="detail-btn-back">
-            ← 프로젝트 목록으로 돌아가기
-          </Link>
-        </div>
+        <FadeIn>
+          <div
+            style={{ display: "flex", justifyContent: "center", marginTop: "60px" }}
+          >
+            <Link href="/#portfolio" className="detail-btn-back">
+              ← 프로젝트 목록으로 돌아가기
+            </Link>
+          </div>
+        </FadeIn>
       </div>
     </main>
   );

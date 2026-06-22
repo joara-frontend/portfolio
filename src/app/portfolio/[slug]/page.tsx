@@ -10,9 +10,10 @@ import HeroSlider from "@/components/detail/HeroSlider";
 import ProjectMeta from "@/components/detail/ProjectMeta";
 import FeatureSection from "@/components/detail/FeatureNumTypeSection";
 import TroubleSection from "@/components/detail/FeatureNotNumTypeSection";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 function isNumType(
-  features: ProjectFeatureNumType[] | ProjectFeatureNotNumType[]
+  features: ProjectFeatureNumType[] | ProjectFeatureNotNumType[],
 ): features is ProjectFeatureNumType[] {
   return features.length === 0 || "title" in features[0];
 }
@@ -47,31 +48,42 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </Link>
 
         {/* ── Hero slider ── */}
-        <HeroSlider images={project.images} title={project.title} />
+        <FadeIn>
+          <HeroSlider images={project.images} title={project.title} />
+        </FadeIn>
 
         {/* ── Meta: title / period / members / role / stacks / links ── */}
-        <ProjectMeta project={project} />
+        <FadeIn delay={0.1}>
+          <ProjectMeta project={project} />
+        </FadeIn>
 
         {/* ── 번호 박스 (NumType) 또는 기여·성과 카드 (NotNumType) ── */}
-        {project.features && project.features.length > 0 &&
+        {project.features &&
+          project.features.length > 0 &&
           (isNumType(project.features) ? (
-            <FeatureSection features={project.features} />
+            <FadeIn delay={0.1}>
+              <FeatureSection features={project.features} />
+            </FadeIn>
           ) : (
-            <TroubleSection troubles={project.features} />
+            <FadeIn delay={0.1}>
+              <TroubleSection troubles={project.features} />
+            </FadeIn>
           ))}
 
         {/* ── Bottom back ── */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "60px",
-          }}
-        >
-          <Link href="/#portfolio" className="detail-btn-back">
-            ← 프로젝트 목록으로 돌아가기
-          </Link>
-        </div>
+        <FadeIn>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "60px",
+            }}
+          >
+            <Link href="/#portfolio" className="detail-btn-back">
+              ← 프로젝트 목록으로 돌아가기
+            </Link>
+          </div>
+        </FadeIn>
       </div>
     </main>
   );
