@@ -10,7 +10,9 @@ import type {
 
 function CodeBlock({ item }: { item: DetailItemCode }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", marginBottom: "20px" }}
+    >
       <div
         style={{
           borderRadius: "18px",
@@ -130,7 +132,9 @@ function CodeBlock({ item }: { item: DetailItemCode }) {
 
 function ImageBlock({ item }: { item: DetailItemImage }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", marginBottom: "20px" }}
+    >
       {/* Glass frame */}
       <div
         style={{

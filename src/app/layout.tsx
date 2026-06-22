@@ -5,7 +5,25 @@ import Footer from "@/components/common/Footer";
 import { FadeIn } from "@/components/ui/FadeIn";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://joara-portfolio.vercel.app"),
   title: "조아라 포트폴리오 | Frontend Developer",
+  description:
+    "프론트엔드 개발자 조아라의 포트폴리오입니다. Next.js · React · TypeScript 기반의 웹 서비스 개발 경험을 담았습니다.",
+  openGraph: {
+    title: "조아라 포트폴리오 | Frontend Developer",
+    description:
+      "프론트엔드 개발자 조아라의 포트폴리오입니다. Next.js · React · TypeScript 기반의 웹 서비스 개발 경험을 담았습니다.",
+    url: "https://joara-portfolio.vercel.app",
+    siteName: "조아라 포트폴리오",
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "조아라 포트폴리오 | Frontend Developer",
+    description:
+      "프론트엔드 개발자 조아라의 포트폴리오입니다. Next.js · React · TypeScript 기반의 웹 서비스 개발 경험을 담았습니다.",
+  },
 };
 
 interface RootLayoutProps {
