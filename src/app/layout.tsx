@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
 
 export const metadata: Metadata = {
   title: "조아라 포트폴리오 | Frontend Developer",
 };
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko">
       <head>
@@ -36,7 +38,11 @@ export default function RootLayout({
           <div className="blob blob-3" />
           <div className="blob blob-4" />
         </div>
-        <div className="page">{children}</div>
+        <div className="page">
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

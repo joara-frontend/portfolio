@@ -1,10 +1,10 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Header() {
   return (
     <header>
       <div className="header-inner">
-        <Link href="#top" className="logo">
+        <Link href="/" className="logo">
           <div className="logo-dot" />
           <span className="logo-text">
             joara<span>.</span>

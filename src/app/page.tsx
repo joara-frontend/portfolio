@@ -1,20 +1,16 @@
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import AboutMe from '@/components/AboutMe';
-import Skills from '@/components/Skills';
-import Portfolio from '@/components/Portfolio';
-import Footer from '@/components/Footer';
+import Hero from "@/components/main/Hero";
+import AboutMe from "@/components/main/AboutMe";
+import Skills from "@/components/main/Skills";
+import Portfolio from "@/components/main/Portfolio";
 
 export default function Page() {
   return (
     <>
-      <Header />
       <span id="top" />
       <Hero />
       <AboutMe />
       <Skills />
       <Portfolio />
-      <Footer />
     </>
   );
 }

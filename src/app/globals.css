@@ -1,3 +1,37 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────
+   Tailwind v4 테마 정의
+   · @theme 블록에 선언된 변수는 자동으로
+     bg-brand / text-brand / font-main 형태의
+     Tailwind 유틸리티 클래스로 노출됩니다.
+   · 기존 :root 변수는 모두 유지되므로
+     var(--acc2) 같은 레거시 참조도 그대로 동작합니다.
+──────────────────────────────────────────────── */
+@theme {
+  /* ── Brand 컬러 ── */
+  --color-brand: #6c7cf0; /* bg-brand  / text-brand  */
+  --color-brand-light: #7c8bf5; /* bg-brand-light */
+  --color-brand-deep: #5566e0; /* bg-brand-deep  */
+  --color-brand-soft: rgba(108, 124, 240, 0.1); /* bg-brand-soft */
+
+  /* ── Coral 포인트 컬러 ── */
+  --color-coral: #ff9a76; /* bg-coral  / text-coral  */
+  --color-coral-deep: #ff8a5e; /* bg-coral-deep */
+  --color-coral-soft: rgba(255, 154, 118, 0.12); /* bg-coral-soft */
+
+  /* ── Glass 배경 ── */
+  --color-glass: rgba(255, 255, 255, 0.55); /* bg-glass */
+  --color-glass-bd: rgba(255, 255, 255, 0.8); /* border-glass-bd */
+
+  /* ── Typography ── */
+  --font-main:
+    "Quicksand", "Pretendard", -apple-system, sans-serif; /* font-main */
+
+  /* ── Blur ── */
+  --blur-glass: 18px; /* blur-glass */
+}
+
 :root {
   --acc1: #7c8bf5;
   --acc2: #6c7cf0;
