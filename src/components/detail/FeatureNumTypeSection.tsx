@@ -117,7 +117,7 @@ function CodeBlock({ item }: { item: DetailItemCode }) {
           style={{
             fontSize: "14px",
             lineHeight: 1.7,
-            color: "#52566f",
+            color: "var(--ink-2)",
             wordBreak: "keep-all",
           }}
         >
@@ -140,10 +140,10 @@ function ImageBlock({ item }: { item: DetailItemImage }) {
         style={{
           borderRadius: "20px",
           overflow: "hidden",
-          border: "1px solid rgba(255,255,255,.85)",
+          border: "1px solid var(--glass-bd)",
           boxShadow:
             "0 24px 48px -24px rgba(90,100,180,.4), inset 0 1px 0 rgba(255,255,255,.9)",
-          background: "rgba(255,255,255,.4)",
+          background: "var(--glass-bg)",
           padding: "6px",
         }}
       >
@@ -151,7 +151,7 @@ function ImageBlock({ item }: { item: DetailItemImage }) {
           style={{
             borderRadius: "15px",
             overflow: "hidden",
-            background: "#eef1fb",
+            background: "var(--track-bg)",
           }}
         >
           <Image
@@ -189,7 +189,7 @@ function ImageBlock({ item }: { item: DetailItemImage }) {
           style={{
             fontSize: "13.5px",
             lineHeight: 1.65,
-            color: "#7a7f9a",
+            color: "var(--ink-3)",
             wordBreak: "keep-all",
           }}
         >
@@ -242,7 +242,7 @@ export default function FeatureSection({ features }: FeatureSectionProps) {
           fontSize: "30px",
           fontWeight: 700,
           letterSpacing: "-.6px",
-          color: "#2b2d42",
+          color: "var(--ink)",
           marginBottom: "24px",
         }}
       >
@@ -256,10 +256,10 @@ export default function FeatureSection({ features }: FeatureSectionProps) {
             style={{
               borderRadius: "24px",
               padding: "26px 28px",
-              background: "rgba(255,255,255,.5)",
+              background: "var(--glass-bg)",
               backdropFilter: "blur(16px)",
               WebkitBackdropFilter: "blur(16px)",
-              border: "1px solid rgba(255,255,255,.8)",
+              border: "1px solid var(--glass-bd)",
               boxShadow:
                 "0 24px 48px -30px rgba(90,100,180,.5), inset 0 1px 0 rgba(255,255,255,.9)",
             }}
@@ -296,7 +296,7 @@ export default function FeatureSection({ features }: FeatureSectionProps) {
                 style={{
                   fontSize: "20px",
                   fontWeight: 700,
-                  color: "#2b2d42",
+                  color: "var(--ink)",
                   fontFamily: "'Quicksand', 'Pretendard', sans-serif",
                   wordBreak: "keep-all",
                 }}
@@ -342,7 +342,7 @@ export default function FeatureSection({ features }: FeatureSectionProps) {
                     style={{
                       fontSize: "15.5px",
                       lineHeight: 1.65,
-                      color: "#52566f",
+                      color: "var(--ink-2)",
                       wordBreak: "keep-all",
                     }}
                   >

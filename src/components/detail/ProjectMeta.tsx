@@ -49,7 +49,7 @@ function MetaRow({
       <span
         style={{
           fontSize: "15px",
-          color: "#52566f",
+          color: "var(--ink-2)",
           fontVariantNumeric: "tabular-nums",
         }}
       >
@@ -83,7 +83,7 @@ export default function ProjectMeta({ project }: ProjectMetaProps) {
           fontSize: "clamp(28px, 5vw, 42px)",
           fontWeight: 700,
           letterSpacing: "-1px",
-          color: "#2b2d42",
+          color: "var(--ink)",
           marginBottom: "20px",
           lineHeight: 1.2,
         }}
@@ -112,7 +112,7 @@ export default function ProjectMeta({ project }: ProjectMetaProps) {
         style={{
           fontSize: "17px",
           lineHeight: 1.75,
-          color: "#5a5e80",
+          color: "var(--ink-2)",
           maxWidth: "680px",
           marginBottom: "22px",
           wordBreak: "keep-all",
@@ -138,12 +138,12 @@ export default function ProjectMeta({ project }: ProjectMetaProps) {
               alignItems: "center",
               padding: "8px 15px",
               borderRadius: "12px",
-              background: "rgba(255,255,255,.62)",
-              border: "1px solid rgba(255,255,255,.85)",
+              background: "var(--glass-bg)",
+              border: "1px solid var(--glass-bd)",
               boxShadow: "0 10px 22px -16px rgba(90,100,180,.5)",
               fontSize: "13.5px",
               fontWeight: 600,
-              color: "#4a4d6b",
+              color: "var(--ink-2)",
               fontFamily: "'Quicksand', 'Pretendard', sans-serif",
             }}
           >

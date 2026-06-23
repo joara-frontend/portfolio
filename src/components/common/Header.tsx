@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname();
   return (
     <header>
       <div className="header-inner">
@@ -10,12 +14,14 @@ export default function Header() {
             joara<span>.</span>
           </span>
         </Link>
-        <nav>
-          <Link href="#about">About</Link>
-          <Link href="#skills">Skills</Link>
-          <Link href="#portfolio">Portfolio</Link>
-          <Link href="#contact">Contact</Link>
-        </nav>
+        {pathname === "/" && (
+          <nav>
+            <Link href="#about">About</Link>
+            <Link href="#skills">Skills</Link>
+            <Link href="#portfolio">Portfolio</Link>
+            <Link href="#contact">Contact</Link>
+          </nav>
+        )}
         <a className="btn-contact" href="mailto:whdkfk110@naver.com">
           연락하기
         </a>

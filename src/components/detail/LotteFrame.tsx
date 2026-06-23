@@ -41,7 +41,7 @@ export default function LotteFrame() {
           fontSize: "30px",
           fontWeight: 700,
           letterSpacing: "-.6px",
-          color: "#2b2d42",
+          color: "var(--ink)",
           marginBottom: "24px",
         }}
       >
@@ -53,10 +53,10 @@ export default function LotteFrame() {
         style={{
           borderRadius: "26px",
           overflow: "hidden",
-          background: "rgba(255,255,255,.55)",
+          background: "var(--glass-bg)",
           backdropFilter: "blur(18px)",
           WebkitBackdropFilter: "blur(18px)",
-          border: "1px solid rgba(255,255,255,.82)",
+          border: "1px solid var(--glass-bd)",
           boxShadow:
             "0 28px 54px -30px rgba(90,100,180,.55), inset 0 1px 0 rgba(255,255,255,.92)",
         }}

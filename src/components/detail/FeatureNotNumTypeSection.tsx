@@ -34,7 +34,7 @@ function SubList({
           style={{
             fontSize: "15px",
             fontWeight: 700,
-            color: "#3a3d5c",
+            color: "var(--ink)",
             fontFamily: "'Quicksand', 'Pretendard', sans-serif",
           }}
         >
@@ -69,7 +69,7 @@ function SubList({
               style={{
                 fontSize: "15px",
                 lineHeight: 1.65,
-                color: "#52566f",
+                color: "var(--ink-2)",
                 wordBreak: "keep-all",
               }}
             >
@@ -90,10 +90,10 @@ function TroubleCard({ trouble }: { trouble: ProjectFeatureNotNumType }) {
       style={{
         borderRadius: "26px",
         padding: "30px",
-        background: "rgba(255,255,255,.55)",
+        background: "var(--glass-bg)",
         backdropFilter: "blur(18px)",
         WebkitBackdropFilter: "blur(18px)",
-        border: "1px solid rgba(255,255,255,.82)",
+        border: "1px solid var(--glass-bd)",
         boxShadow:
           "0 28px 54px -30px rgba(90,100,180,.55), inset 0 1px 0 rgba(255,255,255,.92)",
       }}
@@ -132,7 +132,7 @@ export default function FeatureNotNumTypeSection({
           fontSize: "30px",
           fontWeight: 700,
           letterSpacing: "-.6px",
-          color: "#2b2d42",
+          color: "var(--ink)",
           marginBottom: "24px",
         }}
       >

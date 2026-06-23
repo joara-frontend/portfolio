@@ -28,8 +28,8 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
       style={{
         borderRadius: "32px",
         overflow: "hidden",
-        background: "rgba(255,255,255,.5)",
-        border: "1px solid rgba(255,255,255,.85)",
+        background: "var(--glass-bg)",
+        border: "1px solid var(--glass-bd)",
         boxShadow:
           "0 40px 72px -34px rgba(90,100,180,.6), inset 0 1px 0 rgba(255,255,255,.95)",
         padding: "12px",
@@ -42,7 +42,7 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
           borderRadius: "22px",
           overflow: "hidden",
           height: "460px",
-          background: "#eef1fb",
+          background: "var(--track-bg)",
         }}
       >
         {/* Sliding track */}
