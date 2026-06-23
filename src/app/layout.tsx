@@ -3,6 +3,8 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { ThemeProvider } from "@/lib/ThemeContext";
+import { DarkModeToggle } from "@/components/ui/DarkModeToggle";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://joara-portfolio.vercel.app"),
@@ -32,8 +34,14 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <head>
+        {/* 다크모드 플래시 방지: 렌더 전에 테마 클래스 적용 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})();`,
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -51,17 +59,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
       <body>
-        <div className="blobs" aria-hidden="true">
-          <div className="blob blob-1" />
-          <div className="blob blob-2" />
-          <div className="blob blob-3" />
-          <div className="blob blob-4" />
-        </div>
-        <div className="page">
-          <Header />
-          {children}
-          <FadeIn><Footer /></FadeIn>
-        </div>
+        <ThemeProvider>
+          <div className="blobs" aria-hidden="true">
+            <div className="blob blob-1" />
+            <div className="blob blob-2" />
+            <div className="blob blob-3" />
+            <div className="blob blob-4" />
+          </div>
+          <div className="page">
+            <Header />
+            <DarkModeToggle />
+            {children}
+            <FadeIn>
+              <Footer />
+            </FadeIn>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

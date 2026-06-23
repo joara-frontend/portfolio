@@ -20,6 +20,11 @@
   --color-coral-deep: #ff8a5e; /* bg-coral-deep */
   --color-coral-soft: rgba(255, 154, 118, 0.12); /* bg-coral-soft */
 
+  /* ── Mint 포인트 컬러 ── */
+  --color-mint: #6fd6c4; /* bg-mint / text-mint */
+  --color-mint-deep: #48c4b0; /* bg-mint-deep */
+  --color-mint-soft: rgba(111, 214, 196, 0.12); /* bg-mint-soft */
+
   /* ── Glass 배경 ── */
   --color-glass: rgba(255, 255, 255, 0.55); /* bg-glass */
   --color-glass-bd: rgba(255, 255, 255, 0.8); /* border-glass-bd */
@@ -40,6 +45,9 @@
   --coral: #ff9a76;
   --coral-deep: #ff8a5e;
   --coral-soft: rgba(255, 154, 118, 0.12);
+  --mint: #6fd6c4;
+  --mint-deep: #48c4b0;
+  --mint-soft: rgba(111, 214, 196, 0.12);
   --glass-bg: rgba(255, 255, 255, 0.55);
   --glass-bd: rgba(255, 255, 255, 0.8);
   --glass-blur: 18px;
@@ -550,6 +558,9 @@ nav a:hover {
 .dot-coral {
   background: var(--coral);
 }
+.dot-mint {
+  background: var(--mint);
+}
 .timeline-group-label span:last-child {
   font-family: var(--font-display), "Pretendard", sans-serif;
   font-size: 18px;
@@ -655,7 +666,7 @@ nav a:hover {
 }
 .marquee-track-wrap {
   position: relative;
-  /* overflow: hidden; */
+  overflow: hidden;
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent,
@@ -1173,4 +1184,289 @@ footer {
   .detail-feat-code {
     max-height: 300px;
   }
+}
+
+/* ── Dark Mode Toggle (Sky Scene) ── */
+.theme-btn-wrap {
+  position: fixed;
+  right: max(24px, calc(50vw - 560px));
+  top: 100px;
+  z-index: 50;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-bd);
+  border-radius: 30px;
+  padding: 8px;
+  box-shadow:
+    0 8px 20px -8px rgba(80, 90, 160, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: box-shadow 0.3s ease;
+}
+
+.sky-toggle {
+  position: relative;
+  display: block;
+  width: 80px;
+  height: 40px;
+  border-radius: 999px;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  box-shadow:
+    0 10px 22px -10px rgba(40, 50, 120, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.45),
+    inset 0 -3px 7px rgba(0, 0, 0, 0.22);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sky-toggle .toggle-layer {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.5s ease;
+}
+.sky-toggle .toggle-layer.day {
+  opacity: 1;
+}
+.sky-toggle .toggle-layer.night {
+  opacity: 0;
+}
+.sky-toggle[data-on="1"] .toggle-layer.day {
+  opacity: 0;
+}
+.sky-toggle[data-on="1"] .toggle-layer.night {
+  opacity: 1;
+}
+
+.sky-toggle .sky-d {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #86ccff, #3f9bf0);
+}
+.sky-toggle .sky-n {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #2a3358, #121a32);
+}
+.sky-toggle .sun {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #fff7cc, #ffd84d 62%, #ffbf3a);
+  box-shadow: 0 0 9px rgba(255, 206, 74, 0.85);
+}
+.sky-toggle .ray {
+  position: absolute;
+  background: #fff0a8;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+.sky-toggle .moon {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #1a2240;
+  overflow: hidden;
+}
+.sky-toggle .moon::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%, #fff2b0, #ffe27a);
+}
+.sky-toggle .star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  clip-path: polygon(
+    50% 0,
+    61% 39%,
+    100% 50%,
+    61% 61%,
+    50% 100%,
+    39% 61%,
+    0 50%,
+    39% 39%
+  );
+}
+.sky-toggle .hill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 15px;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+.sky-toggle .knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #fff, #f1f3ff 58%, #dde2f2);
+  box-shadow:
+    0 6px 12px -3px rgba(20, 30, 80, 0.5),
+    inset -2px -3px 5px rgba(150, 160, 210, 0.45),
+    inset 2px 3px 6px rgba(255, 255, 255, 0.95);
+  z-index: 5;
+  transition: transform 0.5s cubic-bezier(0.5, 1.55, 0.4, 1);
+}
+.sky-toggle[data-on="1"] .knob {
+  transform: translateX(40px);
+}
+
+/* ── Dark Mode ── */
+.dark {
+  --glass-bg: rgba(20, 25, 55, 0.55);
+  --glass-bd: rgba(255, 255, 255, 0.1);
+  --card-shadow:
+    0 24px 48px -28px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.dark body {
+  background: linear-gradient(165deg, #141828 0%, #181230 42%, #0f1a1f 100%);
+  color: #e8eaf6;
+}
+
+.dark .logo-text {
+  color: #e8eaf6;
+}
+.dark nav a {
+  color: #a0a4c0;
+}
+.dark nav a:hover {
+  color: var(--acc1);
+}
+
+.dark .section-title {
+  color: #e8eaf6;
+}
+.dark .section-label {
+  color: var(--acc1);
+}
+
+.dark .about-header p {
+  color: #8a8eb8;
+}
+.dark .timeline-group-label span:last-child {
+  color: #c0c4de;
+}
+.dark .timeline-row-wrap {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+.dark .timeline-row-wrap:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+.dark .timeline-period {
+  color: #6a6e8a;
+}
+.dark .timeline-company {
+  color: #e8eaf6;
+}
+.dark .timeline-dept {
+  color: #8a8eb8;
+}
+.dark .timeline-detail .timeline-inner-box {
+  color: #8a8eb8;
+}
+.dark .timeline-detail li {
+  color: #8a8eb8;
+}
+
+.dark .hero-title {
+  color: #e8eaf6;
+}
+.dark .hero-desc {
+  color: #8a8eb8;
+}
+.dark .hero-badge span {
+  color: #a0a4c0;
+}
+.dark .btn-ghost {
+  color: #e8eaf6;
+}
+
+.dark .skill-name {
+  color: #c0c4de;
+}
+
+.dark .project-title {
+  color: #e8eaf6;
+}
+.dark .project-en {
+  color: #6a6e8a;
+}
+.dark .project-desc {
+  color: #8a8eb8;
+}
+.dark .btn-show-more {
+  color: #e8eaf6;
+}
+
+.dark .footer-copy {
+  color: #6a6e8a;
+}
+.dark .footer-cta-label {
+  color: #6a6e8a;
+}
+.dark .footer-github-link {
+  color: #a0a4c0;
+}
+.dark .footer-github-link:hover {
+  color: var(--acc1);
+}
+
+.dark .detail-back {
+  color: #8a8eb8;
+}
+.dark .detail-back-icon {
+  background: rgba(20, 25, 55, 0.55);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.dark .detail-nav-btn {
+  background: rgba(20, 25, 55, 0.8);
+  color: #e8eaf6;
+}
+.dark .detail-nav-btn:hover {
+  background: rgba(30, 35, 70, 0.95);
+}
+.dark .detail-link-chip.github {
+  color: var(--acc1);
+}
+.dark .detail-btn-back {
+  color: #e8eaf6;
+  background: rgba(20, 25, 55, 0.55);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .sk {
+  background: rgba(60, 70, 120, 0.3);
+}
+.dark .sk-circle {
+  background: rgba(60, 70, 120, 0.3);
+}
+
+.dark .theme-btn-wrap {
+  box-shadow:
+    0 8px 20px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.dark .project-thumb-label {
+  background: rgba(20, 25, 55, 0.6);
+  color: rgba(200, 205, 230, 0.7);
 }

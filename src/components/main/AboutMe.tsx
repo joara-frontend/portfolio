@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { career, education } from "@/data/portfolio";
+import { career, education, etc } from "@/data/portfolio";
 import type { TimelineItem } from "@/data/portfolio";
 
 interface TimelineRowProps {
@@ -118,6 +118,26 @@ export default function AboutMe() {
                 onToggle={() => toggleRow(`edu-${i}`)}
                 toggleBg="var(--coral-soft)"
                 toggleColor="var(--coral-deep)"
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ETC */}
+        <div className="timeline-group">
+          <div className="timeline-group-label">
+            <div className="dot dot-mint" />
+            <span>기타</span>
+          </div>
+          <div className="timeline-card">
+            {etc.map((item, i) => (
+              <TimelineRow
+                key={i}
+                item={item}
+                isOpen={!!openRows[`etc-${i}`]}
+                onToggle={() => toggleRow(`etc-${i}`)}
+                toggleBg="var(--mint-soft)"
+                toggleColor="var(--mint-deep)"
               />
             ))}
           </div>

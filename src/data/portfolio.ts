@@ -89,6 +89,15 @@ export const education: TimelineItem[] = [
   },
 ];
 
+export const etc: TimelineItem[] = [
+  {
+    period: "2022.06 - 2023.08",
+    company: "퍼플트리",
+    dept: "LG U+ 무비큐 방송작가",
+    desc: "LG U+ 무비큐 영화 소개 프로그램 방송 작가.\n신작 출시 영화들을 기반으로, 영화별 상세 데이터 분석 및 고도화된 자료조사 수행.\n조사한 데이터를 바탕으로 프로그램의 몰입도를 높이는 맞춤형 오프닝 대본 작성.영화 개봉 인터뷰 및 제작 일정 관련 외주 파트너사·이해관계자와의 상시 소통.",
+  },
+];
+
 export const skills: Skill[] = [
   { name: "React", c1: "#9fd8ff", c2: "#5cc4f2" },
   { name: "Next.js", c1: "#cfd3da", c2: "#2b2d42" },
