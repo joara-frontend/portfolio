@@ -5,6 +5,7 @@ import Footer from "@/components/common/Footer";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ThemeProvider } from "@/lib/ThemeContext";
 import { DarkModeToggle } from "@/components/ui/DarkModeToggle";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://joara-portfolio.vercel.app"),
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <div className="page">
             <Header />
             <DarkModeToggle />
+            <ScrollToTop />
             {children}
             <FadeIn>
               <Footer />
