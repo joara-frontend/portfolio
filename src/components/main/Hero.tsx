@@ -54,6 +54,7 @@ export default function Hero() {
                 width={320}
                 height={400}
                 alt="프로필 이미지"
+                priority
               />
             </div>
           </div>

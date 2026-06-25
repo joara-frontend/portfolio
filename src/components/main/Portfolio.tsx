@@ -5,7 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { projectsPrimary, projectsMore } from "@/data/portfolio";
 import type { Project, ProjectLink } from "@/data/portfolio";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 function ProjectCard({ project }: { project: Project }) {
   const router = useRouter();
@@ -29,12 +29,19 @@ function ProjectCard({ project }: { project: Project }) {
     >
       <div className="project-thumb">
         {!thumbLoaded && (
-          <Skeleton style={{ position: "absolute", inset: 0, borderRadius: 0 }} />
+          <Skeleton
+            style={{ position: "absolute", inset: 0, borderRadius: 0 }}
+          />
         )}
         <Image
           src={project.thumb}
           fill
-          style={{ objectFit: "cover", opacity: thumbLoaded ? 1 : 0, transition: "opacity .3s ease" }}
+          sizes="(max-width: 900px) 100vw, 548px"
+          style={{
+            objectFit: "cover",
+            opacity: thumbLoaded ? 1 : 0,
+            transition: "opacity .3s ease",
+          }}
           className="object-cover"
           alt={project.title}
           onLoad={() => setThumbLoaded(true)}

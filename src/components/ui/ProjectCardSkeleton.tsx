@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 interface ProjectCardSkeletonProps {
   count?: number;
@@ -20,19 +20,32 @@ function CardSkeleton() {
         {/* 제목 + 영문명 */}
         <div className="project-title-row" style={{ marginBottom: "14px" }}>
           <Skeleton style={{ width: "52%", height: "22px" }} />
-          <Skeleton style={{ width: "26%", height: "14px", marginTop: "2px" }} />
+          <Skeleton
+            style={{ width: "26%", height: "14px", marginTop: "2px" }}
+          />
         </div>
 
         {/* 설명 2줄 */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "20px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+            marginBottom: "20px",
+          }}
+        >
           <Skeleton style={{ width: "100%", height: "14px" }} />
           <Skeleton style={{ width: "78%", height: "14px" }} />
         </div>
 
         {/* 링크 버튼 2개 */}
         <div className="project-links">
-          <Skeleton style={{ width: "80px", height: "36px", borderRadius: "12px" }} />
-          <Skeleton style={{ width: "80px", height: "36px", borderRadius: "12px" }} />
+          <Skeleton
+            style={{ width: "80px", height: "36px", borderRadius: "12px" }}
+          />
+          <Skeleton
+            style={{ width: "80px", height: "36px", borderRadius: "12px" }}
+          />
         </div>
       </div>
     </div>
