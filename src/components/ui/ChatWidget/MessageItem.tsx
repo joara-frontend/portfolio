@@ -1,6 +1,14 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { Message } from './index';
 import { BotAvatar } from './BotAvatar';
+
+function renderText(text: string): ReactNode[] {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith('**') && part.endsWith('**')
+      ? <strong key={i}>{part.slice(2, -2)}</strong>
+      : part
+  );
+}
 
 interface MessageItemProps {
   message: Message;
@@ -30,7 +38,7 @@ export function MessageItem({ message: m }: MessageItemProps) {
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#9aa0c4', animation: 'cbDot 1.2s infinite .4s', display: 'block' }} />
           </div>
         ) : (
-          <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{m.text}</span>
+          <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{renderText(m.text ?? '')}</span>
         )}
       </div>
     </div>

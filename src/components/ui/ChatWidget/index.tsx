@@ -39,6 +39,9 @@ interface GeminiContent {
   parts: GeminiPart[];
 }
 
+let msgIdCounter = INTRO_MESSAGES.length + 1;
+function nextId() { return ++msgIdCounter; }
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -68,14 +71,14 @@ export function ChatWidget() {
   };
 
   const pushUser = (text: string) => {
-    setMessages(prev => [...prev, { id: Date.now(), isBot: false, text }]);
+    setMessages(prev => [...prev, { id: nextId(), isBot: false, text }]);
     setShowQuick(false);
     setDraft('');
     scrollToBottom();
   };
 
   const botReply = async (userText: string) => {
-    const typingId = Date.now() + 1;
+    const typingId = nextId();
     setMessages(prev => [...prev, { id: typingId, isBot: true, typing: true }]);
     scrollToBottom();
 
