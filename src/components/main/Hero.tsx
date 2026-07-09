@@ -30,7 +30,7 @@ export default function Hero() {
             <div className="hero-btns">
               <a
                 className="btn-primary"
-                href="/assets/resume.pdf"
+                href={encodeURI("/assets/프론트엔드 개발자 조아라 이력서.pdf")}
                 download="프론트엔드 개발자 조아라 이력서.pdf"
               >
                 ↓ 이력서 다운로드
