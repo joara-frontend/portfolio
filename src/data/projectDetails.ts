@@ -34,6 +34,18 @@ export interface ProjectFeatureNotNumType {
   result: string[];
 }
 
+// ─── Troubleshooting ────────────────────────────────────────────────────────
+
+export interface ProjectTroubleshooting {
+  title: string;
+  image?: { src: string; alt: string };
+  found: string[];
+  process: string[];
+  code?: { language: string; code: string };
+  result: string[];
+  lesson: string[];
+}
+
 // ─── Project detail data shape ──────────────────────────────────────────────
 
 export interface ProjectDetailLink {
@@ -51,11 +63,144 @@ export interface ProjectDetailData {
   links?: ProjectDetailLink[];
   images: string[];
   features?: ProjectFeatureNumType[] | ProjectFeatureNotNumType[];
+  troubleshooting?: ProjectTroubleshooting[];
 }
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 
 export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
+  dotori: {
+    title: "도토리 (Dotori)",
+    period: "2026.07.03 - 2026.07.11",
+    members: "Frontend 1명 (개인 프로젝트)",
+    role: "기획부터 배포까지 단독 수행 — 기술 스택 결정, 핵심 로직 구현, AI 협업 범위 설계를 직접 담당",
+    description:
+      "사회·경제 트렌드에 뒤처진다는 문제의식은 있었지만, 매일 여러 매체의 뉴스를 직접 찾아 읽을 시간적 여유는 없었습니다. 그래서 하루에 한 번, 카테고리별로 정말 화제가 되는 이슈들만 골라 핵심만 요약해주는 서비스가 있으면 좋겠다는 생각에서 프로젝트를 시작했습니다.",
+    stacks: [
+      "Next.js (App Router)",
+      "TypeScript",
+      "Tailwind CSS",
+      "TanStack Query",
+      "Zustand",
+      "Supabase (PostgreSQL)",
+      "Gemini API (Gemini 2.5 Flash)",
+    ],
+    links: [
+      {
+        label: "Live ↗",
+        url: "https://dotori-news.vercel.app/",
+      },
+      {
+        label: "GitHub",
+        url: "https://github.com/joara-frontend/dotori",
+      },
+    ],
+    images: [
+      "/assets/projects/dotori_detail_01.png",
+      "/assets/projects/dotori_detail_02.png",
+      "/assets/projects/dotori_detail_03.png",
+    ],
+    features: [
+      {
+        title: "AI 협업 범위를 직접 설계하고 통제한 개발 프로세스 구축",
+        details: [
+          {
+            src: "/assets/projects/dotori_feature_01_01.png",
+            alt: "재구현 커밋 히스토리",
+          },
+          {
+            src: "/assets/projects/dotori_feature_01_02.png",
+            alt: "레이어마다 배치되어 있는 CLAUDE.md",
+          },
+        ],
+        items: [
+          "AI에게 코드 작업을 위임하는 비중이 높아지면서, 컨텍스트가 누락된 채 반복 실수가 발생하거나 AI가 핵심 로직까지 과도하게 구현해버려 정작 구현 과정을 이해하지 못하게 되는 문제를 인지했습니다.",
+          "기술 스택은 Claude와 직접 논의해 검토·결정했고, 디자인은 레퍼런스 이미지를 캡처해 AI에게 제공한 뒤 초안을 생성하고 원하는 폴더 구조와 Tailwind CSS 방식으로 재작업을 요청하는 등, 프로젝트 전반에서 AI에게 위임할 범위와 결과물의 형식을 직접 설계했습니다.",
+          "AI가 대신 구현해준 핵심 로직 중 직접 이해하고 소유하고 싶은 부분을 선별해 해당 코드를 제거·재작업하도록 요청함으로써, 완성된 코드를 받는 데 그치지 않고 구현 과정 자체에 대한 이해와 소유권을 확보했습니다.",
+          "매 작업 요청마다 전체 컨텍스트를 반복 설명해야 하는 비효율을 줄이기 위해 레이어별로 CLAUDE.md를 분리해 필요한 문서만 참조하도록 구성했습니다.",
+          "결과적으로 AI를 단순한 코드 생성 도구로 소비하는 데 그치지 않고, 기술적 판단과 핵심 구현은 직접 소유하면서 반복 작업과 문서화는 AI와 효율적으로 분담하는 협업 구조를 확보했습니다.",
+        ],
+      },
+      {
+        title: "Jaccard 유사도 기반 이슈 클러스터링 알고리즘 설계",
+        details: [
+          {
+            src: "/assets/projects/dotori_feature_02_01.png",
+            alt: "Jaccard 유사도 알고리즘을 3단계로 시각화",
+          },
+          {
+            alt: "STEP 1: 기사 제목을 토큰화해 집합으로 변환 → STEP 2:  교집합/합집합으로 Jaccard 유사도 계산, 0.4 임계값 판단",
+            type: "code",
+            language: "Typescript",
+            code: CODE_SNIPPETS.DOTORI_JACCARD,
+          },
+        ],
+        items: [
+          "여러 언론사가 동일 사건을 서로 다른 제목으로 보도하는 RSS 특성상, 단순 수집만으로는 같은 이슈가 카테고리당 중복 노출되는 문제가 있어 이를 하나로 묶어낼 판단 기준이 필요하다는 것을 확인했습니다.",
+          "기사 제목을 토큰화해 Jaccard 유사도(교집합/합집합)가 임계값 이상이면 동일 이슈로 판단해 클러스터링하고, 클러스터를 구성한 보도 매체 수를 여러 매체가 다루는 진짜 이슈를 가려내는 랭킹 기준으로 활용했습니다.",
+          "클러스터 전체 기사의 토큰을 합쳐 비교하면 클러스터가 커질수록 판단 기준이 느슨해져 무관한 기사가 잘못 합쳐질 위험이 있다고 판단해, 클러스터를 시작한 첫 기사(앵커)의 토큰 집합하고만 비교하도록 설계했습니다.",
+          "결과적으로 여러 매체의 중복 보도를 하나의 이슈로 압축하고, 보도 매체 수를 기준으로 카테고리당 진짜 중요한 이슈만 선별해 노출하는 큐레이션 로직을 확보해 단순 수집을 넘어선 편집 품질을 제공했습니다.",
+        ],
+      },
+      {
+        title: "Context API 대신 Zustand를 활용한 리렌더링 최적화",
+        details: [
+          {
+            alt: "store.ts의 useIssueUIStore 정의",
+            type: "code",
+            language: "Typescript",
+            code: CODE_SNIPPETS.DOTORI_ZUSTAND_CREATE,
+          },
+          {
+            alt: "IssueList.tsx에서 필요한 슬라이스만 구독",
+            type: "code",
+            language: "Typescript",
+            code: CODE_SNIPPETS.DOTORI_ZUSTAND_USE,
+          },
+        ],
+        items: [
+          "헤더(선택 날짜/캘린더·검색 열림 여부)와 이슈 리스트(선택 카테고리)처럼 컴포넌트마다 필요한 전역 상태 조각이 다른데, Context API는 값 하나만 바뀌어도 모든 소비 컴포넌트가 리렌더링되는 한계가 있다는 것을 확인했습니다.",
+          "전역 UI 상태를 Zustand 스토어 하나로 관리하되, 각 컴포넌트가 selector로 필요한 슬라이스만 구독하도록 설계했습니다.",
+          "결과적으로 캘린더 열림 상태가 바뀌어도 카테고리 탭이나 이슈 리스트는 리렌더링되지 않는 등, 상태 변경의 영향 범위를 구독 단위로 좁혀 불필요한 리렌더링을 제거하고 인터랙션이 잦은 UI에서도 안정적인 렌더링 성능을 확보했습니다.",
+        ],
+      },
+    ],
+    troubleshooting: [
+      {
+        title: "타이머 기반 캐시가 만드는 낭비와 지연",
+        found: [
+          "홈페이지에 1시간 주기 ISR(revalidate = 3600)을 적용했으나, 데이터가 하루 1회만 바뀌는 서비스 특성상 대부분의 재검증이 불필요했고 cron 직후에도 최대 59분간 이전 캐시가 노출되는 지연이 있었다.",
+        ],
+        process: [
+          "타이머 기반 재검증을 제거하고, cron이 Supabase upsert를 완료한 직후에만 revalidatePath로 홈과 갱신된 상세 페이지를 선택적으로 무효화하도록 변경했다.",
+        ],
+        code: { language: "Typescript", code: CODE_SNIPPETS.DOTORI_REVALIDATE },
+        result: [
+          "데이터가 실제로 바뀐 시점에만 정확히 캐시가 갱신되어, 불필요한 재검증 비용과 최신 이슈 반영 지연을 모두 제거했다.",
+        ],
+        lesson: [
+          "캐싱 전략은 프레임워크 기본값(타이머)을 그대로 쓰기보다, 데이터가 실제로 바뀌는 주기와 트리거를 먼저 파악한 뒤 그에 맞춰 설계해야 한다는 걸 체감했다.",
+        ],
+      },
+      {
+        title: "카테고리당 3개씩 안 채워지는 이슈",
+        found: [
+          "카테고리마다 매일 3개씩 이슈가 노출돼야 하는데, 특정 날짜에 일부 카테고리가 3개 미만으로 저장되는 현상을 발견했다.",
+        ],
+        process: [
+          "Gemini 요약 호출이 일시적 오류(429/500/502/503)로 실패해도 재시도 없이 바로 스킵되는 게 원인임을 확인하고, 오류 유형을 판별해 재시도 가치가 있는 경우 3초 대기 후 최대 2회까지 재시도하도록 수정했다.",
+        ],
+        code: { language: "Typescript", code: CODE_SNIPPETS.DOTORI_RETRY },
+        result: [
+          "일시적 오류로 인한 이슈 누락은 대부분 재시도로 회복되어 3개 미만 저장 빈도가 줄었다.",
+        ],
+        lesson: [
+          "재시도로 일시적 오류는 완화했지만 JSON 파싱 실패 등 비-HTTP 오류나 재시도 소진 시 대체 기사로 채우지 않는 한계가 남아있다는 걸 인지했고, 실패를 감추기보다 원인별로 구분해 대응 범위를 명확히 하는 것의 중요성을 배웠다.",
+        ],
+      },
+    ],
+  },
+
   globalnomad: {
     title: "글로벌노마드 (GlobalNomad)",
     period: "2026.03 — 2026.04",

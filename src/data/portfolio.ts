@@ -115,6 +115,23 @@ export const skills: Skill[] = [
 
 export const projectsPrimary: Project[] = [
   {
+    title: "도토리",
+    en: "Dotori",
+    thumb: "/assets/projects/dotori_thumbnail.png",
+    desc: "바쁜 일상 속에서 놓치기 쉬운 사회·경제·테크·컬처 이슈를 매일 3가지씩 선별해 3줄 요약으로 보여주는 뉴스 큐레이션 서비스.",
+    path: "/portfolio/dotori",
+    links: [
+      {
+        label: "Live ↗",
+        href: "https://dotori-news.vercel.app/",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/joara-frontend/dotori",
+      },
+    ],
+  },
+  {
     title: "글로벌노마드",
     en: "GlobalNomad",
     thumb: "/assets/projects/globalnomad_thumbnail.png",

@@ -10,6 +10,7 @@ import HeroSlider from "@/components/detail/HeroSlider";
 import ProjectMeta from "@/components/detail/ProjectMeta";
 import FeatureSection from "@/components/detail/FeatureNumTypeSection";
 import TroubleSection from "@/components/detail/FeatureNotNumTypeSection";
+import TroubleshootingSection from "@/components/detail/TroubleshootingSection";
 import { FadeIn } from "@/components/ui/FadeIn";
 
 function isNumType(
@@ -69,6 +70,13 @@ export default function ProjectDetailPage({ params }: PageProps) {
               <TroubleSection troubles={project.features} />
             </FadeIn>
           ))}
+
+        {/* ── 트러블슈팅 경험 (일부 프로젝트에만 존재) ── */}
+        {project.troubleshooting && project.troubleshooting.length > 0 && (
+          <FadeIn delay={0.1}>
+            <TroubleshootingSection troubleshooting={project.troubleshooting} />
+          </FadeIn>
+        )}
 
         {/* ── Bottom back ── */}
         <FadeIn>

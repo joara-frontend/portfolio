@@ -1,4 +1,105 @@
 export const CODE_SNIPPETS = {
+  DOTORI_JACCARD: `/* 2. 각 기사 간의 유사도 계산 (Jaccard 유사도)
+    교집합과 합집합을 계산해서 0.4 이상이면 합치고 그렇지 않으면 새로운 클러스터 생성
+  */
+  function jaccardSimilarity(set1: Set<string>, set2: Set<string>) {
+    // 교집합 계산
+    const intersection = new Set([...set1].filter((item) => set2.has(item)));
+
+    // 합집합 계산
+    const union = new Set([...set1, ...set2]);
+
+    return union.size === 0 ? 0 : intersection.size / union.size;
+  }
+
+  // 클러스터의 "대표 토큰"만 저장 — 첫 기사(클러스터를 시작한 기사)의
+  // 토큰 집합 하나와만 비교한다. 클러스터 안 기사 전체를 합친 토큰
+  // 뭉치와 비교하면 클러스터가 커질수록 판단 기준이 느슨해져 관계없는
+  // 기사가 잘못 합쳐질 위험이 있다.
+  const clusters: RssItem[][] = [];
+  const clusterAnchorTokens: Set<string>[] = [];
+  for (let i = 0; i < items.length; i++) {
+    let addedToCluster = false;
+    for (let c = 0; c < clusters.length; c++) {
+      if (jaccardSimilarity(tokenSets[i], clusterAnchorTokens[c]) >= 0.4) {
+        clusters[c].push(items[i]);
+        addedToCluster = true;
+        break;
+      }
+    }
+    if (!addedToCluster) {
+      clusters.push([items[i]]);
+      clusterAnchorTokens.push(tokenSets[i]);
+    }
+  }
+`,
+  DOTORI_ZUSTAND_CREATE: `export const useIssueUIStore = create<IssueUIState>((set) => ({
+  selectedDate: todayDateStr(),
+  selectedCategory: "society",
+  calendarOpen: false,
+  searchOpen: false,
+  searchQuery: "",
+  setSelectedDate: (date) => set({ selectedDate: date, calendarOpen: false }),
+  setSelectedCategory: (category) => set({ selectedCategory: category }),
+  toggleCalendar: () => set((state) => ({ calendarOpen: !state.calendarOpen })),
+  toggleSearch: () =>
+    set((state) => ({
+      searchOpen: !state.searchOpen,
+      searchQuery: state.searchOpen ? "" : state.searchQuery,
+    })),
+  setSearchQuery: (query) => set({ searchQuery: query }),
+  jumpToResult: (date, category) =>
+    set({
+      selectedDate: date,
+      selectedCategory: category,
+      searchOpen: false,
+      searchQuery: "",
+    }),
+}));`,
+  DOTORI_ZUSTAND_USE: `const selectedDate = useIssueUIStore((s) => s.selectedDate);
+const selectedCategory = useIssueUIStore((s) => s.selectedCategory);`,
+  DOTORI_REVALIDATE: `// Before: page.tsx
+export const revalidate = 3600;
+
+// After: route.ts — upsert 성공 직후
+const { data, error } = await supabaseAdmin
+  .from("issues")
+  .upsert(rows, { onConflict: "source_url,published_at" })
+  .select("id");
+ 
+for (const row of data) {
+  revalidatePath(\`/\${row.id}\`); // 갱신된 이슈만 상세 페이지 무효화
+}
+revalidatePath("/"); // 홈은 항상 무효화
+`,
+  DOTORI_RETRY: `// Before
+try {
+  const summary = await summarizeIssue(item.title, category.label);
+  rows.push({ ... });
+} catch (error) {
+  console.error(\`Failed to summarize "\${item.title}":\`, error);
+}
+
+// After
+const maxAttempts = 3;
+for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+  try {
+    const summary = await summarizeIssue(item.title, category.label);
+    rows.push({ ... });
+    break;
+  } catch (error) {
+    const isRetryable =
+      error instanceof ApiError &&
+      [429, 500, 502, 503].includes(error.status);
+
+    if (!isRetryable || attempt === maxAttempts) {
+      console.error(\`Failed to summarize "\${item.title}":\`, error);
+      break;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+  }
+}
+`,
   NOMAD_BADGE_HOOK: `import { useQueries } from "@tanstack/react-query";
 import { getMyActivityList } from "@/apis/myActivities.api";
 import { getMyReservationList } from "@/apis/myReservations.api";
