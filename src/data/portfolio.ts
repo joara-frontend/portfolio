@@ -176,6 +176,9 @@ export const projectsPrimary: Project[] = [
       },
     ],
   },
+];
+
+export const projectsMore: Project[] = [
   {
     title: "Genesis 2.0 Global",
     en: "Localization",
@@ -189,9 +192,6 @@ export const projectsPrimary: Project[] = [
       },
     ],
   },
-];
-
-export const projectsMore: Project[] = [
   {
     title: "롯데인터넷면세점",
     en: "Localization",
