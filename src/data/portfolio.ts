@@ -115,8 +115,8 @@ export const skills: Skill[] = [
 
 export const projectsPrimary: Project[] = [
   {
-    title: "ModusPlant",
-    en: "Plant Community Platform",
+    title: "모두의 식물",
+    en: "ModusPlant",
     thumb: "/assets/projects/modusplant_thumbnail.png",
     desc: "식물을 좋아하는 사람들을 위한 커뮤니티. 식물 관련 정보를 공유하고, 경험을 나누며, 함께 성장하는 공간.",
     path: "/portfolio/modusplant",

@@ -72,7 +72,7 @@ export interface ProjectDetailData {
 
 export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
   modusplant: {
-    title: "ModusPlant",
+    title: "모두의 식물 (ModusPlant)",
     period: "2026.07 - 진행중",
     members:
       "기획 · 디자인 · Frontend · Backend 총 10명 내외 (팀원 유동적 참여)",

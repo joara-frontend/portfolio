@@ -36,15 +36,7 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
       }}
     >
       {/* Track wrapper */}
-      <div
-        style={{
-          position: "relative",
-          borderRadius: "22px",
-          overflow: "hidden",
-          height: "460px",
-          background: "var(--track-bg)",
-        }}
-      >
+      <div className="hero-slider-track">
         {/* Sliding track */}
         <div
           style={{
@@ -55,15 +47,12 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
           }}
         >
           {images.map((src, i) => (
-            <div
-              key={src}
-              style={{ flex: "0 0 100%", height: "460px", position: "relative" }}
-            >
+            <div key={src} className="hero-slider-slide">
               <Image
                 src={src}
                 fill
                 alt={`${title} 스크린샷 ${i + 1}`}
-                style={{ objectFit: "cover", objectPosition: "top" }}
+                className="hero-slider-img"
                 priority={i === 0}
                 sizes="(max-width: 1040px) 100vw, 980px"
               />
