@@ -115,6 +115,23 @@ export const skills: Skill[] = [
 
 export const projectsPrimary: Project[] = [
   {
+    title: "ModusPlant",
+    en: "Plant Community Platform",
+    thumb: "/assets/projects/modusplant_thumbnail.png",
+    desc: "식물을 좋아하는 사람들을 위한 커뮤니티. 식물 관련 정보를 공유하고, 경험을 나누며, 함께 성장하는 공간.",
+    path: "/portfolio/modusplant",
+    links: [
+      {
+        label: "Live ↗",
+        href: "https://www.modusplant.kr/",
+      },
+      {
+        label: "GitHub ↗",
+        href: "https://github.com/modusplant/modusplant_frontend",
+      },
+    ],
+  },
+  {
     title: "도토리",
     en: "Dotori",
     thumb: "/assets/projects/dotori_thumbnail.png",
@@ -162,6 +179,9 @@ export const projectsPrimary: Project[] = [
       },
     ],
   },
+];
+
+export const projectsMore: Project[] = [
   {
     title: "법무·특허·세무 플랫폼",
     en: "Legal · Patent · Tax",
@@ -176,9 +196,6 @@ export const projectsPrimary: Project[] = [
       },
     ],
   },
-];
-
-export const projectsMore: Project[] = [
   {
     title: "Genesis 2.0 Global",
     en: "Localization",

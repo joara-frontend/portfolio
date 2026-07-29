@@ -1,6 +1,6 @@
 import { CODE_SNIPPETS } from "./codeSnippets";
 
-// ─── Detail item: discriminated union (no `any`) ───────────────────────────
+// ─── Detail item: discriminated union (no 'any') ───────────────────────────
 export type DetailItemImage = {
   src: string;
   alt: string;
@@ -69,6 +69,126 @@ export interface ProjectDetailData {
 // ─── Data ───────────────────────────────────────────────────────────────────
 
 export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
+  modusplant: {
+    title: "ModusPlant",
+    period: "2026.07 - 진행중",
+    members:
+      "기획 · 디자인 · Frontend · Backend 총 10명 내외 (팀원 유동적 참여)",
+    role: "MVP 2차 진행 중 프론트엔드로 합류 — 인증/토큰 갱신 로직 개선, 마이페이지 등 반응형 리팩토링, 무한 스크롤 등 실사용성 개선 담당",
+    description:
+      "식물을 좋아하는 사람들이 정보를 공유하고 경험을 나누는 커뮤니티 서비스입니다. 이미 MVP 2차가 진행 중이던 시점에 프론트엔드로 합류해, 반응형 UI 미비와 로그인 유지 오류처럼 실사용에 직접 영향을 주는 문제들을 우선순위로 파악하고 개선하는 데 집중했습니다.",
+    stacks: [
+      "Next.js 16 (App Router)",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "TanStack Query",
+      "Zustand",
+      "React Hook Form / Zod",
+    ],
+    links: [
+      {
+        label: "Live ↗",
+        url: "https://www.modusplant.kr/",
+      },
+      {
+        label: "GitHub",
+        url: "https://github.com/modusplant/modusplant_frontend",
+      },
+    ],
+    images: [
+      "/assets/projects/modusplant_detail_01.png",
+      "/assets/projects/modusplant_detail_02.png",
+      "/assets/projects/modusplant_detail_03.png",
+    ],
+    features: [
+      {
+        title:
+          "PC 페이지네이션 / 모바일 무한 스크롤을 하나의 제네릭 컴포넌트로 추상화",
+        // pr: "https://github.com/modusplant/modusplant_frontend/pull/100",
+        details: [
+          {
+            src: "/assets/projects/modusplant_feature_01_01.gif",
+            alt: "PC 페이지네이션 UI와 모바일 무한 스크롤 UI 비교",
+          },
+          {
+            alt: "useQueryHook / useInfiniteQueryHook을 주입받는 제네릭 리스트 컴포넌트",
+            type: "code",
+            language: "Typescript",
+            code: CODE_SNIPPETS.MODUSPLANT_GENERIC_LIST,
+          },
+        ],
+        items: [
+          "마이페이지 내 활동(댓글/게시글/좋아요/북마크/최근 본 글) 5개 탭 모두 데스크탑은 페이지네이션, 모바일은 무한 스크롤이 필요했는데, 탭마다 개별 컴포넌트를 만들면 동일한 분기 로직이 5번 중복될 문제를 인지했습니다.",
+          "리스트 컴포넌트를 제네릭으로 설계해 데스크탑용 'useQueryHook'과 모바일용 'useInfiniteQueryHook'을 props로 주입받도록 하고, 'useMediaQuery'로 감지한 브레이크포인트에 따라 내부에서 두 훅 중 하나만 활성화('enabled')하도록 구성했습니다.",
+          "무한 스크롤 트리거는 IntersectionObserver를 감싼 'useInfiniteScrollObserver' 커스텀 훅으로 분리해, 어떤 리스트든 동일한 훅을 재사용할 수 있도록 했습니다.",
+          "결과적으로 탭 5개에 반응형 로직을 각각 구현하지 않고 데이터 페칭 훅만 교체해 끼워 넣는 구조로 정리했고, 이후 탭이 추가돼도 동일 인터페이스의 훅 두 개만 만들면 되도록 확장 비용을 낮췄습니다.",
+        ],
+      },
+      {
+        title: "마이페이지 사이드바 통합으로 중복 구조 제거",
+        // pr: "https://github.com/modusplant/modusplant_frontend/pull/101",
+        details: [
+          {
+            src: "/assets/projects/modusplant_feature_02_01.png",
+            alt: "마이페이지 사이드바 페이지",
+          },
+        ],
+        items: [
+          "모바일에서는 헤더 아래 아코디언으로 사이드 메뉴를 펼치는 방식이었는데, PC용 사이드바와 메뉴 렌더링 로직(항목 매핑, 활성 상태 표시, 로그아웃 버튼)이 두 파일에 거의 동일하게 중복 구현되어 있는 것을 확인했습니다.",
+          "모바일 UX를 아코디언 대신 별도 메뉴 페이지(`/mypage/menu`)로 전환하기로 하고, PC 사이드바와 모바일 메뉴 페이지가 하나의 `Sidebar` 컴포넌트를 공유하도록 통합했습니다. 데스크탑에서 `/mypage/menu`로 접근하면 기본 페이지로 리다이렉트되도록 처리했습니다.",
+          "리팩토링 결과 관련 코드가 174줄 삭제·86줄 추가로 순감소했고, 이후 메뉴 항목 변경이나 스타일 수정이 한 컴포넌트에서만 이뤄지면 되는 구조로 정리했습니다.",
+        ],
+      },
+    ],
+    troubleshooting: [
+      {
+        title:
+          "인증이 필요한 페이지 진입 시 로그인 화면이 잠깐 노출되는 flash 현상",
+        // pr: "https://github.com/modusplant/modusplant_frontend/pull/108",
+        found: [
+          "이미 로그인된 사용자가 보호된 페이지에 접근해도, 클라이언트 스토어의 인증 상태가 초기화되기 전 잠깐 로그인 필요 화면이 노출되는 flash 현상을 발견했다.",
+        ],
+        process: [
+          "서버에서 이미 'initialUser'를 받아 렌더링하지만, 'AuthGuard'가 클라이언트 Zustand 스토어의 'isAuthenticated'만 기준으로 판단해 하이드레이션 직후 짧게 초기값(false)을 참조하는 것이 원인임을 확인했다.",
+          "'useSyncExternalStore'로 컴포넌트가 마운트되었는지 여부를 서버/클라이언트 첫 렌더에서는 false, 이후에는 true로 명시적으로 추적하고, 마운트 전에는 서버에서 내려준 'initialUser' 존재 여부로, 마운트 후에는 스토어 상태로 인증 여부를 판단하도록 분기했다.",
+        ],
+        code: {
+          language: "Typescript",
+          code: CODE_SNIPPETS.MODUSPLANT_HYDRATION_GUARD,
+        },
+        result: [
+          "하이드레이션 시점의 상태 불일치가 제거되어 로그인 화면 flash 현상이 사라졌다.",
+        ],
+        lesson: [
+          "SSR 환경에서 서버가 이미 알고 있는 상태(initialUser)와 클라이언트 스토어 상태가 시점상 어긋날 수 있다는 것, 그리고 이를 조건부 렌더링이 아니라 '마운트 여부' 자체를 명시적으로 추적해 해결해야 한다는 것을 배웠다.",
+        ],
+      },
+      {
+        title: "일정 시간 후 로그인이 자동으로 풀리는 문제",
+        // pr: "https://github.com/modusplant/modusplant_frontend/pull/93",
+        found: [
+          "AccessToken 만료 후 RefreshToken으로 자동 갱신되어야 하는데, 특정 상황에서 갱신이 반영되지 않고 로그인이 풀리는 현상을 발견했다.",
+        ],
+        process: [
+          "Server Component 렌더링 중에는 Next.js가 쿠키 쓰기를 허용하지 않아, 이 시점에 토큰 갱신을 시도하면 새 토큰 발급 자체는 성공해도 쿠키 저장이 조용히 실패한다는 것을 확인했다.",
+          "쿠키 저장이 실패해도 로그아웃시키지 않도록, 갱신된 토큰 값을 그 요청에 한해 직접 사용하는 'overrideToken' 경로를 API 인스턴스에 추가했다. 쿠키 반영 자체는 다음 요청에서 proxy가 담당하도록 역할을 분리했다.",
+          "동시에 토큰 갱신 조건이 'rememberMe' 쿠키 여부에 묶여 있어 자동 로그인을 껐을 때도 세션 중 갱신이 안 되던 로직 결함도 함께 발견해, 조건을 'refreshToken' 존재 여부 기준으로 수정했다.",
+        ],
+        code: {
+          language: "Typescript",
+          code: CODE_SNIPPETS.MODUSPLANT_TOKEN_OVERRIDE,
+        },
+        result: [
+          "Server Component 렌더링 중 발생하던 쿠키 쓰기 실패로 인한 비정상 로그아웃이 해소되고, rememberMe 설정과 무관하게 세션 중 토큰이 정상 갱신되었다.",
+        ],
+        lesson: [
+          "프레임워크가 특정 렌더링 컨텍스트에서 부과하는 제약(Server Component의 쿠키 쓰기 금지)은 예외 처리로 숨기기보다, 그 제약을 우회하는 데이터 흐름(이번 요청에 한해 토큰을 직접 전달)으로 설계해야 한다는 것을 체감했다.",
+        ],
+      },
+    ],
+  },
+
   dotori: {
     title: "도토리 (Dotori)",
     period: "2026.07.03 - 2026.07.11",

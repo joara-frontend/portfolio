@@ -1,4 +1,102 @@
 export const CODE_SNIPPETS = {
+  MODUSPLANT_GENERIC_LIST: `// myCommentList.tsx
+interface MyCommentListProps<T> {
+  /** 데스크탑 페이지네이션용 */
+  useQueryHook: (page: number, size: number, userId?: string) => {
+    data: T | undefined; isLoading: boolean; error: Error | null;
+  };
+  /** 모바일 무한 스크롤용 — 전달 시에만 모바일 분기 활성화 */
+  useInfiniteQueryHook?: (size: number, enabled: boolean, userId?: string) => {
+    data: InfiniteData<T> | undefined;
+    fetchNextPage: () => void;
+    hasNextPage: boolean;
+    isFetchingNextPage: boolean;
+  };
+}
+
+// useInfiniteScrollObserver.ts
+export function useInfiniteScrollObserver(
+  targetRef: RefObject<HTMLElement | null>,
+  { hasNextPage, isFetchingNextPage, fetchNextPage, enabled = true }: UseInfiniteScrollObserverOptions
+): void {
+  useEffect(() => {
+    if (!enabled) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    });
+
+    const currentTarget = targetRef.current;
+    if (currentTarget) observer.observe(currentTarget);
+    return () => { if (currentTarget) observer.unobserve(currentTarget); };
+  }, [targetRef, hasNextPage, isFetchingNextPage, fetchNextPage, enabled]);
+}
+`,
+  MODUSPLANT_HYDRATION_GUARD: `interface AuthGuardProps {
+  children: ReactNode;
+  initialUser: User | null;
+}
+
+// 서버/첫 클라이언트 렌더: false, 이후 클라이언트: true
+function useHasMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
+
+export default function AuthGuard({ children, initialUser }: AuthGuardProps) {
+  const hasMounted = useHasMounted();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  // 마운트 전: 서버가 내려준 initialUser 기준 / 마운트 후: 클라이언트 스토어 기준
+  const isAuthed = hasMounted ? isAuthenticated : !!initialUser;
+
+  if (!isProtectedPath || isAuthed) {
+    return <>{children}</>;
+  }
+  // ...
+}
+`,
+  MODUSPLANT_TOKEN_OVERRIDE: `// core.ts
+export type UnauthorizedResult =
+  | { action: 'retry'; token?: string }
+  | { action: 'fail' };
+
+async function requestCore<T = any>(...) {
+  // ...
+  const token = overrideToken ?? (await opts.getAccessToken());
+  if (token) headers['Authorization'] = \`Bearer \${token}\`;
+  // ...
+  if (data.status === 401 && !skipAuth) {
+    if (!isRetry && opts.onUnauthorized) {
+      const result = await opts.onUnauthorized();
+      if (result.action === 'retry') {
+        return requestCore<T>(
+          endpoint,
+          { ...config, isRetry: true, overrideToken: result.token },
+          opts
+        );
+      }
+    }
+    throw new ApiError(401, 'authentication_required', '다시 로그인해주세요');
+  }
+}
+
+// serverInstance.ts
+try {
+  await setCookie(ACCESS_TOKEN_COOKIE_NAME, newAccessToken, { ... });
+} catch (cookieError) {
+  // Server Component 렌더링 중 쿠키 쓰기 실패 → 토큰만 반환, 로그아웃 처리 안 함
+  console.warn('[ServerRefreshToken] 쿠키 저장 불가:', cookieError);
+}
+return newAccessToken;
+
+`,
+
   DOTORI_JACCARD: `/* 2. 각 기사 간의 유사도 계산 (Jaccard 유사도)
     교집합과 합집합을 계산해서 0.4 이상이면 합치고 그렇지 않으면 새로운 클러스터 생성
   */
