@@ -83,6 +83,36 @@ function SubList({
   );
 }
 
+// ─── PR link badge ────────────────────────────────────────────────────────────
+
+function PrBadge({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        textDecoration: "none",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "6px",
+        padding: "6px 13px",
+        borderRadius: "10px",
+        background: "#2b2d42",
+        color: "#fff",
+        fontWeight: 700,
+        fontSize: "12.5px",
+        boxShadow: "0 8px 16px -8px rgba(43,45,66,.5)",
+      }}
+    >
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+      </svg>
+      PR 보기
+    </a>
+  );
+}
+
 // ─── Single troubleshooting card ───────────────────────────────────────────
 
 function TroubleshootingCard({ trouble }: { trouble: ProjectTroubleshooting }) {
@@ -99,19 +129,30 @@ function TroubleshootingCard({ trouble }: { trouble: ProjectTroubleshooting }) {
           "0 28px 54px -30px rgba(90,100,180,.55), inset 0 1px 0 rgba(255,255,255,.92)",
       }}
     >
-      <h3
+      <div
         style={{
-          fontFamily: "'Quicksand', 'Pretendard', sans-serif",
-          fontSize: "21px",
-          fontWeight: 700,
-          color: "var(--ink)",
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          flexWrap: "wrap",
           marginBottom: "18px",
-          lineHeight: 1.4,
-          wordBreak: "keep-all",
         }}
       >
-        {trouble.title}
-      </h3>
+        <h3
+          style={{
+            fontFamily: "'Quicksand', 'Pretendard', sans-serif",
+            fontSize: "21px",
+            fontWeight: 700,
+            color: "var(--ink)",
+            margin: 0,
+            lineHeight: 1.4,
+            wordBreak: "keep-all",
+          }}
+        >
+          {trouble.title}
+        </h3>
+        {trouble.pr && <PrBadge href={trouble.pr} />}
+      </div>
 
       {trouble.image && (
         <div

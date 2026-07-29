@@ -23,6 +23,7 @@ export type DetailItem = DetailItemImage | DetailItemCode;
 
 export interface ProjectFeatureNumType {
   title: string;
+  pr?: string;
   details?: DetailItem[];
   items: string[];
 }
@@ -38,6 +39,7 @@ export interface ProjectFeatureNotNumType {
 
 export interface ProjectTroubleshooting {
   title: string;
+  pr?: string;
   image?: { src: string; alt: string };
   found: string[];
   process: string[];
@@ -105,7 +107,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       {
         title:
           "PC 페이지네이션 / 모바일 무한 스크롤을 하나의 제네릭 컴포넌트로 추상화",
-        // pr: "https://github.com/modusplant/modusplant_frontend/pull/100",
+        pr: "https://github.com/modusplant/modusplant_frontend/pull/100",
         details: [
           {
             src: "/assets/projects/modusplant_feature_01_01.gif",
@@ -127,7 +129,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "마이페이지 사이드바 통합으로 중복 구조 제거",
-        // pr: "https://github.com/modusplant/modusplant_frontend/pull/101",
+        pr: "https://github.com/modusplant/modusplant_frontend/pull/101",
         details: [
           {
             src: "/assets/projects/modusplant_feature_02_01.png",
@@ -145,7 +147,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       {
         title:
           "인증이 필요한 페이지 진입 시 로그인 화면이 잠깐 노출되는 flash 현상",
-        // pr: "https://github.com/modusplant/modusplant_frontend/pull/108",
+        pr: "https://github.com/modusplant/modusplant_frontend/pull/108",
         found: [
           "이미 로그인된 사용자가 보호된 페이지에 접근해도, 클라이언트 스토어의 인증 상태가 초기화되기 전 잠깐 로그인 필요 화면이 노출되는 flash 현상을 발견했다.",
         ],
@@ -166,7 +168,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "일정 시간 후 로그인이 자동으로 풀리는 문제",
-        // pr: "https://github.com/modusplant/modusplant_frontend/pull/93",
+        pr: "https://github.com/modusplant/modusplant_frontend/pull/93",
         found: [
           "AccessToken 만료 후 RefreshToken으로 자동 갱신되어야 하는데, 특정 상황에서 갱신이 반영되지 않고 로그인이 풀리는 현상을 발견했다.",
         ],
@@ -354,6 +356,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     features: [
       {
         title: "사용자 참여 유도를 위한 대시보드 구축 및 성능 최적화",
+        pr: "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad/pull/191",
         details: [
           {
             src: "/assets/projects/globalnomad_feature_01_01.png",
@@ -383,6 +386,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "Next.js API Routes를 활용한 BFF 아키텍처 및 인증 은닉 설계",
+        pr: "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad/pull/143",
         details: [
           {
             alt: "BFF 프록시 레이어: 토큰 재발급 및 요청 리트라이를 처리하는 Next.js route.ts 예시",
@@ -400,6 +404,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "Next.js Metadata API를 활용한 동적 SEO 및 인덱싱 최적화",
+        pr: "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad/pull/136",
         details: [
           {
             alt: "애플리케이션 전역의 검색 엔진 노출을 최적화하기 위해 Next.js Metadata API를 도입하여 표준화된 공통 메타데이터를 정의하고, 파비콘 및 Open Graph 설정을 레이아웃 단계에서 선언적으로 관리하는 코드",
@@ -423,6 +428,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "Auth 페이지 진입 시 시각적 인터랙션 및 로딩 최적화",
+        pr: "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad/pull/145",
         details: [
           {
             src: "/assets/projects/globalnomad_feature_04_01.gif",
@@ -503,6 +509,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     features: [
       {
         title: "유저 친화적 인터랙션 및 카드·댓글 관리 시스템 구현",
+        pr: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/51",
         details: [
           {
             src: "/assets/projects/taskify_feature_01_01.png",
@@ -534,6 +541,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "React Hook Form & Zod 기반의 재사용 가능한 폼 시스템 설계",
+        pr: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/12",
         details: [
           {
             alt: "제네릭과 ControllerRenderProps를 활용하여 표준화된 인터페이스를 가진 재사용 가능한 Input 컴포넌트 코드",
@@ -557,6 +565,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "브라우저 리소스 관리 및 비동기 안정성 확보",
+        pr: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/56",
         details: [
           {
             alt: "비동기 데이터 페칭 최적화 및 동적 자원 메모리 누수 방지 로직",
@@ -574,6 +583,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "디자인 시스템 토큰화 및 스타일 관리 최적화",
+        pr: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/54",
         details: [
           {
             src: "/assets/projects/taskify_feature_04_01.png",
@@ -595,6 +605,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "전역 피드백 시스템 구축을 통한 서비스 완성도 향상",
+        pr: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/57",
         details: [
           {
             alt: "react-hot-toast 라이브러리를 기반으로 전역 토스트 알림 컴포넌트를 설계한 코드. ToastProvider 패턴을 적용하여 서비스 전역에서 일관된 피드백 인터페이스를 표준화하고, 커스텀 스타일과 옵션을 중앙 집중적으로 관리하도록 구현함.",
