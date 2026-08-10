@@ -1,38 +1,64 @@
 export const CODE_SNIPPETS = {
-  MODUSPLANT_GENERIC_LIST: `// myCommentList.tsx
-interface MyCommentListProps<T> {
-  /** 데스크탑 페이지네이션용 */
-  useQueryHook: (page: number, size: number, userId?: string) => {
-    data: T | undefined; isLoading: boolean; error: Error | null;
-  };
-  /** 모바일 무한 스크롤용 — 전달 시에만 모바일 분기 활성화 */
-  useInfiniteQueryHook?: (size: number, enabled: boolean, userId?: string) => {
-    data: InfiniteData<T> | undefined;
-    fetchNextPage: () => void;
-    hasNextPage: boolean;
-    isFetchingNextPage: boolean;
-  };
+  MODUSPLANT_USE_MEMO: `// postCard.tsx — 무한스크롤 피드에서 반복 렌더되는 카드
+export default function PostCard({ post, className }: PostCardProps) {
+  'use memo';   // React Compiler annotation 모드는 이 지시어가 있어야만 최적화 적용
+  ...
 }
 
-// useInfiniteScrollObserver.ts
-export function useInfiniteScrollObserver(
-  targetRef: RefObject<HTMLElement | null>,
-  { hasNextPage, isFetchingNextPage, fetchNextPage, enabled = true }: UseInfiniteScrollObserverOptions
+// postListItem.tsx — 마이페이지 목록에서 반복 렌더되는 아이템
+export default function PostListItem({ post }: PostListItemProps) {
+  'use memo';
+  ...
+}
+`,
+  MODUSPLANT_DROPDOWN_DIALOG_WAI_ARIA: `// useFocusTrap.ts — Dropdown/DialogModal이 공유하는 포커스 트랩 훅
+export function useFocusTrap(
+  containerRef: RefObject<HTMLElement | null>,
+  {
+    isActive,
+    autoFocus = true,
+    restoreFocus = true,
+    trapTab = false,
+  }: UseFocusTrapOptions
 ): void {
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
-    if (!enabled) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-        fetchNextPage();
+    if (!isActive) return;
+    previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
+    if (autoFocus && containerRef.current) {
+      getFocusableElements(containerRef.current)[0]?.focus();
+    }
+    return () => {
+      if (restoreFocus && previouslyFocusedRef.current) {
+        previouslyFocusedRef.current.focus();
       }
-    });
+    };
+  }, [isActive, autoFocus, restoreFocus, containerRef]);
 
-    const currentTarget = targetRef.current;
-    if (currentTarget) observer.observe(currentTarget);
-    return () => { if (currentTarget) observer.unobserve(currentTarget); };
-  }, [targetRef, hasNextPage, isFetchingNextPage, fetchNextPage, enabled]);
+  useEffect(() => {
+    if (!isActive || !trapTab) return;
+    // Tab/Shift+Tab이 컨테이너 경계를 벗어나지 않도록 첫/마지막 요소 사이를 순환
+    ...
+  }, [isActive, trapTab, containerRef]);
 }
+
+// dropdown.tsx — trigger에 ARIA 속성을 자동 주입, 사용처는 신경 쓸 필요 없음
+const triggerElement = isValidElement<React.AriaAttributes>(trigger)
+  ? cloneElement(trigger, {
+      'aria-haspopup': items ? 'menu' : 'true',
+      'aria-expanded': isOpen,
+      'aria-controls': menuId,
+    })
+  : trigger;
+
+useEscapeKey(onClose, isOpen);
+useFocusTrap(menuRef, {
+  isActive: isOpen,
+  autoFocus: !!items?.length,
+  restoreFocus: true,
+  trapTab: false,
+});
 `,
   MODUSPLANT_HYDRATION_GUARD: `interface AuthGuardProps {
   children: ReactNode;

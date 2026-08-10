@@ -105,26 +105,44 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     ],
     features: [
       {
-        title:
-          "PC 페이지네이션 / 모바일 무한 스크롤을 하나의 제네릭 컴포넌트로 추상화",
-        pr: "https://github.com/modusplant/modusplant_frontend/pull/100",
+        title: "React Compiler 'use memo' 실측 기반 렌더링 최적화",
+        pr: "https://github.com/modusplant/modusplant_frontend/pull/115",
         details: [
           {
-            src: "/assets/projects/modusplant_feature_01_01.gif",
+            src: "/assets/projects/modusplant_feature_01_01.png",
             alt: "PC 페이지네이션 UI와 모바일 무한 스크롤 UI 비교",
           },
           {
-            alt: "useQueryHook / useInfiniteQueryHook을 주입받는 제네릭 리스트 컴포넌트",
+            alt: "postCard / postListItem 반복 렌더되는 컴포넌트에 React Compiler 'use memo' 지시어를 적용",
             type: "code",
             language: "Typescript",
-            code: CODE_SNIPPETS.MODUSPLANT_GENERIC_LIST,
+            code: CODE_SNIPPETS.MODUSPLANT_USE_MEMO,
           },
         ],
         items: [
-          "마이페이지 내 활동(댓글/게시글/좋아요/북마크/최근 본 글) 5개 탭 모두 데스크탑은 페이지네이션, 모바일은 무한 스크롤이 필요했는데, 탭마다 개별 컴포넌트를 만들면 동일한 분기 로직이 5번 중복될 문제를 인지했습니다.",
-          "리스트 컴포넌트를 제네릭으로 설계해 데스크탑용 'useQueryHook'과 모바일용 'useInfiniteQueryHook'을 props로 주입받도록 하고, 'useMediaQuery'로 감지한 브레이크포인트에 따라 내부에서 두 훅 중 하나만 활성화('enabled')하도록 구성했습니다.",
-          "무한 스크롤 트리거는 IntersectionObserver를 감싼 'useInfiniteScrollObserver' 커스텀 훅으로 분리해, 어떤 리스트든 동일한 훅을 재사용할 수 있도록 했습니다.",
-          "결과적으로 탭 5개에 반응형 로직을 각각 구현하지 않고 데이터 페칭 훅만 교체해 끼워 넣는 구조로 정리했고, 이후 탭이 추가돼도 동일 인터페이스의 훅 두 개만 만들면 되도록 확장 비용을 낮췄습니다.",
+          "next.config.ts에 React Compiler annotation 모드가 설정되어 있었지만 프로젝트 전체에 'use memo' 지시어가 하나도 적용되지 않아 컴파일러 최적화가 전혀 동작하지 않는 상태임을 발견하였습니다.",
+          "무분별하게 전체 컴포넌트에 적용하는 대신, 외부 side-effect나 forwardRef·Context.Provider 같은 비표준 패턴이 없는 순수 컴포넌트로 후보를 압축하고, 그중 리스트 아이템처럼 반복 렌더되는 컴포넌트를 우선 선별한 뒤 React DevTools Profiler로 실측하는 3단계 기준을 세워 최적화 대상(PostCard, PostListItem)을 선정하였습니다.",
+          "적용 전후 Profiler 데이터를 update 렌더 기준(초기 마운트 제외)으로 각각 153개 샘플씩 수집해 비교하였고, 평균 렌더링 시간이 6.35ms에서 0.45ms로 약 14배(92.9%) 감소하는 것을 확인하였습니다.",
+          "무한 스크롤 구조상 카드 수가 늘어날수록 리렌더 비용이 카드 수만큼 선형으로 누적되는 구조라는 점을 분석하였고, 카드가 100개 이상 쌓이는 시점부터 이 최적화의 체감 효과가 더 커질 것으로 판단하였습니다.",
+        ],
+      },
+      {
+        title: "Dropdown/모달 컴포넌트 접근성(WAI-ARIA) 개선",
+        pr: "https://github.com/modusplant/modusplant_frontend/pull/114",
+        details: [
+          {
+            alt: "Dropdown/Dialog 컴포넌트에 WAI-ARIA 속성 적용",
+            type: "code",
+            language: "Typescript",
+            code: CODE_SNIPPETS.MODUSPLANT_DROPDOWN_DIALOG_WAI_ARIA,
+          },
+        ],
+        items: [
+          "키보드나 스크린리더 사용자가 Dropdown, Dialog, Snackbar 컴포넌트를 조작할 수 없는 문제를 인지하고, WAI-ARIA 표준(role, aria-* 속성)과 포커스 관리를 컴포넌트 3종에 적용하였습니다.",
+          "ESC 키 처리를 담당하는 useEscapeKey와 포커스 자동 이동·Tab 트랩·포커스 복원을 담당하는 useFocusTrap을 범용 훅으로 분리해 Dropdown과 DialogModal이 동일한 훅을 재사용하도록 설계하였고, 콜백을 ref로 고정해 stale closure를 방지하였습니다.",
+          "Dropdown은 cloneElement로 trigger에 aria-haspopup, aria-expanded, aria-controls를 자동 주입하도록 처리해, 사용하는 쪽에서 속성을 별도로 지정하지 않아도 되도록 하였습니다.",
+          "Dropdown은 Tab 순환 대신 ArrowUp/Down 탐색이 WAI-ARIA Disclosure 패턴에 더 부합한다고 판단해 trapTab을 false로, DialogModal은 포커스가 모달 밖으로 나가지 않도록 trapTab을 true로 설정해 컴포넌트 특성에 따라 표준을 다르게 적용하였습니다.",
+          "Storybook interaction 테스트의 play function으로 'Esc로 닫힘', 'Tab 포커스가 버튼 사이를 순환', '닫힌 뒤 포커스가 원래 위치로 복원'되는 시나리오를 자동 검증하였습니다.",
         ],
       },
       {
