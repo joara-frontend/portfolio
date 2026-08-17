@@ -126,7 +126,7 @@ export const projectsPrimary: Project[] = [
         href: "https://www.modusplant.kr/",
       },
       {
-        label: "GitHub ↗",
+        label: "GitHub",
         href: "https://github.com/modusplant/modusplant_frontend",
       },
     ],
