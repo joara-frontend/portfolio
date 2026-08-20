@@ -32,7 +32,27 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const project = PROJECT_DETAIL_DATA[params.slug];
   if (!project) return {};
-  return { title: `${project.title} | 조아라 포트폴리오` };
+
+  const title = `${project.title} | 조아라 포트폴리오`;
+  const { description } = project;
+  const image = project.images[0];
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      images: image ? [image] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
+  };
 }
 
 export default function ProjectDetailPage({ params }: PageProps) {

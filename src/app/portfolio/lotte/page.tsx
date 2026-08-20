@@ -19,8 +19,22 @@ function isNumType(
   return features.length === 0 || "title" in features[0];
 }
 
+const lotteProject = PROJECT_DETAIL_DATA["lotte"];
+
 export const metadata: Metadata = {
   title: "롯데인터넷면세점 | 조아라 포트폴리오",
+  description: lotteProject?.description,
+  openGraph: {
+    title: "롯데인터넷면세점 | 조아라 포트폴리오",
+    description: lotteProject?.description,
+    type: "article",
+    images: lotteProject?.images[0] ? [lotteProject.images[0]] : undefined,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "롯데인터넷면세점 | 조아라 포트폴리오",
+    description: lotteProject?.description,
+  },
 };
 
 export default function LottePage() {

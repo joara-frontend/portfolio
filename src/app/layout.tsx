@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   title: "조아라 포트폴리오 | Frontend Developer",
   description:
     "프론트엔드 개발자 조아라의 포트폴리오입니다. Next.js · React · TypeScript 기반의 웹 서비스 개발 경험을 담았습니다.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: "조아라 포트폴리오 | Frontend Developer",
     description:
