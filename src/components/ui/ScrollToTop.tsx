@@ -19,6 +19,8 @@ export function ScrollToTop() {
       className={`scrolltop${visible ? " is-visible" : ""}`}
       type="button"
       aria-label="맨 위로 이동"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     >
       <svg

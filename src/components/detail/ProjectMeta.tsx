@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type {
   ProjectDetailData,
   ProjectDetailLink,
@@ -62,14 +63,14 @@ function MetaRow({
 function LinkChip({ link }: { link: ProjectDetailLink }) {
   const isGitHub = link.label.toLowerCase().includes("github");
   return (
-    <a
+    <Link
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
       className={`detail-link-chip ${isGitHub ? "github" : "live"}`}
     >
       {link.label}
-    </a>
+    </Link>
   );
 }
 

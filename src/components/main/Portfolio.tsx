@@ -1,70 +1,87 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { projectsPrimary, projectsMore } from "@/data/portfolio";
 import type { Project, ProjectLink } from "@/data/portfolio";
 import { Skeleton } from "@/components/ui/Skeleton";
 
 function ProjectCard({ project }: { project: Project }) {
-  const router = useRouter();
   const [thumbLoaded, setThumbLoaded] = useState(false);
+  const cardHref = project.path ?? project.links?.[0]?.href;
+  const isExternal = !project.path;
+  const externalProps = isExternal
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
 
-  const handleCardClick = () => {
-    if (project.path) {
-      const url = project.path;
-      router.push(url);
-    } else if (project.links && project.links.length > 0) {
-      const url = project.links[0].href;
-      if (url) window.open(url, "_blank", "noopener,noreferrer");
-    }
-  };
+  const thumb = (
+    <div className="project-thumb">
+      {!thumbLoaded && (
+        <Skeleton
+          style={{ position: "absolute", inset: 0, borderRadius: 0 }}
+        />
+      )}
+      <Image
+        src={project.thumb}
+        fill
+        sizes="(max-width: 900px) 100vw, 548px"
+        style={{
+          objectFit: "cover",
+          opacity: thumbLoaded ? 1 : 0,
+          transition: "opacity .3s ease",
+        }}
+        className="object-cover"
+        alt={project.title}
+        onLoad={() => setThumbLoaded(true)}
+      />
+    </div>
+  );
+
+  const titleBlock = (
+    <>
+      <div className="project-title-row">
+        <span className="project-title">{project.title}</span>
+        <span className="project-en">{project.en}</span>
+      </div>
+      <p className="project-desc">{project.desc}</p>
+    </>
+  );
 
   return (
-    <div
-      className="project-card cursor-pointer"
-      style={{ display: "block" }}
-      onClick={handleCardClick}
-    >
-      <div className="project-thumb">
-        {!thumbLoaded && (
-          <Skeleton
-            style={{ position: "absolute", inset: 0, borderRadius: 0 }}
-          />
-        )}
-        <Image
-          src={project.thumb}
-          fill
-          sizes="(max-width: 900px) 100vw, 548px"
-          style={{
-            objectFit: "cover",
-            opacity: thumbLoaded ? 1 : 0,
-            transition: "opacity .3s ease",
-          }}
-          className="object-cover"
-          alt={project.title}
-          onLoad={() => setThumbLoaded(true)}
-        />
-      </div>
+    <div className="project-card">
+      {cardHref ? (
+        <Link
+          href={cardHref}
+          className="project-card-link"
+          aria-hidden="true"
+          tabIndex={-1}
+          {...externalProps}
+        >
+          {thumb}
+        </Link>
+      ) : (
+        thumb
+      )}
       <div className="project-body">
-        <div className="project-title-row">
-          <span className="project-title">{project.title}</span>
-          <span className="project-en">{project.en}</span>
-        </div>
-        <p className="project-desc">{project.desc}</p>
+        {cardHref ? (
+          <Link href={cardHref} className="project-card-link" {...externalProps}>
+            {titleBlock}
+          </Link>
+        ) : (
+          titleBlock
+        )}
         <div className="project-links">
           {project.links?.map((link: ProjectLink, i: number) => (
-            <a
+            <Link
               key={i}
               className="project-link no-underline text-inherit"
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -74,6 +91,11 @@ function ProjectCard({ project }: { project: Project }) {
 
 export default function Portfolio() {
   const [showMore, setShowMore] = useState(false);
+  const moreGridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (moreGridRef.current) moreGridRef.current.inert = !showMore;
+  }, [showMore]);
 
   return (
     <section id="portfolio">
@@ -89,7 +111,10 @@ export default function Portfolio() {
           ))}
         </div>
 
-        <div className={`more-grid${showMore ? " open" : ""}`}>
+        <div
+          ref={moreGridRef}
+          className={`more-grid${showMore ? " open" : ""}`}
+        >
           <div>
             <div className="projects-grid">
               {projectsMore.map((project, i) => (

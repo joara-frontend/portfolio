@@ -21,7 +21,12 @@ function TimelineRow({
 }: TimelineRowProps) {
   return (
     <div className="timeline-row-wrap">
-      <div className="timeline-row" onClick={onToggle}>
+      <button
+        type="button"
+        className="timeline-row"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+      >
         <span className="timeline-period">{item.period}</span>
         <div className="timeline-info">
           <span className="timeline-company">{item.company}</span>
@@ -44,7 +49,7 @@ function TimelineRow({
             <path d="M6 9.5l6 6 6-6" />
           </svg>
         </span>
-      </div>
+      </button>
       <div className={`timeline-detail${isOpen ? " open" : ""}`}>
         <div>
           {item.role && item.works ? (

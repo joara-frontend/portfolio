@@ -1,6 +1,7 @@
 "use client";
 
-import type { RefObject } from 'react';
+import { useEffect, useRef } from 'react';
+import type { KeyboardEvent, RefObject } from 'react';
 import type { Message, QuickReply } from './index';
 import { BotAvatar } from './BotAvatar';
 import { MessageList } from './MessageList';
@@ -18,19 +19,70 @@ interface ChatModalProps {
   scrollRef: RefObject<HTMLDivElement>;
 }
 
+const FOCUSABLE_SELECTOR =
+  'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export function ChatModal({
   open, onClose, messages, showQuick, quickReplies,
   draft, onDraftChange, onSend, scrollRef,
 }: ChatModalProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    root.inert = !open;
+
+    if (open) {
+      previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
+      root.querySelector<HTMLElement>(FOCUSABLE_SELECTOR)?.focus();
+    } else {
+      previouslyFocusedRef.current?.focus();
+      previouslyFocusedRef.current = null;
+    }
+  }, [open]);
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Escape') {
+      onClose();
+      return;
+    }
+    if (e.key !== 'Tab' || !rootRef.current) return;
+
+    const focusables = Array.from(
+      rootRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+    );
+    if (focusables.length === 0) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
   return (
-    <div style={{
-      position: 'absolute', bottom: 76, right: 0, width: 370, maxWidth: '88vw',
-      transformOrigin: 'bottom right',
-      transform: open ? 'translateY(0) scale(1)' : 'translateY(16px) scale(.92)',
-      opacity: open ? 1 : 0,
-      pointerEvents: open ? 'auto' : 'none',
-      transition: 'opacity .32s ease, transform .42s cubic-bezier(.2,.9,.3,1.3)',
-    }}>
+    <div
+      ref={rootRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label="아라봇 채팅"
+      onKeyDown={handleKeyDown}
+      style={{
+        position: 'absolute', bottom: 76, right: 0, width: 370, maxWidth: '88vw',
+        transformOrigin: 'bottom right',
+        transform: open ? 'translateY(0) scale(1)' : 'translateY(16px) scale(.92)',
+        opacity: open ? 1 : 0,
+        pointerEvents: open ? 'auto' : 'none',
+        transition: 'opacity .32s ease, transform .42s cubic-bezier(.2,.9,.3,1.3)',
+      }}>
       <div style={{
         display: 'flex', flexDirection: 'column', height: 520, maxHeight: '72vh',
         borderRadius: 26, overflow: 'hidden',
