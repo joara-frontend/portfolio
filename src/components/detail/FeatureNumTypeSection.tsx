@@ -6,6 +6,7 @@ import type {
   DetailItemImage,
 } from "@/data/projectDetails";
 import PrBadge from "./PrBadge";
+import SectionHeading from "./SectionHeading";
 
 // ─── Code block (macOS terminal style) ───────────────────────────────────────
 
@@ -237,18 +238,7 @@ export default function FeatureSection({ features }: FeatureSectionProps) {
 
   return (
     <section style={{ marginTop: "56px" }}>
-      <h2
-        style={{
-          fontFamily: "'Quicksand', 'Pretendard', sans-serif",
-          fontSize: "30px",
-          fontWeight: 700,
-          letterSpacing: "-.6px",
-          color: "var(--ink)",
-          marginBottom: "24px",
-        }}
-      >
-        주요 기능 개발
-      </h2>
+      <SectionHeading>주요 기능 개발</SectionHeading>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
         {features.map((f, i) => (

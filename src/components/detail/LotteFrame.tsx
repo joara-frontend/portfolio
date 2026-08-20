@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import GlassCard from "./GlassCard";
+import SectionHeading from "./SectionHeading";
 
 export default function LotteFrame() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -35,32 +37,9 @@ export default function LotteFrame() {
 
   return (
     <section style={{ marginTop: "56px" }}>
-      <h2
-        style={{
-          fontFamily: "'Quicksand', 'Pretendard', sans-serif",
-          fontSize: "30px",
-          fontWeight: 700,
-          letterSpacing: "-.6px",
-          color: "var(--ink)",
-          marginBottom: "24px",
-        }}
-      >
-        이벤트 페이지
-      </h2>
+      <SectionHeading>이벤트 페이지</SectionHeading>
 
-      {/* glass card — same design as FeatureNotNumTypeSection TroubleCard */}
-      <div
-        style={{
-          borderRadius: "26px",
-          overflow: "hidden",
-          background: "var(--glass-bg)",
-          backdropFilter: "blur(18px)",
-          WebkitBackdropFilter: "blur(18px)",
-          border: "1px solid var(--glass-bd)",
-          boxShadow:
-            "0 28px 54px -30px rgba(90,100,180,.55), inset 0 1px 0 rgba(255,255,255,.92)",
-        }}
-      >
+      <GlassCard style={{ padding: 0, overflow: "hidden" }}>
         <iframe
           ref={iframeRef}
           src="/lotte/lotte.html"
@@ -73,7 +52,7 @@ export default function LotteFrame() {
             minHeight: "400px",
           }}
         />
-      </div>
+      </GlassCard>
     </section>
   );
 }

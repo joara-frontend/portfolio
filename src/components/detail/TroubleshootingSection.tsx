@@ -2,23 +2,14 @@ import Image from "next/image";
 import type { ProjectTroubleshooting } from "@/data/projectDetails";
 import PrBadge from "./PrBadge";
 import SubList from "./SubList";
+import GlassCard from "./GlassCard";
+import SectionHeading from "./SectionHeading";
 
 // ─── Single troubleshooting card ───────────────────────────────────────────
 
 function TroubleshootingCard({ trouble }: { trouble: ProjectTroubleshooting }) {
   return (
-    <div
-      style={{
-        borderRadius: "26px",
-        padding: "30px",
-        background: "var(--glass-bg)",
-        backdropFilter: "blur(18px)",
-        WebkitBackdropFilter: "blur(18px)",
-        border: "1px solid var(--glass-bd)",
-        boxShadow:
-          "0 28px 54px -30px rgba(90,100,180,.55), inset 0 1px 0 rgba(255,255,255,.92)",
-      }}
-    >
+    <GlassCard>
       <div
         style={{
           display: "flex",
@@ -159,7 +150,7 @@ function TroubleshootingCard({ trouble }: { trouble: ProjectTroubleshooting }) {
           </ul>
         </div>
       </div>
-    </div>
+    </GlassCard>
   );
 }
 
@@ -176,18 +167,7 @@ export default function TroubleshootingSection({
 
   return (
     <section style={{ marginTop: "56px" }}>
-      <h2
-        style={{
-          fontFamily: "'Quicksand', 'Pretendard', sans-serif",
-          fontSize: "30px",
-          fontWeight: 700,
-          letterSpacing: "-.6px",
-          color: "var(--ink)",
-          marginBottom: "24px",
-        }}
-      >
-        트러블슈팅 경험
-      </h2>
+      <SectionHeading>트러블슈팅 경험</SectionHeading>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         {troubleshooting.map((t, i) => (
