@@ -1,11 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { projectsPrimary, projectsMore } from "@/data/portfolio";
-import type { Project, ProjectLink } from "@/data/portfolio";
+import { projectsDevelopment, projectsPublishing } from "@/data/portfolio";
+import type { Project, ProjectLink, ProjectType } from "@/data/portfolio";
 import { Skeleton } from "@/components/ui/Skeleton";
+
+const TYPE_CLASS: Record<ProjectType, string> = {
+  "부트캠프": "project-type-bootcamp",
+  "개인": "project-type-personal",
+  "사이드 프로젝트": "project-type-side",
+  "회사": "project-type-company",
+};
 
 function ProjectCard({ project }: { project: Project }) {
   const [thumbLoaded, setThumbLoaded] = useState(false);
@@ -38,16 +45,6 @@ function ProjectCard({ project }: { project: Project }) {
     </div>
   );
 
-  const titleBlock = (
-    <>
-      <div className="project-title-row">
-        <span className="project-title">{project.title}</span>
-        <span className="project-en">{project.en}</span>
-      </div>
-      <p className="project-desc">{project.desc}</p>
-    </>
-  );
-
   return (
     <div className="project-card">
       {cardHref ? (
@@ -64,14 +61,23 @@ function ProjectCard({ project }: { project: Project }) {
         thumb
       )}
       <div className="project-body">
-        {cardHref ? (
-          <Link href={cardHref} className="project-card-link" {...externalProps}>
-            {titleBlock}
-          </Link>
-        ) : (
-          titleBlock
+        {project.type && (
+          <div className={`project-type-badge ${TYPE_CLASS[project.type]}`}>
+            <span className="project-type-dot" />
+            {project.type}
+          </div>
         )}
+        <div className="project-title-row">
+          <span className="project-title">{project.title}</span>
+          <span className="project-en">{project.en}</span>
+        </div>
+        <p className="project-desc">{project.desc}</p>
         <div className="project-links">
+          {project.path && (
+            <Link className="project-detail-btn" href={project.path}>
+              자세히 보기 →
+            </Link>
+          )}
           {project.links?.map((link: ProjectLink, i: number) => (
             <Link
               key={i}
@@ -89,13 +95,18 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-export default function Portfolio() {
-  const [showMore, setShowMore] = useState(false);
-  const moreGridRef = useRef<HTMLDivElement>(null);
+const TABS = [
+  { id: "development", label: "Development", projects: projectsDevelopment },
+  { id: "publishing", label: "Publishing", projects: projectsPublishing },
+] as const;
 
-  useEffect(() => {
-    if (moreGridRef.current) moreGridRef.current.inert = !showMore;
-  }, [showMore]);
+type TabId = (typeof TABS)[number]["id"];
+
+export default function Portfolio() {
+  const [activeTab, setActiveTab] = useState<TabId>("development");
+
+  const currentProjects =
+    TABS.find((t) => t.id === activeTab)?.projects ?? [];
 
   return (
     <section id="portfolio">
@@ -105,46 +116,32 @@ export default function Portfolio() {
           <h2 className="section-title">대표 프로젝트</h2>
         </div>
 
-        <div className="projects-grid">
-          {projectsPrimary.map((project, i) => (
-            <ProjectCard key={i} project={project} />
-          ))}
-        </div>
-
-        <div
-          ref={moreGridRef}
-          className={`more-grid${showMore ? " open" : ""}`}
-        >
-          <div>
-            <div className="projects-grid">
-              {projectsMore.map((project, i) => (
-                <ProjectCard key={i} project={project} />
-              ))}
-            </div>
+        <div className="portfolio-tabs">
+          <div className="portfolio-tabbar" role="tablist">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                role="tab"
+                aria-selected={activeTab === tab.id}
+                className={`portfolio-tab-btn${activeTab === tab.id ? " active" : ""}`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.label}
+                <span className="tab-count">{tab.projects.length}</span>
+              </button>
+            ))}
           </div>
         </div>
 
-        <div className="show-more-wrap">
-          <button
-            className="btn-show-more"
-            onClick={() => setShowMore((prev) => !prev)}
-          >
-            <span>{showMore ? "접기" : "더보기"}</span>
-            <span className={`more-icon-circle${showMore ? " open" : ""}`}>
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M6 9.5l6 6 6-6" />
-              </svg>
-            </span>
-          </button>
+        <div
+          key={activeTab}
+          className="projects-grid"
+          role="tabpanel"
+          aria-label={activeTab}
+        >
+          {currentProjects.map((project, i) => (
+            <ProjectCard key={`${activeTab}-${i}`} project={project} />
+          ))}
         </div>
       </div>
     </section>

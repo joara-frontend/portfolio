@@ -18,11 +18,14 @@ export interface ProjectLink {
   href: string;
 }
 
+export type ProjectType = "부트캠프" | "개인" | "사이드 프로젝트" | "회사";
+
 export interface Project {
   title: string;
   en: string;
   thumb: string;
   desc: string;
+  type?: ProjectType;
   path?: string;
   links?: ProjectLink[];
 }
@@ -113,12 +116,123 @@ export const skills: Skill[] = [
   { name: "Zod", c1: "#b9b0ff", c2: "#6c5ce7" },
 ];
 
+export const projectsDevelopment: Project[] = [
+  {
+    title: "모두의 식물",
+    en: "ModusPlant",
+    thumb: "/assets/projects/modusplant_thumbnail.png",
+    desc: "식물을 좋아하는 사람들을 위한 커뮤니티. 식물 관련 정보를 공유하고, 경험을 나누며, 함께 성장하는 공간.",
+    type: "사이드 프로젝트",
+    path: "/portfolio/modusplant",
+    links: [
+      { label: "Live ↗", href: "https://www.modusplant.kr/" },
+      { label: "GitHub", href: "https://github.com/modusplant/modusplant_frontend" },
+    ],
+  },
+  {
+    title: "도토리",
+    en: "Dotori",
+    thumb: "/assets/projects/dotori_thumbnail.png",
+    desc: "바쁜 일상 속에서 놓치기 쉬운 사회·경제·테크·컬처 이슈를 매일 3가지씩 선별해 3줄 요약으로 보여주는 뉴스 큐레이션 서비스.",
+    type: "개인",
+    path: "/portfolio/dotori",
+    links: [
+      { label: "Live ↗", href: "https://dotori-news.vercel.app/" },
+      { label: "GitHub", href: "https://github.com/joara-frontend/dotori" },
+    ],
+  },
+  {
+    title: "글로벌노마드",
+    en: "GlobalNomad",
+    thumb: "/assets/projects/globalnomad_thumbnail.png",
+    desc: "여행 상품 등록 및 예약 관리 기능을 제공하는 체험 중심의 여행 커뮤니티 플랫폼.",
+    type: "부트캠프",
+    path: "/portfolio/globalnomad",
+    links: [
+      { label: "Live ↗", href: "https://21-sprint-1team-globalnomad.vercel.app/" },
+      { label: "GitHub", href: "https://github.com/joara-frontend/21-sprint-1team-globalnomad" },
+    ],
+  },
+  {
+    title: "태스키파이",
+    en: "Taskify",
+    thumb: "/assets/projects/taskify_thumbnail.png",
+    desc: "칸반 보드 형식을 활용한 팀 프로젝트 일정 및 태스크 관리 대시보드.",
+    type: "부트캠프",
+    path: "/portfolio/taskify",
+    links: [
+      { label: "Live ↗", href: "https://21-sprint-2-team-taskify.vercel.app/" },
+      { label: "GitHub", href: "https://github.com/joara-frontend/21-Sprint-2Team_Taskify" },
+    ],
+  },
+  {
+    title: "JT 금융그룹",
+    en: "Client Sites",
+    thumb: "/assets/projects/jt_thumbnail.jpg",
+    desc: "홈페이지 리뉴얼 이후 사이트 전체 운영 및 유지보수 담당.",
+    type: "회사",
+    path: "/portfolio/jt",
+  },
+  {
+    title: "루트에너지",
+    en: "Client Sites",
+    thumb: "/assets/projects/root_thumbnail.png",
+    desc: "홈페이지 구축 시 사용자 페이지와 어드민 페이지 함께 퍼블리싱 및 프론트엔드 작업 진행.",
+    type: "회사",
+    path: "/portfolio/root",
+    links: [{ label: "Live ↗", href: "https://rootenergy.kr/" }],
+  },
+  {
+    title: "오므론헬스케어",
+    en: "Client Sites",
+    thumb: "/assets/projects/omron_thumbnail.jpg",
+    desc: "리뉴얼 프로젝트에 참여하여 PHP 기반 구조로 전환된 전체 페이지의 퍼블리싱 작업 담당.",
+    type: "회사",
+    path: "/portfolio/omron",
+    links: [{ label: "Live ↗", href: "https://www.omron-healthcare.co.kr/main" }],
+  },
+];
+
+export const projectsPublishing: Project[] = [
+  {
+    title: "법무·특허·세무 플랫폼",
+    en: "Legal · Patent · Tax",
+    thumb: "/assets/projects/lawfirm_thumbnail.png",
+    desc: "법무·특허·세무 전문 플랫폼을 통합 구축하고 SEO를 최적화한 퍼블리싱 프로젝트.",
+    type: "회사",
+    path: "/portfolio/lawfirm",
+    links: [
+      { label: "대표 Live ↗", href: "https://law-eden.com/" },
+      { label: "대표 GitHub", href: "https://github.com/joara-frontend/rebuild-eden" },
+    ],
+  },
+  {
+    title: "Genesis 2.0 Global",
+    en: "Localization",
+    thumb: "/assets/projects/genesis_thumbnail.jpg",
+    desc: "다국어(RTL) 대응 및 현지화를 적용한 제네시스 글로벌 사이트 퍼블리싱.",
+    type: "회사",
+    path: "/portfolio/genesis",
+    links: [{ label: "Live ↗", href: "https://www.genesis.com/sa-dammam/ar/main.html" }],
+  },
+  {
+    title: "롯데인터넷면세점",
+    en: "Localization",
+    thumb: "/assets/projects/lotte_thumbnail.jpg",
+    desc: "롯데인터넷면세점 국문, 영문, 일문, 중문(간체/번체) 총 5개 언어 사이트의 혜택 및 이벤트 페이지 퍼블리싱 유지보수.",
+    type: "회사",
+    path: "/portfolio/lotte",
+    links: [{ label: "Live ↗", href: "https://kor.lottedfs.com/kr/shopmain/home" }],
+  },
+];
+
 export const projectsPrimary: Project[] = [
   {
     title: "모두의 식물",
     en: "ModusPlant",
     thumb: "/assets/projects/modusplant_thumbnail.png",
     desc: "식물을 좋아하는 사람들을 위한 커뮤니티. 식물 관련 정보를 공유하고, 경험을 나누며, 함께 성장하는 공간.",
+    type: "사이드 프로젝트",
     path: "/portfolio/modusplant",
     links: [
       {
@@ -136,6 +250,7 @@ export const projectsPrimary: Project[] = [
     en: "Dotori",
     thumb: "/assets/projects/dotori_thumbnail.png",
     desc: "바쁜 일상 속에서 놓치기 쉬운 사회·경제·테크·컬처 이슈를 매일 3가지씩 선별해 3줄 요약으로 보여주는 뉴스 큐레이션 서비스.",
+    type: "개인",
     path: "/portfolio/dotori",
     links: [
       {
@@ -153,6 +268,7 @@ export const projectsPrimary: Project[] = [
     en: "GlobalNomad",
     thumb: "/assets/projects/globalnomad_thumbnail.png",
     desc: "여행 상품 등록 및 예약 관리 기능을 제공하는 체험 중심의 여행 커뮤니티 플랫폼.",
+    type: "부트캠프",
     path: "/portfolio/globalnomad",
     links: [
       {
@@ -170,6 +286,7 @@ export const projectsPrimary: Project[] = [
     en: "Taskify",
     thumb: "/assets/projects/taskify_thumbnail.png",
     desc: "칸반 보드 형식을 활용한 팀 프로젝트 일정 및 태스크 관리 대시보드.",
+    type: "부트캠프",
     path: "/portfolio/taskify",
     links: [
       { label: "Live ↗", href: "https://21-sprint-2-team-taskify.vercel.app/" },
@@ -187,6 +304,7 @@ export const projectsMore: Project[] = [
     en: "Legal · Patent · Tax",
     thumb: "/assets/projects/lawfirm_thumbnail.png",
     desc: "법무·특허·세무 전문 플랫폼을 통합 구축하고 SEO를 최적화한 퍼블리싱 프로젝트.",
+    type: "회사",
     path: "/portfolio/lawfirm",
     links: [
       { label: "대표 Live ↗", href: "https://law-eden.com/" },
@@ -201,6 +319,7 @@ export const projectsMore: Project[] = [
     en: "Localization",
     thumb: "/assets/projects/genesis_thumbnail.jpg",
     desc: "다국어(RTL) 대응 및 현지화를 적용한 제네시스 글로벌 사이트 퍼블리싱.",
+    type: "회사",
     path: "/portfolio/genesis",
     links: [
       {
@@ -214,6 +333,7 @@ export const projectsMore: Project[] = [
     en: "Localization",
     thumb: "/assets/projects/lotte_thumbnail.jpg",
     desc: "롯데인터넷면세점 국문, 영문, 일문, 중문(간체/번체) 총 5개 언어 사이트의 혜택 및 이벤트 페이지 퍼블리싱 유지보수.",
+    type: "회사",
     path: "/portfolio/lotte",
     links: [
       {
@@ -227,6 +347,7 @@ export const projectsMore: Project[] = [
     en: "Client Sites",
     thumb: "/assets/projects/jt_thumbnail.jpg",
     desc: "홈페이지 리뉴얼 이후 사이트 전체 운영 및 유지보수 담당.",
+    type: "회사",
     path: "/portfolio/jt",
   },
   {
@@ -234,6 +355,7 @@ export const projectsMore: Project[] = [
     en: "Client Sites",
     thumb: "/assets/projects/root_thumbnail.png",
     desc: "홈페이지 구축 시 사용자 페이지와 어드민 페이지 함께 퍼블리싱 및 프론트엔드 작업 진행.",
+    type: "회사",
     path: "/portfolio/root",
     links: [{ label: "Live ↗", href: "https://rootenergy.kr/" }],
   },
@@ -242,6 +364,7 @@ export const projectsMore: Project[] = [
     en: "Client Sites",
     thumb: "/assets/projects/omron_thumbnail.jpg",
     desc: "리뉴얼 프로젝트에 참여하여 PHP 기반 구조로 전환된 전체 페이지의 퍼블리싱 작업 담당.",
+    type: "회사",
     path: "/portfolio/omron",
     links: [
       {
