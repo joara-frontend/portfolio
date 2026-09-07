@@ -226,21 +226,29 @@ for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 `,
   NOMAD_BADGE_HOOK: `import { useQueries } from "@tanstack/react-query";
 import { getMyActivityList } from "@/apis/myActivities.api";
-import { getMyReservationList } from "@/apis/myReservations.api";
+import {
+  getMyReservationList,
+  MY_DASHBOARD_LIST_SIZE,
+} from "@/apis/myReservations.api";
 import calculateLevel from "@/app/mypage/_libs/calculateLevel";
 
 export function useUserBadge() {
   const results = useQueries({
     queries: [
       {
-        queryKey: ["myActivities", "badge"],
-        queryFn: () => getMyActivityList({ cursorId: null }),
-        staleTime: 0,
+        queryKey: ["myActivities", "dashboard"],
+        queryFn: () =>
+          getMyActivityList({ cursorId: null, size: MY_DASHBOARD_LIST_SIZE }),
+        staleTime: 60_000,
       },
       {
-        queryKey: ["myReservations", "badge"],
-        queryFn: () => getMyReservationList({ cursorId: null }),
-        staleTime: 0,
+        queryKey: ["myReservations", "dashboard"],
+        queryFn: () =>
+          getMyReservationList({
+            cursorId: null,
+            size: MY_DASHBOARD_LIST_SIZE,
+          }),
+        staleTime: 60_000,
       },
     ],
   });
@@ -254,12 +262,15 @@ export function useUserBadge() {
 
   return { badgeLevel, badgeName, isLoading };
 }
-;`,
+`,
   NOMAD_REPORT_HOOK: `"use client";
 
 import { useQueries } from "@tanstack/react-query";
 import { getMyActivityList } from "@/apis/myActivities.api";
-import { getMyReservationList } from "@/apis/myReservations.api";
+import {
+  getMyReservationList,
+  MY_DASHBOARD_LIST_SIZE,
+} from "@/apis/myReservations.api";
 import { useAuth } from "@/commons/contexts/AuthContext";
 import { useMemo } from "react";
 import { getActivityDetail } from "@/apis/activities.api";
@@ -270,15 +281,20 @@ export function useNomadReport() {
   const results = useQueries({
     queries: [
       {
-        queryKey: ["myReservation", "nomadReport"],
-        queryFn: () => getMyReservationList({ cursorId: null, size: 30 }),
-        staleTime: Infinity,
+        queryKey: ["myReservations", "dashboard"],
+        queryFn: () =>
+          getMyReservationList({
+            cursorId: null,
+            size: MY_DASHBOARD_LIST_SIZE,
+          }),
+        staleTime: 60_000,
         gcTime: 1000 * 60 * 5,
       },
       {
-        queryKey: ["myActivities", "nomadReport"],
-        queryFn: () => getMyActivityList({ cursorId: null, size: 30 }),
-        staleTime: Infinity,
+        queryKey: ["myActivities", "dashboard"],
+        queryFn: () =>
+          getMyActivityList({ cursorId: null, size: MY_DASHBOARD_LIST_SIZE }),
+        staleTime: 60_000,
         gcTime: 1000 * 60 * 5,
       },
     ],
@@ -312,35 +328,45 @@ export function useNomadReport() {
       .map((item) => item.id);
   }, [activityQuery.data]);
 
+  const detailIds = useMemo(
+    () => Array.from(new Set([...topReservationIds, ...topActivityIds])),
+    [topReservationIds, topActivityIds],
+  );
+
   const detailResults = useQueries({
-    queries: [
-      ...topReservationIds.map((id) => ({
-        queryKey: ["reportReservation", id],
-        queryFn: () => getActivityDetail(id),
-        staleTime: Infinity,
-        gcTime: 1000 * 60 * 10,
-        retry: false,
-        enabled: !isBaseLoading,
-      })),
-      ...topActivityIds.map((id) => ({
-        queryKey: ["reportActivity", id],
-        queryFn: () => getActivityDetail(id),
-        staleTime: Infinity,
-        enabled: !isBaseLoading,
-      })),
-    ],
+    queries: detailIds.map((id) => ({
+      queryKey: ["activity", id],
+      queryFn: () => getActivityDetail(id),
+      staleTime: Infinity,
+      gcTime: 1000 * 60 * 10,
+      retry: false,
+      enabled: reservationQuery.isSuccess || activityQuery.isSuccess,
+    })),
   });
 
-  const isDetailLoading = detailResults.some((r) => r.isLoading);
-  const isLoading = isBaseLoading || isDetailLoading;
+  const isReportLoading = detailResults.some((r) => r.isLoading);
 
-  const validReservation = detailResults
-    .slice(0, topReservationIds.length)
-    .find((r) => r.isSuccess && r.data)?.data;
+  const detailById = useMemo(() => {
+    const map = new Map<
+      number,
+      Awaited<ReturnType<typeof getActivityDetail>>
+    >();
+    detailIds.forEach((id, index) => {
+      const result = detailResults[index];
+      if (result.isSuccess && result.data) {
+        map.set(id, result.data);
+      }
+    });
+    return map;
+  }, [detailIds, detailResults]);
 
-  const validActivity = detailResults
-    .slice(topReservationIds.length)
-    .find((r) => r.isSuccess && r.data)?.data;
+  const validReservation = topReservationIds
+    .map((id) => detailById.get(id))
+    .find((data) => data != null);
+
+  const validActivity = topActivityIds
+    .map((id) => detailById.get(id))
+    .find((data) => data != null);
 
   const historyLog = useMemo(() => {
     const reservations = reservationQuery.data?.reservations || [];
@@ -394,7 +420,8 @@ export function useNomadReport() {
         : 0,
     },
     historyLog,
-    isLoading,
+    isBaseLoading,
+    isReportLoading,
     user,
   };
 }

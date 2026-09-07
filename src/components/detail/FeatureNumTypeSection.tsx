@@ -296,7 +296,16 @@ export default function FeatureSection({ features }: FeatureSectionProps) {
               >
                 {f.title}
               </h3>
-              {f.pr && <PrBadge href={f.pr} />}
+              {f.pr &&
+                (Array.isArray(f.pr) ? (
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    {f.pr.map((href) => (
+                      <PrBadge key={href} href={href} />
+                    ))}
+                  </div>
+                ) : (
+                  <PrBadge href={f.pr} />
+                ))}
             </div>
 
             {/* Optional images / code snippets */}

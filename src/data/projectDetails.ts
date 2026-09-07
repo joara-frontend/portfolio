@@ -23,7 +23,7 @@ export type DetailItem = DetailItemImage | DetailItemCode;
 
 export interface ProjectFeatureNumType {
   title: string;
-  pr?: string;
+  pr?: string | string[];
   details?: DetailItem[];
   items: string[];
 }
@@ -373,21 +373,25 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     ],
     features: [
       {
-        title: "사용자 참여 유도를 위한 대시보드 구축 및 성능 최적화",
-        pr: "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad/pull/191",
+        title:
+          "노마드 리포트·뱃지 대시보드 구축 및 중복 쿼리 제거를 통한 성능 최적화",
+        pr: [
+          "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad/pull/191",
+          "https://github.com/joara-frontend/21-sprint-1team-globalnomad/pull/1",
+        ],
         details: [
           {
             src: "/assets/projects/globalnomad_feature_01_01.png",
             alt: "여행 체험 목록 페이지. 카테고리별 필터와 캘린더 기반의 예약 가능 날짜를 시각화하여, 사용자가 원하는 체험을 직관적으로 탐색하고 예약할 수 있는 인터페이스.",
           },
           {
-            alt: "TanStack Query의 useQueries를 통해 활동 목록과 예약 목록 데이터를 병렬로 페칭하고, 통합된 데이터를 calculateLevel 함수에 전달하여 사용자 뱃지 등급과 이름을 산정하는 Custom Hook 비즈니스 로직",
+            alt: "TanStack Query의 useQueries로 활동·예약 목록을 병렬 페칭하되, useNomadReport 훅과 동일한 dashboard 캐시 키 및 staleTime(60초)을 공유해 중복 네트워크 요청을 제거하고, 통합된 데이터를 calculateLevel 함수에 전달해 뱃지 등급과 이름을 산정하는 Custom Hook 비즈니스 로직",
             type: "code",
             language: "Typescript",
             code: CODE_SNIPPETS.NOMAD_BADGE_HOOK,
           },
           {
-            alt: "TanStack Query의 enabled 옵션과 병렬 페칭 전략을 통해 데이터 의존성을 제어하고, useMemo로 복잡한 통계 로직을 최적화한 커스텀 훅 구현",
+            alt: "기본 목록 쿼리를 useUserBadge와 동일한 dashboard 캐시 키로 통합해 중복 요청을 제거하고, 상세 조회 대상 activity ID를 Set으로 중복 제거해 단일 쿼리 배치로 묶은 뒤, isBaseLoading·isReportLoading으로 로딩 상태를 분리해 부분 렌더링을 가능케 한 커스텀 훅 구현",
             type: "code",
             language: "Typescript",
             code: CODE_SNIPPETS.NOMAD_REPORT_HOOK,
@@ -397,9 +401,9 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           "단순 예약 기능을 넘어 유저의 지속적인 참여를 유도할 동기 부여 요소가 필요했으며, 대시보드 내 대규모 데이터 페칭으로 인한 로딩 지연 및 복잡한 통계 연산 로직의 분리 필요성을 확인했습니다.",
           "프로젝트 조기 완료 후 유저 재방문율을 높이기 위해, 사용자 활동 데이터를 분석하여 시각화한 리포트 페이지와 성취 조건을 기반으로 한 뱃지 시스템을 직접 기획 및 제안하여 서비스의 가치를 확장했습니다.",
           "예약 및 활동 리스트 등 독립적인 데이터는 useQueries를 활용해 즉시 병렬 페칭하여 초기 로딩 성능을 확보했습니다.",
-          "리스트 데이터가 있어야만 상세 정보를 조회할 수 있는 데이터 순차적 의존성을 설계 단계에서 정의하고, enabled 옵션을 활용해 상세 데이터 호출 시점을 제어함으로써 불필요한 네트워크 요청을 차단하고 데이터 정합성을 유지했습니다.",
-          "복잡한 대시보드 통계 로직을 Custom Hook으로 캡슐화하고 useMemo를 적용하여 연산 비용을 최적화함으로써, UI 컴포넌트와의 의존성을 완벽히 분리하고 뷰어 컴포넌트의 가독성과 렌더링 효율을 극대화했습니다.",
-          "복잡한 히스토리 데이터의 관리 효율을 극대화하고, 단순 홈페이지를 넘어 데이터 중심의 사용자 경험을 제공했습니다.",
+          "뱃지 위젯과 노마드 리포트 페이지가 동일한 예약·활동 목록을 각각 별도로 페칭해 개발자 도구 Network 탭에서 my-activities, my-reservations 요청이 각 2회씩 중복 발생하는 것을 확인했습니다. 두 훅의 쿼리 키와 페이지 크기 상수(MY_DASHBOARD_LIST_SIZE)를 통합해 React Query 캐시를 공유시킴으로써 두 API 모두 요청 횟수를 1회로 줄였습니다.",
+          "리포트 상세 조회 시 '가장 많이 예약한 체험'과 '가장 리뷰가 많은 체험' 목록에 동일한 활동 ID가 중복 등장할 수 있다는 점을 파악해, ID를 Set으로 중복 제거한 뒤 단일 쿼리 배치로 묶어 불필요한 상세 API 호출을 없앴습니다.",
+          "로딩 상태를 목록 조회(isBaseLoading)와 상세 조회(isReportLoading) 두 단계로 분리하고, 상세 쿼리의 실행 조건을 '두 목록이 모두 로딩 완료된 후'에서 '하나라도 성공하면 즉시 시작'으로 변경해, 페이지 전체를 막던 단일 로딩 게이트를 리포트 리스트 영역만 스켈레톤 처리하는 부분 렌더링 방식으로 전환했습니다.",
         ],
       },
       {
