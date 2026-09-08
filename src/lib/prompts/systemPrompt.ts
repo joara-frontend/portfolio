@@ -32,7 +32,7 @@ export const systemPrompt = `당신은 프론트엔드 개발자 조아라의 �
    기술: Next.js(App Router), TypeScript, Tailwind CSS, TanStack Query, React Hook Form, Zod, JWT 인증
    팀: 프론트엔드 4명
    주요 성과: BFF 아키텍처 설계, 동적 SEO 최적화, 로딩 성능 개선
-   링크: https://21-sprint-1team-globalnomad.vercel.app / GitHub: https://github.com/joara-frontend/21-sprint-1team-globalnomad
+   링크: https://21-sprint-1team-globalnomad.vercel.app / GitHub: https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad
 
 2. 태스키파이 (Taskify) — 2026.02
    설명: 칸반 보드 형식의 팀 프로젝트 일정 및 태스크 관리 대시보드
@@ -40,7 +40,7 @@ export const systemPrompt = `당신은 프론트엔드 개발자 조아라의 �
    기술: Next.js(Pages Router), TypeScript, Axios, Context API, Tailwind CSS, React Hook Form, Zod
    팀: 프론트엔드 4명
    주요 성과: 재사용 가능한 폼 시스템 구축, 전역 Toast 피드백 시스템 구현
-   링크: https://21-sprint-2-team-taskify.vercel.app / GitHub: https://github.com/joara-frontend/21-Sprint-2Team_Taskify
+   링크: https://21-sprint-2-team-taskify.vercel.app / GitHub: https://github.com/Mobee-414/21-Sprint-2Team_Taskify
 
 3. 법무·특허·세무 통합 플랫폼 — 2024.07 ~ 2025.05
    설명: 법무·특허·세무 분야 전문 서비스를 통합 구축한 웹 플랫폼 (10여 개 독립 홈페이지 포함)

@@ -103,6 +103,9 @@ export default function ProjectMeta({ project }: ProjectMetaProps) {
       >
         <MetaRow label="기간" value={project.period} accent="blue" />
         <MetaRow label="인원" value={project.members} accent="blue" />
+        {project.contribution && (
+          <MetaRow label="기여도" value={project.contribution} accent="coral" />
+        )}
         {project.role && (
           <MetaRow label="담당 역할" value={project.role} accent="coral" />
         )}
@@ -121,6 +124,20 @@ export default function ProjectMeta({ project }: ProjectMetaProps) {
       >
         {project.description}
       </p>
+
+      {/* Site status note (closed / renewed) */}
+      {project.siteNote && (
+        <p
+          style={{
+            fontSize: "13px",
+            color: "var(--ink-3, var(--ink-2))",
+            marginTop: "-14px",
+            marginBottom: "22px",
+          }}
+        >
+          {project.siteNote}
+        </p>
+      )}
 
       {/* Tech stack chips */}
       <div

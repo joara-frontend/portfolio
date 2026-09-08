@@ -126,7 +126,10 @@ export const projectsDevelopment: Project[] = [
     path: "/portfolio/modusplant",
     links: [
       { label: "Live ↗", href: "https://www.modusplant.kr/" },
-      { label: "GitHub", href: "https://github.com/modusplant/modusplant_frontend" },
+      {
+        label: "GitHub",
+        href: "https://github.com/modusplant/modusplant_frontend",
+      },
     ],
   },
   {
@@ -149,8 +152,14 @@ export const projectsDevelopment: Project[] = [
     type: "부트캠프",
     path: "/portfolio/globalnomad",
     links: [
-      { label: "Live ↗", href: "https://21-sprint-1team-globalnomad.vercel.app/" },
-      { label: "GitHub", href: "https://github.com/joara-frontend/21-sprint-1team-globalnomad" },
+      {
+        label: "Live ↗",
+        href: "https://21-sprint-1team-globalnomad.vercel.app/",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad",
+      },
     ],
   },
   {
@@ -162,7 +171,10 @@ export const projectsDevelopment: Project[] = [
     path: "/portfolio/taskify",
     links: [
       { label: "Live ↗", href: "https://21-sprint-2-team-taskify.vercel.app/" },
-      { label: "GitHub", href: "https://github.com/joara-frontend/21-Sprint-2Team_Taskify" },
+      {
+        label: "GitHub",
+        href: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify",
+      },
     ],
   },
   {
@@ -189,7 +201,9 @@ export const projectsDevelopment: Project[] = [
     desc: "리뉴얼 프로젝트에 참여하여 PHP 기반 구조로 전환된 전체 페이지의 퍼블리싱 작업 담당.",
     type: "회사",
     path: "/portfolio/omron",
-    links: [{ label: "Live ↗", href: "https://www.omron-healthcare.co.kr/main" }],
+    links: [
+      { label: "Live ↗", href: "https://www.omron-healthcare.co.kr/main" },
+    ],
   },
 ];
 
@@ -203,7 +217,10 @@ export const projectsPublishing: Project[] = [
     path: "/portfolio/lawfirm",
     links: [
       { label: "대표 Live ↗", href: "https://law-eden.com/" },
-      { label: "대표 GitHub", href: "https://github.com/joara-frontend/rebuild-eden" },
+      {
+        label: "대표 GitHub",
+        href: "https://github.com/joara-frontend/rebuild-eden",
+      },
     ],
   },
   {
@@ -213,7 +230,12 @@ export const projectsPublishing: Project[] = [
     desc: "다국어(RTL) 대응 및 현지화를 적용한 제네시스 글로벌 사이트 퍼블리싱.",
     type: "회사",
     path: "/portfolio/genesis",
-    links: [{ label: "Live ↗", href: "https://www.genesis.com/sa-dammam/ar/main.html" }],
+    links: [
+      {
+        label: "Live ↗",
+        href: "https://www.genesis.com/sa-dammam/ar/main.html",
+      },
+    ],
   },
   {
     title: "롯데인터넷면세점",
@@ -222,7 +244,9 @@ export const projectsPublishing: Project[] = [
     desc: "롯데인터넷면세점 국문, 영문, 일문, 중문(간체/번체) 총 5개 언어 사이트의 혜택 및 이벤트 페이지 퍼블리싱 유지보수.",
     type: "회사",
     path: "/portfolio/lotte",
-    links: [{ label: "Live ↗", href: "https://kor.lottedfs.com/kr/shopmain/home" }],
+    links: [
+      { label: "Live ↗", href: "https://kor.lottedfs.com/kr/shopmain/home" },
+    ],
   },
 ];
 
@@ -277,7 +301,7 @@ export const projectsPrimary: Project[] = [
       },
       {
         label: "GitHub",
-        href: "https://github.com/joara-frontend/21-sprint-1team-globalnomad",
+        href: "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad",
       },
     ],
   },
@@ -292,7 +316,7 @@ export const projectsPrimary: Project[] = [
       { label: "Live ↗", href: "https://21-sprint-2-team-taskify.vercel.app/" },
       {
         label: "GitHub",
-        href: "https://github.com/joara-frontend/21-Sprint-2Team_Taskify",
+        href: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify",
       },
     ],
   },

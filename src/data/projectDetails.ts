@@ -59,8 +59,10 @@ export interface ProjectDetailData {
   title: string;
   period: string;
   members: string;
+  contribution?: string;
   role?: string;
   description: string;
+  siteNote?: string;
   stacks: string[];
   links?: ProjectDetailLink[];
   images: string[];
@@ -213,6 +215,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     title: "도토리 (Dotori)",
     period: "2026.07.03 - 2026.07.11",
     members: "Frontend 1명 (개인 프로젝트)",
+    contribution: "100%",
     role: "기획부터 배포까지 단독 수행 — 기술 스택 결정, 핵심 로직 구현, AI 협업 범위 설계를 직접 담당",
     description:
       "사회·경제 트렌드에 뒤처진다는 문제의식은 있었지만, 매일 여러 매체의 뉴스를 직접 찾아 읽을 시간적 여유는 없었습니다. 그래서 하루에 한 번, 카테고리별로 정말 화제가 되는 이슈들만 골라 핵심만 요약해주는 서비스가 있으면 좋겠다는 생각에서 프로젝트를 시작했습니다.",
@@ -345,6 +348,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     title: "글로벌노마드 (GlobalNomad)",
     period: "2026.03 — 2026.04",
     members: "Frontend 4명",
+    contribution: "35%",
     role: "Team Lead, Auth(회원가입/로그인), 내 정보 수정, 활동 대시보드(히스토리/리포트)",
     description:
       "여행 상품 등록 및 예약 관리 기능을 제공하는 체험 중심의 여행 커뮤니티 플랫폼입니다.",
@@ -363,7 +367,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         label: "GitHub",
-        url: "https://github.com/joara-frontend/21-sprint-1team-globalnomad",
+        url: "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad",
       },
     ],
     images: [
@@ -377,7 +381,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           "노마드 리포트·뱃지 대시보드 구축 및 중복 쿼리 제거를 통한 성능 최적화",
         pr: [
           "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad/pull/191",
-          "https://github.com/joara-frontend/21-sprint-1team-globalnomad/pull/1",
+          "https://github.com/codeit-sprint-21-1team/21-sprint-1team-globalnomad/pull/1",
         ],
         details: [
           {
@@ -504,6 +508,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     title: "태스키파이 (Taskify)",
     period: "2026.02",
     members: "Frontend 4명",
+    contribution: "45%",
     role: "카드 및 댓글 CRUD, 고도화된 다형성 인풋 시스템 설계, 5종 이상의 폼 성능 최적화",
     description:
       "칸반 보드 형식을 활용한 팀 프로젝트 일정 및 태스크 관리 대시보드입니다.",
@@ -520,7 +525,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       { label: "Live ↗", url: "https://21-sprint-2-team-taskify.vercel.app/" },
       {
         label: "GitHub",
-        url: "https://github.com/joara-frontend/21-Sprint-2Team_Taskify",
+        url: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify",
       },
     ],
     images: [
@@ -650,6 +655,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     title: "법무·특허·세무 플랫폼",
     period: "2024.07 — 2025.05",
     members: "퍼블리셔 1명 (단독)",
+    contribution: "100%",
     role: "UI/UX 퍼블리싱 전담",
     description:
       "법무·특허·세무 분야의 전문 서비스를 통합 구축한 웹 플랫폼입니다.",
@@ -719,6 +725,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     title: "Genesis 2.0 Global - 다국어(RTL) 대응 및 현지화 퍼블리싱",
     period: "2021.07 — 2021.08",
     members: "퍼블리셔 3명",
+    contribution: "30%",
     role: "다국어 · RTL 현지화 퍼블리싱",
     description:
       "현대자동차의 독립 럭셔리 브랜드 '제네시스'의 글로벌 브랜드 정체성을 전파하고 각 국가별(북미, 유럽, 중동, 아시아 등) 웹사이트를 유기적으로 연결하는 글로벌 통합 온라인 플랫폼입니다.",
@@ -795,9 +802,11 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     title: "JT 금융그룹",
     period: "2017.04 — 2018.01",
     members: "퍼블리셔 및 프론트엔드 개발자 1명 (단독)",
+    contribution: "100%",
     role: "JT금융그룹 메인 리뉴얼 및 왕왕 콘테스트(시즌 1·2) 등 이벤트들의 반응형 웹 퍼블리싱 및 프론트엔드 개발 100% 전담.",
     description:
       "과거 JT친애저축은행, JT저축은행, JT캐피탈 등 한국 내 계열사를 하나로 통합하여 그룹의 정체성과 신뢰도를 홍보하던 종합 금융그룹의 브랜드 포털 웹사이트입니다.",
+    siteNote: "※ 현재는 사이트가 폐쇄되어 라이브 링크로 확인이 불가합니다.",
     stacks: [
       "Node.js ",
       "Responsive UI",
@@ -829,9 +838,11 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     title: "루트에너지",
     period: "2017.01 — 2018.01",
     members: "개발자 2명",
+    contribution: "50%",
     role: "UI 퍼블리싱 전담 및 프론트엔드 개발 참여 (퍼블리싱 100%, 프론트엔드 50% 기여)",
     description:
       "시민 참여형 재생에너지 투자 및 자산 관리를 제공하는 에너지 핀테크 플랫폼으로, 일반 사용자용 반응형 투자 대시보드와 복잡한 채권 관리를 위한 어드민 백오피스 시스템이 핵심인 웹 서비스입니다.",
+    siteNote: "※ 현재는 리뉴얼되어 참여 당시와 다른 화면으로 서비스되고 있습니다.",
     stacks: [
       "React",
       "Responsive UI",
@@ -869,9 +880,11 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     title: "오므론 헬스케어",
     period: "2016.01 — 2018.01",
     members: "개발자 2명",
+    contribution: "50%",
     role: "PHP 환경 기반의 반응형 UI 퍼블리싱 전담 및 이메일 템플릿을 포함한 레거시 코드 리팩토링(기여도 50%)",
     description:
       "세계적인 가정용 의료기기(혈압계, 네블라이저 등) 브랜드의 한국 공식 웹사이트로, 글로벌 가이드라인에 맞춘 제품 정보 제공과 대고객 커뮤니케이션을 위한 PHP 기반의 반응형 브랜드 포털입니다.",
+    siteNote: "※ 현재는 리뉴얼되어 참여 당시와 다른 화면으로 서비스되고 있습니다.",
     stacks: ["PHP", "Responsive UI", "UI 리팩토링"],
     links: [
       {
