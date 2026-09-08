@@ -592,7 +592,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "브라우저 리소스 관리 및 비동기 안정성 확보",
-        pr: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/56",
+        pr: ["https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/16", "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/29",], 
         details: [
           {
             alt: "비동기 데이터 페칭 최적화 및 동적 자원 메모리 누수 방지 로직",
