@@ -562,7 +562,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
             code: CODE_SNIPPETS.TASKIFY_COMM_CRUD,
           },
           {
-            alt: "[성능 개선] 댓글 CRUD 시 전역 상태 하나를 여러 컴포넌트가 공유하던 구조를 항목 단위 상태로 분리하고, useCallback/useMemo로 함수·객체 참조를 안정화하여 **댓글 1건 수정 시 리렌더링되는 컴포넌트 범위를 5개(전체) → 1개(해당 항목)로 약 80% 감소**시킴. React DevTools Profiler로 리렌더링 대상을 실측하여 검증.",
+            alt: "[성능 개선] 단일 isSubmitting 값을 모든 댓글이 공유하면 상태 변화 시 댓글 수만큼 리렌더링이 발생함. 이를 **항목 단위 submittingCommentId로 세분화**하고, 제출 가드는 ref로 고정해 함수 재생성을 방지, commentActions 객체는 useMemo로 참조를 안정화하여 수정 중인 댓글 컴포넌트만 리렌더링되도록 구조를 개선.",
             type: "code",
             language: "Typescript",
             code: CODE_SNIPPETS.TASKIFY_COMMENT_PERF,
@@ -573,7 +573,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           "카드 작성 시 엔터 입력으로 즉각적인 태그 칩을 생성하고, 텍스트에 따라 배경·폰트 컬러가 자동 매핑되는 동적 스타일링 로직 구현.",
           "카드·댓글 CRUD 전반을 담당하여 복잡한 모달 창 내에서도 중복 요청 없이 상태가 실시간으로 동기화되도록 데이터 관리. 무분별한 UI 라이브러리 의존 대신 브라우저 기본 이벤트를 직접 제어",
           "사용자 중심의 인터랙션 환경을 조성하고, 데이터 상태의 실시간 동기화 안정성 확보.",
-          "[성능 개선] 댓글별 상태 분리 및 참조 안정화로 댓글 수정 시 **리렌더링 범위를 5개 → 1개로 약 80% 감소**.",
+          "[성능 개선] 댓글 제출 상태를 항목 단위로 세분화하고 참조 안정화를 적용해, **댓글 수(N)에 비례하던 리렌더링을 수정 항목 1건으로 고정** (React DevTools Profiler 실측).",
         ],
       },
       {
@@ -596,7 +596,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
             code: CODE_SNIPPETS.TASKIFY_SCHEMA,
           },
           {
-            alt: "[성능 개선] mode: \"all\"은 RHF에서 가장 비용이 큰 옵션으로, 타이핑할 때마다 이미지 파일 검증을 포함한 전체 Zod 스키마가 재실행되는 구조였음. 제출 시점엔 handleSubmit이 항상 전체 재검증을 보장한다는 점에 착안해, **최초 검증 시점을 필드 이탈(blur) 이후로 늦추고 이미 상호작용한 필드는 즉시 재검증되는 onTouched로 변경**. 타이핑 중 발생하던 불필요한 검증 재실행을 제거하면서도 에러 메시지 실시간 해제 등 기존 UX는 그대로 유지.",
+            alt: '[성능 개선] mode: "all"은 RHF에서 가장 비용이 큰 옵션으로, 타이핑할 때마다 이미지 파일 검증을 포함한 전체 Zod 스키마가 재실행되는 구조였음. 제출 시점엔 handleSubmit이 항상 전체 재검증을 보장한다는 점에 착안해, **최초 검증 시점을 필드 이탈(blur) 이후로 늦추고 이미 상호작용한 필드는 즉시 재검증되는 onTouched로 변경**. 타이핑 중 발생하던 불필요한 검증 재실행을 제거하면서도 에러 메시지 실시간 해제 등 기존 UX는 그대로 유지.',
             type: "code",
             language: "Typescript",
             code: CODE_SNIPPETS.TASKIFY_FORM_MODE_PERF,
@@ -873,7 +873,8 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     role: "UI 퍼블리싱 전담 및 프론트엔드 개발 참여 (퍼블리싱 100%, 프론트엔드 50% 기여)",
     description:
       "시민 참여형 재생에너지 투자 및 자산 관리를 제공하는 에너지 핀테크 플랫폼으로, 일반 사용자용 반응형 투자 대시보드와 복잡한 채권 관리를 위한 어드민 백오피스 시스템이 핵심인 웹 서비스입니다.",
-    siteNote: "※ 현재는 리뉴얼되어 참여 당시와 다른 화면으로 서비스되고 있습니다.",
+    siteNote:
+      "※ 현재는 리뉴얼되어 참여 당시와 다른 화면으로 서비스되고 있습니다.",
     stacks: [
       "React",
       "Responsive UI",
@@ -915,7 +916,8 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     role: "PHP 환경 기반의 반응형 UI 퍼블리싱 전담 및 이메일 템플릿을 포함한 레거시 코드 리팩토링(기여도 50%)",
     description:
       "세계적인 가정용 의료기기(혈압계, 네블라이저 등) 브랜드의 한국 공식 웹사이트로, 글로벌 가이드라인에 맞춘 제품 정보 제공과 대고객 커뮤니케이션을 위한 PHP 기반의 반응형 브랜드 포털입니다.",
-    siteNote: "※ 현재는 리뉴얼되어 참여 당시와 다른 화면으로 서비스되고 있습니다.",
+    siteNote:
+      "※ 현재는 리뉴얼되어 참여 당시와 다른 화면으로 서비스되고 있습니다.",
     stacks: ["PHP", "Responsive UI", "UI 리팩토링"],
     links: [
       {
