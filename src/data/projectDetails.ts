@@ -124,7 +124,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
         items: [
           "next.config.ts에 React Compiler annotation 모드가 설정되어 있었지만 프로젝트 전체에 'use memo' 지시어가 하나도 적용되지 않아 컴파일러 최적화가 전혀 동작하지 않는 상태임을 발견하였습니다.",
           "무분별하게 전체 컴포넌트에 적용하는 대신, 외부 side-effect나 forwardRef·Context.Provider 같은 비표준 패턴이 없는 순수 컴포넌트로 후보를 압축하고, 그중 리스트 아이템처럼 반복 렌더되는 컴포넌트를 우선 선별한 뒤 React DevTools Profiler로 실측하는 3단계 기준을 세워 최적화 대상(PostCard, PostListItem)을 선정하였습니다.",
-          "적용 전후 Profiler 데이터를 update 렌더 기준(초기 마운트 제외)으로 각각 153개 샘플씩 수집해 비교하였고, 평균 렌더링 시간이 6.35ms에서 0.45ms로 약 14배(92.9%) 감소하는 것을 확인하였습니다.",
+          "적용 전후 Profiler 데이터를 update 렌더 기준(초기 마운트 제외)으로 각각 153개 샘플씩 수집해 비교하였고, **평균 렌더링 시간이 6.35ms에서 0.45ms로 약 14배(92.9%) 감소**하는 것을 확인하였습니다.",
           "무한 스크롤 구조상 카드 수가 늘어날수록 리렌더 비용이 카드 수만큼 선형으로 누적되는 구조라는 점을 분석하였고, 카드가 100개 이상 쌓이는 시점부터 이 최적화의 체감 효과가 더 커질 것으로 판단하였습니다.",
         ],
       },
@@ -140,7 +140,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           },
         ],
         items: [
-          "키보드나 스크린리더 사용자가 Dropdown, Dialog, Snackbar 컴포넌트를 조작할 수 없는 문제를 인지하고, WAI-ARIA 표준(role, aria-* 속성)과 포커스 관리를 컴포넌트 3종에 적용하였습니다.",
+          "키보드나 스크린리더 사용자가 Dropdown, Dialog, Snackbar 컴포넌트를 조작할 수 없는 문제를 인지하고, **WAI-ARIA 표준(role, aria-* 속성)**과 포커스 관리를 컴포넌트 3종에 적용하였습니다.",
           "ESC 키 처리를 담당하는 useEscapeKey와 포커스 자동 이동·Tab 트랩·포커스 복원을 담당하는 useFocusTrap을 범용 훅으로 분리해 Dropdown과 DialogModal이 동일한 훅을 재사용하도록 설계하였고, 콜백을 ref로 고정해 stale closure를 방지하였습니다.",
           "Dropdown은 cloneElement로 trigger에 aria-haspopup, aria-expanded, aria-controls를 자동 주입하도록 처리해, 사용하는 쪽에서 속성을 별도로 지정하지 않아도 되도록 하였습니다.",
           "Dropdown은 Tab 순환 대신 ArrowUp/Down 탐색이 WAI-ARIA Disclosure 패턴에 더 부합한다고 판단해 trapTab을 false로, DialogModal은 포커스가 모달 밖으로 나가지 않도록 trapTab을 true로 설정해 컴포넌트 특성에 따라 표준을 다르게 적용하였습니다.",
@@ -159,7 +159,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
         items: [
           "모바일에서는 헤더 아래 아코디언으로 사이드 메뉴를 펼치는 방식이었는데, PC용 사이드바와 메뉴 렌더링 로직(항목 매핑, 활성 상태 표시, 로그아웃 버튼)이 두 파일에 거의 동일하게 중복 구현되어 있는 것을 확인했습니다.",
           "모바일 UX를 아코디언 대신 별도 메뉴 페이지(`/mypage/menu`)로 전환하기로 하고, PC 사이드바와 모바일 메뉴 페이지가 하나의 `Sidebar` 컴포넌트를 공유하도록 통합했습니다. 데스크탑에서 `/mypage/menu`로 접근하면 기본 페이지로 리다이렉트되도록 처리했습니다.",
-          "리팩토링 결과 관련 코드가 174줄 삭제·86줄 추가로 순감소했고, 이후 메뉴 항목 변경이나 스타일 수정이 한 컴포넌트에서만 이뤄지면 되는 구조로 정리했습니다.",
+          "리팩토링 결과 **관련 코드가 174줄 삭제·86줄 추가로 순감소**했고, 이후 메뉴 항목 변경이나 스타일 수정이 한 컴포넌트에서만 이뤄지면 되는 구조로 정리했습니다.",
         ],
       },
     ],
@@ -173,7 +173,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
         ],
         process: [
           "서버에서 이미 'initialUser'를 받아 렌더링하지만, 'AuthGuard'가 클라이언트 Zustand 스토어의 'isAuthenticated'만 기준으로 판단해 하이드레이션 직후 짧게 초기값(false)을 참조하는 것이 원인임을 확인했다.",
-          "'useSyncExternalStore'로 컴포넌트가 마운트되었는지 여부를 서버/클라이언트 첫 렌더에서는 false, 이후에는 true로 명시적으로 추적하고, 마운트 전에는 서버에서 내려준 'initialUser' 존재 여부로, 마운트 후에는 스토어 상태로 인증 여부를 판단하도록 분기했다.",
+          "**'useSyncExternalStore'**로 컴포넌트가 마운트되었는지 여부를 서버/클라이언트 첫 렌더에서는 false, 이후에는 true로 명시적으로 추적하고, 마운트 전에는 서버에서 내려준 'initialUser' 존재 여부로, 마운트 후에는 스토어 상태로 인증 여부를 판단하도록 분기했다.",
         ],
         code: {
           language: "Typescript",
@@ -193,7 +193,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           "AccessToken 만료 후 RefreshToken으로 자동 갱신되어야 하는데, 특정 상황에서 갱신이 반영되지 않고 로그인이 풀리는 현상을 발견했다.",
         ],
         process: [
-          "Server Component 렌더링 중에는 Next.js가 쿠키 쓰기를 허용하지 않아, 이 시점에 토큰 갱신을 시도하면 새 토큰 발급 자체는 성공해도 쿠키 저장이 조용히 실패한다는 것을 확인했다.",
+          "Server Component 렌더링 중에는 Next.js가 쿠키 쓰기를 허용하지 않아, 이 시점에 토큰 갱신을 시도하면 새 토큰 발급 자체는 성공해도 **쿠키 저장이 조용히 실패**한다는 것을 확인했다.",
           "쿠키 저장이 실패해도 로그아웃시키지 않도록, 갱신된 토큰 값을 그 요청에 한해 직접 사용하는 'overrideToken' 경로를 API 인스턴스에 추가했다. 쿠키 반영 자체는 다음 요청에서 proxy가 담당하도록 역할을 분리했다.",
           "동시에 토큰 갱신 조건이 'rememberMe' 쿠키 여부에 묶여 있어 자동 로그인을 껐을 때도 세션 중 갱신이 안 되던 로직 결함도 함께 발견해, 조건을 'refreshToken' 존재 여부 기준으로 수정했다.",
         ],
@@ -280,7 +280,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
         ],
         items: [
           "여러 언론사가 동일 사건을 서로 다른 제목으로 보도하는 RSS 특성상, 단순 수집만으로는 같은 이슈가 카테고리당 중복 노출되는 문제가 있어 이를 하나로 묶어낼 판단 기준이 필요하다는 것을 확인했습니다.",
-          "기사 제목을 토큰화해 Jaccard 유사도(교집합/합집합)가 임계값 이상이면 동일 이슈로 판단해 클러스터링하고, 클러스터를 구성한 보도 매체 수를 여러 매체가 다루는 진짜 이슈를 가려내는 랭킹 기준으로 활용했습니다.",
+          "기사 제목을 토큰화해 **Jaccard 유사도(교집합/합집합)**가 임계값 이상이면 동일 이슈로 판단해 클러스터링하고, 클러스터를 구성한 보도 매체 수를 여러 매체가 다루는 진짜 이슈를 가려내는 랭킹 기준으로 활용했습니다.",
           "클러스터 전체 기사의 토큰을 합쳐 비교하면 클러스터가 커질수록 판단 기준이 느슨해져 무관한 기사가 잘못 합쳐질 위험이 있다고 판단해, 클러스터를 시작한 첫 기사(앵커)의 토큰 집합하고만 비교하도록 설계했습니다.",
           "결과적으로 여러 매체의 중복 보도를 하나의 이슈로 압축하고, 보도 매체 수를 기준으로 카테고리당 진짜 중요한 이슈만 선별해 노출하는 큐레이션 로직을 확보해 단순 수집을 넘어선 편집 품질을 제공했습니다.",
         ],
@@ -302,7 +302,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           },
         ],
         items: [
-          "헤더(선택 날짜/캘린더·검색 열림 여부)와 이슈 리스트(선택 카테고리)처럼 컴포넌트마다 필요한 전역 상태 조각이 다른데, Context API는 값 하나만 바뀌어도 모든 소비 컴포넌트가 리렌더링되는 한계가 있다는 것을 확인했습니다.",
+          "헤더(선택 날짜/캘린더·검색 열림 여부)와 이슈 리스트(선택 카테고리)처럼 컴포넌트마다 필요한 전역 상태 조각이 다른데, Context API는 **값 하나만 바뀌어도 모든 소비 컴포넌트가 리렌더링**되는 한계가 있다는 것을 확인했습니다.",
           "전역 UI 상태를 Zustand 스토어 하나로 관리하되, 각 컴포넌트가 selector로 필요한 슬라이스만 구독하도록 설계했습니다.",
           "결과적으로 캘린더 열림 상태가 바뀌어도 카테고리 탭이나 이슈 리스트는 리렌더링되지 않는 등, 상태 변경의 영향 범위를 구독 단위로 좁혀 불필요한 리렌더링을 제거하고 인터랙션이 잦은 UI에서도 안정적인 렌더링 성능을 확보했습니다.",
         ],
@@ -312,7 +312,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       {
         title: "타이머 기반 캐시가 만드는 낭비와 지연",
         found: [
-          "홈페이지에 1시간 주기 ISR(revalidate = 3600)을 적용했으나, 데이터가 하루 1회만 바뀌는 서비스 특성상 대부분의 재검증이 불필요했고 cron 직후에도 최대 59분간 이전 캐시가 노출되는 지연이 있었다.",
+          "홈페이지에 1시간 주기 ISR(revalidate = 3600)을 적용했으나, 데이터가 하루 1회만 바뀌는 서비스 특성상 대부분의 재검증이 불필요했고 **cron 직후에도 최대 59분간 이전 캐시가 노출**되는 지연이 있었다.",
         ],
         process: [
           "타이머 기반 재검증을 제거하고, cron이 Supabase upsert를 완료한 직후에만 revalidatePath로 홈과 갱신된 상세 페이지를 선택적으로 무효화하도록 변경했다.",
@@ -331,7 +331,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           "카테고리마다 매일 3개씩 이슈가 노출돼야 하는데, 특정 날짜에 일부 카테고리가 3개 미만으로 저장되는 현상을 발견했다.",
         ],
         process: [
-          "Gemini 요약 호출이 일시적 오류(429/500/502/503)로 실패해도 재시도 없이 바로 스킵되는 게 원인임을 확인하고, 오류 유형을 판별해 재시도 가치가 있는 경우 3초 대기 후 최대 2회까지 재시도하도록 수정했다.",
+          "Gemini 요약 호출이 일시적 오류(429/500/502/503)로 실패해도 재시도 없이 바로 스킵되는 게 원인임을 확인하고, 오류 유형을 판별해 재시도 가치가 있는 경우 **3초 대기 후 최대 2회까지 재시도**하도록 수정했다.",
         ],
         code: { language: "Typescript", code: CODE_SNIPPETS.DOTORI_RETRY },
         result: [
@@ -405,9 +405,9 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           "단순 예약 기능을 넘어 유저의 지속적인 참여를 유도할 동기 부여 요소가 필요했으며, 대시보드 내 대규모 데이터 페칭으로 인한 로딩 지연 및 복잡한 통계 연산 로직의 분리 필요성을 확인했습니다.",
           "프로젝트 조기 완료 후 유저 재방문율을 높이기 위해, 사용자 활동 데이터를 분석하여 시각화한 리포트 페이지와 성취 조건을 기반으로 한 뱃지 시스템을 직접 기획 및 제안하여 서비스의 가치를 확장했습니다.",
           "예약 및 활동 리스트 등 독립적인 데이터는 useQueries를 활용해 즉시 병렬 페칭하여 초기 로딩 성능을 확보했습니다.",
-          "뱃지 위젯과 노마드 리포트 페이지가 동일한 예약·활동 목록을 각각 별도로 페칭해 개발자 도구 Network 탭에서 my-activities, my-reservations 요청이 각 2회씩 중복 발생하는 것을 확인했습니다. 두 훅의 쿼리 키와 페이지 크기 상수(MY_DASHBOARD_LIST_SIZE)를 통합해 React Query 캐시를 공유시킴으로써 두 API 모두 요청 횟수를 1회로 줄였습니다.",
+          "뱃지 위젯과 노마드 리포트 페이지가 동일한 예약·활동 목록을 각각 별도로 페칭해 개발자 도구 Network 탭에서 my-activities, my-reservations 요청이 각 2회씩 중복 발생하는 것을 확인했습니다. 두 훅의 쿼리 키와 페이지 크기 상수(MY_DASHBOARD_LIST_SIZE)를 통합해 React Query 캐시를 공유시킴으로써 **두 API 모두 요청 횟수를 2회 → 1회로 감소**시켰습니다.",
           "리포트 상세 조회 시 '가장 많이 예약한 체험'과 '가장 리뷰가 많은 체험' 목록에 동일한 활동 ID가 중복 등장할 수 있다는 점을 파악해, ID를 Set으로 중복 제거한 뒤 단일 쿼리 배치로 묶어 불필요한 상세 API 호출을 없앴습니다.",
-          "로딩 상태를 목록 조회(isBaseLoading)와 상세 조회(isReportLoading) 두 단계로 분리하고, 상세 쿼리의 실행 조건을 '두 목록이 모두 로딩 완료된 후'에서 '하나라도 성공하면 즉시 시작'으로 변경해, 페이지 전체를 막던 단일 로딩 게이트를 리포트 리스트 영역만 스켈레톤 처리하는 부분 렌더링 방식으로 전환했습니다.",
+          "로딩 상태를 목록 조회(isBaseLoading)와 상세 조회(isReportLoading) 두 단계로 분리하고, 상세 쿼리의 실행 조건을 '두 목록이 모두 로딩 완료된 후'에서 '하나라도 성공하면 즉시 시작'으로 변경해, **페이지 전체를 막던 단일 로딩 게이트를 리포트 리스트 영역만 스켈레톤 처리하는 부분 렌더링 방식으로 전환**했습니다.",
         ],
       },
       {
@@ -424,7 +424,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
         items: [
           "클라이언트 단의 토큰 관리로 인한 보안 취약점 및 토큰 만료 시 사용자 흐름이 끊기는 UX 문제를 인지했습니다.",
           "Next.js API Routes를 BFF 프록시 레이어로 구축하여, 클라이언트 환경에 민감한 인증 정보를 노출하지 않는 보안 구조를 설계했습니다.",
-          "클라이언트 대신 서버 사이드에서 인증 쿠키를 관리하고, Axios Interceptor를 활용해 토큰 만료 시 자동으로 재발급받는 Silent Refresh 로직을 구현했습니다.",
+          "클라이언트 대신 서버 사이드에서 인증 쿠키를 관리하고, Axios Interceptor를 활용해 토큰 만료 시 자동으로 재발급받는 **Silent Refresh** 로직을 구현했습니다.",
           "인증 인프라의 복잡성을 서버 레이어로 격리하여 보안성을 확보함과 동시에, 사용자에게 재로그인 없는 심리스한 경험을 제공했습니다.",
         ],
       },
@@ -476,7 +476,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
           },
         ],
         items: [
-          "Auth 레이아웃 내 Lottie 애니메이션 도입 후, 초기 로딩 시 대용량 JSON 파일로 인한 시각적 공백과 렌더링 지연이 발생하는 성능 병목과 레이아웃 시프트를 포착했습니다.",
+          "Auth 레이아웃 내 Lottie 애니메이션 도입 후, 초기 로딩 시 대용량 JSON 파일로 인한 시각적 공백과 렌더링 지연이 발생하는 **성능 병목과 레이아웃 시프트**를 포착했습니다.",
           "Auth 페이지 진입 시 Lottie 데이터 로드 전 정적 이미지를 우선 렌더링하고, 애니메이션 준비 완료 시점에 컴포넌트를 교체하는 스위칭 로직을 구현했습니다.",
           "고정된 컨테이너 내부에 정적 이미지와 Lottie를 절대 위치로 배치하여, 로딩 전후의 레이아웃 변화를 방지하고 시각적 연속성을 유지했습니다.",
           "이와 더불어 라이브러리 없는 '비밀번호 강도 체크' 로직 및 로컬 스토리지를 활용한 '이메일 기억하기' 등 사용자 편의 기능을 직접 구현하여 분리했습니다.",
@@ -536,7 +536,10 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     features: [
       {
         title: "유저 친화적 인터랙션 및 카드·댓글 관리 시스템 구현",
-        pr: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/51",
+        pr: [
+          "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/51",
+          "https://github.com/joara-frontend/21-Sprint-2Team_Taskify/pull/2",
+        ],
         details: [
           {
             src: "/assets/projects/taskify_feature_01_01.png",
@@ -558,17 +561,27 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
             language: "Typescript",
             code: CODE_SNIPPETS.TASKIFY_COMM_CRUD,
           },
+          {
+            alt: "[성능 개선] 댓글 CRUD 시 전역 상태 하나를 여러 컴포넌트가 공유하던 구조를 항목 단위 상태로 분리하고, useCallback/useMemo로 함수·객체 참조를 안정화하여 **댓글 1건 수정 시 리렌더링되는 컴포넌트 범위를 5개(전체) → 1개(해당 항목)로 약 80% 감소**시킴. React DevTools Profiler로 리렌더링 대상을 실측하여 검증.",
+            type: "code",
+            language: "Typescript",
+            code: CODE_SNIPPETS.TASKIFY_COMMENT_PERF,
+          },
         ],
         items: [
           "대시보드 내 카드 작성 및 관리 기능 구현 요구사항에 따른 인터랙션 최적화.",
           "카드 작성 시 엔터 입력으로 즉각적인 태그 칩을 생성하고, 텍스트에 따라 배경·폰트 컬러가 자동 매핑되는 동적 스타일링 로직 구현.",
           "카드·댓글 CRUD 전반을 담당하여 복잡한 모달 창 내에서도 중복 요청 없이 상태가 실시간으로 동기화되도록 데이터 관리. 무분별한 UI 라이브러리 의존 대신 브라우저 기본 이벤트를 직접 제어",
           "사용자 중심의 인터랙션 환경을 조성하고, 데이터 상태의 실시간 동기화 안정성 확보.",
+          "[성능 개선] 댓글별 상태 분리 및 참조 안정화로 댓글 수정 시 **리렌더링 범위를 5개 → 1개로 약 80% 감소**.",
         ],
       },
       {
         title: "React Hook Form & Zod 기반의 재사용 가능한 폼 시스템 설계",
-        pr: "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/12",
+        pr: [
+          "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/12",
+          "https://github.com/joara-frontend/21-Sprint-2Team_Taskify/pull/3",
+        ],
         details: [
           {
             alt: "제네릭과 ControllerRenderProps를 활용하여 표준화된 인터페이스를 가진 재사용 가능한 Input 컴포넌트 코드",
@@ -582,17 +595,28 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
             language: "Typescript",
             code: CODE_SNIPPETS.TASKIFY_SCHEMA,
           },
+          {
+            alt: "[성능 개선] mode: \"all\"은 RHF에서 가장 비용이 큰 옵션으로, 타이핑할 때마다 이미지 파일 검증을 포함한 전체 Zod 스키마가 재실행되는 구조였음. 제출 시점엔 handleSubmit이 항상 전체 재검증을 보장한다는 점에 착안해, **최초 검증 시점을 필드 이탈(blur) 이후로 늦추고 이미 상호작용한 필드는 즉시 재검증되는 onTouched로 변경**. 타이핑 중 발생하던 불필요한 검증 재실행을 제거하면서도 에러 메시지 실시간 해제 등 기존 UX는 그대로 유지.",
+            type: "code",
+            language: "Typescript",
+            code: CODE_SNIPPETS.TASKIFY_FORM_MODE_PERF,
+          },
         ],
         items: [
           "회원가입, 카드 생성 등 다양한 폼 입력 타입(5종)에 대한 공통 규격 및 유효성 검사 로직 필요.",
           "Controller 패턴과 TypeScript 제네릭을 활용하여 React Hook Form 및 Zod 스키마와 느슨하게 결합하는 다형성 인풋 시스템 구축.",
           "5종의 인풋 타입을 동일한 인터페이스 규격으로 표준화하고, Zod의 superRefine을 활용해 복잡한 조건부 유효성 검사를 선언적으로 처리.",
           "반복되는 폼 제어 로직을 추상화하여 개발 생산성을 높이고, 유효성 검증 데이터의 일관성 보장.",
+          "[성능 개선] **검증 모드를 all → onTouched로 전환**해 타이핑 중 불필요한 전체 스키마 재검증을 제거.",
         ],
       },
       {
         title: "브라우저 리소스 관리 및 비동기 안정성 확보",
-        pr: ["https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/16", "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/29",], 
+        pr: [
+          "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/16",
+          "https://github.com/Mobee-414/21-Sprint-2Team_Taskify/pull/29",
+          "https://github.com/joara-frontend/21-Sprint-2Team_Taskify/pull/1",
+        ],
         details: [
           {
             alt: "비동기 데이터 페칭 최적화 및 동적 자원 메모리 누수 방지 로직",
@@ -600,12 +624,19 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
             language: "Typescript",
             code: CODE_SNIPPETS.TASKIFY_MEMEROY_ASYNC,
           },
+          {
+            alt: "[성능 개선] 담당자 목록과 컬럼 목록 조회가 서로의 결과를 참조하지 않는 독립적인 요청임에도 await로 순차 실행되던 구조를 Promise.allSettled 기반 병렬 처리로 전환. **모달 오픈 시 데이터 로딩 시간을 중앙값 기준 211.7ms → 113.1ms로 약 46.6% 단축**(6회 반복 측정, performance.now() 기반 실측). 하나의 요청이 실패해도 나머지 요청 처리에 영향을 주지 않도록 Promise.all 대신 Promise.allSettled를 채택해 안정성도 함께 확보.",
+            type: "code",
+            language: "Typescript",
+            code: CODE_SNIPPETS.TASKIFY_FETCH_PARALLEL_PERF,
+          },
         ],
         items: [
           "이미지 업로드 프리뷰 및 비동기 작업 과정에서의 메모리 점유 및 언마운트 시 발생 가능한 부작용 방지.",
           "이미지 삭제 및 컴포넌트 언마운트 시점에 URL.revokeObjectURL로 자원을 명시적으로 해제하여 브라우저 메모리 점유 최적화.",
           "비동기 페칭 중 컴포넌트 언마운트 시, 이중 업데이트로 인한 부작용 및 불필요한 메모리 낭비를 방지하는 가드 로직 설계.",
           "성능이 제한된 환경에서도 메모리 누수를 원천 차단하여 안정적인 렌더링 상태 유지.",
+          "[성능 개선] 독립적인 두 API 요청을 순차 → 병렬(Promise.allSettled) 처리로 전환해 **데이터 로딩 시간을 211.7ms → 113.1ms로 약 46.6% 단축**.",
         ],
       },
       {
@@ -747,7 +778,7 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     features: [
       {
         contributions: [
-          "중동 6개국, 총 9개 사이트의 글로벌 웹사이트 리뉴얼 프로젝트에 퍼블리셔로 참여.",
+          "**중동 6개국, 총 9개 사이트**의 글로벌 웹사이트 리뉴얼 프로젝트에 퍼블리셔로 참여.",
           "다양한 언어권과 문화권에 대응하기 위해 UI 구성과 레이아웃 구조를 현지 사용자 환경에 맞춰 반응형으로 설계, 디자인 가이드와 글로벌 컴포넌트 기준에 따라 LTR(Left-to-Right) 및 RTL(Right-to-Left) 양방향 템플릿을 구성.",
           "기획자, 디자이너, 개발자 등 각 부서와의 긴밀한 협업을 통해 기획 의도를 명확히 이해, 지역별 맞춤형 콘텐츠가 UI에 잘 반영될 수 있도록 퍼블리싱과 유지보수를 주도적으로 수행.",
         ],

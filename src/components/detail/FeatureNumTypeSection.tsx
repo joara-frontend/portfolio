@@ -7,6 +7,7 @@ import type {
 } from "@/data/projectDetails";
 import PrBadge from "./PrBadge";
 import SectionHeading from "./SectionHeading";
+import { renderBoldText } from "@/lib/utils";
 
 // ─── Code block (macOS terminal style) ───────────────────────────────────────
 
@@ -123,7 +124,7 @@ function CodeBlock({ item }: { item: DetailItemCode }) {
             wordBreak: "keep-all",
           }}
         >
-          {item.alt}
+          {renderBoldText(item.alt)}
         </p>
       </div>
     </div>
@@ -349,7 +350,7 @@ export default function FeatureSection({ features }: FeatureSectionProps) {
                       wordBreak: "keep-all",
                     }}
                   >
-                    {item}
+                    {renderBoldText(item)}
                   </span>
                 </li>
               ))}

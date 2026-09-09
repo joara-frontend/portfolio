@@ -1,3 +1,5 @@
+import { renderBoldText } from "@/lib/utils";
+
 interface SubListProps {
   dotColor: string;
   label: string;
@@ -67,7 +69,7 @@ export default function SubList({ dotColor, label, items }: SubListProps) {
                 wordBreak: "keep-all",
               }}
             >
-              {item}
+              {renderBoldText(item)}
             </span>
           </li>
         ))}

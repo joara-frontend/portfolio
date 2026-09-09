@@ -801,6 +801,38 @@ const DeleteComment = async (commentId: number) => {
     setIsSubmitting(false);
   }
 };`,
+  TASKIFY_COMMENT_PERF: `// Before: 전역 isSubmitting 하나를 모든 댓글이 공유
+const [isSubmitting, setIsSubmitting] = useState(false);
+// → 댓글 1개 저장 시 isSubmitting 값 자체가 바뀌어 댓글 5개 전부 리렌더링
+
+// After: 댓글별 제출 상태로 분리 + 가드는 ref로 처리해 함수 재생성 방지
+const submittingCommentIdRef = useRef<number | null>(null);
+const [submittingCommentId, setSubmittingCommentId] = useState<number | null>(null);
+
+const setSubmitting = useCallback((id: number | null) => {
+  submittingCommentIdRef.current = id;
+  setSubmittingCommentId(id);
+}, []);
+
+const UpdateComment = useCallback(async (commentId: number, content: string) => {
+  if (submittingCommentIdRef.current === commentId) return; // ref 기반 가드 → deps 불필요
+  try {
+    setSubmitting(commentId);
+    const res = await putComments(commentId, content);
+    if (res) {
+      setCommentList((prev) =>
+        prev.map((comment) => (comment.id === commentId ? res : comment)),
+      );
+    }
+  } finally {
+    setSubmitting(null);
+  }
+}, [setSubmitting]);
+
+const commentActions = useMemo(
+  () => ({ onUpdate: UpdateComment, onDelete: DeleteComment }),
+  [UpdateComment, DeleteComment],
+);`,
   TASKIFY_INPUT: `interface InputProps<T extends FieldValues> {
   label: string;
   field: ControllerRenderProps<T, Path<T>>;
@@ -972,6 +1004,19 @@ const {
       imageUrl: initialData?.imageUrl || "",
     },
   });`,
+  TASKIFY_FORM_MODE_PERF: `// Before
+useForm<CardFormValues>({
+  resolver: zodResolver(CardFormSchema),
+  mode: "all", // change + blur + submit 시점마다 전체 스키마 재검증
+  defaultValues: { ... },
+});
+
+// After
+useForm<CardFormValues>({
+  resolver: zodResolver(CardFormSchema),
+  mode: "onTouched", // 필드를 벗어난 이후부터 실시간 재검증, 그 전엔 불필요한 검증 생략
+  defaultValues: { ... },
+});`,
   TASKIFY_MEMEROY_ASYNC: `// 1. 비동기 데이터 페칭 최적화
 useEffect(() => {
   const fetchData = async () => {
@@ -989,6 +1034,21 @@ useEffect(() => {
     }
   };
 }, [previewUrl]);`,
+  TASKIFY_FETCH_PARALLEL_PERF: `// Before: 서로 의존관계 없는 두 요청이 직렬 실행
+const fetchData = async () => {
+  if (dashboardId) await getMemberList();
+  if (initialData?.id) await getColumnList();
+};
+fetchData();
+
+// After: Promise.allSettled로 병렬 실행 (한쪽이 실패해도 나머지 결과에 영향 없도록)
+const fetchData = async () => {
+  const tasks: Promise<void>[] = [];
+  if (dashboardId) tasks.push(getMemberList());
+  if (initialData?.id) tasks.push(getColumnList());
+  await Promise.allSettled(tasks);
+};
+fetchData();`,
   TASKIFY_DESIGH_GUIDE: `@import "tailwindcss";
 
 @theme {

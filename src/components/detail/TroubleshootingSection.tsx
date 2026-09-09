@@ -4,6 +4,7 @@ import PrBadge from "./PrBadge";
 import SubList from "./SubList";
 import GlassCard from "./GlassCard";
 import SectionHeading from "./SectionHeading";
+import { renderBoldText } from "@/lib/utils";
 
 // ─── Single troubleshooting card ───────────────────────────────────────────
 
@@ -143,7 +144,7 @@ function TroubleshootingCard({ trouble }: { trouble: ProjectTroubleshooting }) {
                     wordBreak: "keep-all",
                   }}
                 >
-                  {item}
+                  {renderBoldText(item)}
                 </span>
               </li>
             ))}
