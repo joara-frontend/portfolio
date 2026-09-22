@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 
 interface HeroSliderProps {
@@ -16,11 +16,9 @@ interface ImageSize {
 export default function HeroSlider({ images, title }: HeroSliderProps) {
   const [slide, setSlide] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const [expandedHeight, setExpandedHeight] = useState<number | null>(null);
   const [naturalSizes, setNaturalSizes] = useState<Record<number, ImageSize>>(
     {},
   );
-  const trackRef = useRef<HTMLDivElement>(null);
   const count = images.length;
   const isMulti = count > 1;
 
@@ -56,14 +54,6 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
   const currentSize = naturalSizes[slide];
   const isPortrait = !!currentSize && currentSize.h > currentSize.w;
 
-  const toggleExpand = () => {
-    if (!expanded && currentSize && trackRef.current) {
-      const width = trackRef.current.offsetWidth;
-      setExpandedHeight(width * (currentSize.h / currentSize.w));
-    }
-    setExpanded((v) => !v);
-  };
-
   return (
     <div
       style={{
@@ -78,10 +68,14 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
     >
       {/* Track wrapper */}
       <div
-        ref={trackRef}
         className={`hero-slider-track${expanded ? " expanded" : ""}`}
         style={
-          expanded && expandedHeight ? { height: expandedHeight } : undefined
+          expanded && currentSize
+            ? {
+                height: "auto",
+                aspectRatio: `${currentSize.w} / ${currentSize.h}`,
+              }
+            : undefined
         }
       >
         {/* Sliding track */}
@@ -156,7 +150,7 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
             <button
               type="button"
               className={`hero-slider-expand-btn${expanded ? " open" : ""}`}
-              onClick={toggleExpand}
+              onClick={() => setExpanded((v) => !v)}
               aria-expanded={expanded}
               aria-label={expanded ? "이미지 접기" : "전체 이미지 보기"}
             >
