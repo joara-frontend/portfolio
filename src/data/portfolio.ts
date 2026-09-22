@@ -45,7 +45,7 @@ export const career: TimelineItem[] = [
   {
     period: "2020.10 — 2022.05",
     company: "더제이",
-    dept: "퍼블리싱팀 · 주임",
+    dept: "퍼블리싱팀 · 주임 · 퍼블리셔",
     role: "기업 홈페이지 신규 구축 및 UI 퍼블리싱",
     works: [
       "다양한 디바이스 환경에 대응하는 반응형 웹 표준 수립 및 기획 의도에 최적화된 인터랙티브 UI 구현.",
@@ -54,7 +54,7 @@ export const career: TimelineItem[] = [
   {
     period: "2019.01 — 2020.09",
     company: "아이피그룹",
-    dept: "퍼블리싱팀 · 사원",
+    dept: "퍼블리싱팀 · 사원 · 퍼블리셔",
     role: "롯데인터넷면세점 이벤트 페이지 퍼블리싱",
     works: [
       "롯데인터넷면세점 플랫폼의 시즌별 프로모션 및 이벤트 웹 페이지를 기획 및 디자인 사양에 맞춰 마크업 진행.",
@@ -63,7 +63,7 @@ export const career: TimelineItem[] = [
   {
     period: "2016.10 — 2018.01",
     company: "김지민앤컴퍼니",
-    dept: "개발팀 · 사원",
+    dept: "개발팀 · 사원 · 프론트엔드 개발자",
     role: "웹 퍼블리싱 및 프론트엔드 기능 구현",
     works: [
       "PHP, React, Node.js 등 프로젝트별 다양한 기술 스택 환경에서 웹사이트 구축, 리뉴얼 및 프로모션 페이지 제작 전반 수행.",

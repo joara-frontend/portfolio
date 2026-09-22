@@ -6,6 +6,7 @@ import type {
   DetailItemImage,
 } from "@/data/projectDetails";
 import PrBadge from "./PrBadge";
+import LinkChip from "./LinkChip";
 import SectionHeading from "./SectionHeading";
 import { renderBoldText } from "@/lib/utils";
 
@@ -307,6 +308,13 @@ export default function FeatureSection({ features }: FeatureSectionProps) {
                 ) : (
                   <PrBadge href={f.pr} />
                 ))}
+              {f.links && f.links.length > 0 && (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                  {f.links.map((link) => (
+                    <LinkChip key={link.label} link={link} />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Optional images / code snippets */}

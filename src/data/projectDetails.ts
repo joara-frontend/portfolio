@@ -24,6 +24,7 @@ export type DetailItem = DetailItemImage | DetailItemCode;
 export interface ProjectFeatureNumType {
   title: string;
   pr?: string | string[];
+  links?: ProjectDetailLink[];
   details?: DetailItem[];
   items: string[];
 }
@@ -714,6 +715,18 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     features: [
       {
         title: "특허법인 테헤란 / 세무법인 테헤란",
+        links: [
+          { label: "특허법인 테헤란 Live ↗", url: "https://thr-pat.co.kr/" },
+          {
+            label: "특허법인 테헤란 GitHub",
+            url: "https://github.com/joara-frontend/rebuild-patent",
+          },
+          { label: "세무법인 테헤란 Live ↗", url: "https://thr-tax.co.kr/" },
+          {
+            label: "세무법인 테헤란 GitHub",
+            url: "https://github.com/joara-frontend/rebuild-tax",
+          },
+        ],
         items: [
           "회사의 리브랜딩에 맞춘 웹사이트 리뉴얼 퍼블리싱 전담 및 마케팅 요구사항에 신속 대응.",
           "웹접근성(WA) 요소 표준화 및 UX 개선을 통해 사용자 편의성 고도화.",
@@ -723,8 +736,15 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "법률사무소 트라이원스",
+        links: [
+          { label: "Live ↗", url: "https://try-once.co.kr/" },
+          {
+            label: "GitHub",
+            url: "https://github.com/joara-frontend/rebuild-tryonce",
+          },
+        ],
         items: [
-          "회사 설립 초기 단계의 웹사이트 기획부터 제작까지 전담하며 다양한 법률 분야별 홈페이지 및 콘텐츠 구축.",
+          "회사 설립 초기 단계의 웹사이트 기획부터 제작까지 전담하며 성범죄·민사·상속·음주·이혼·피해자전담·학교폭력·기업·회생·마약센터 등 **10개 분야별 서브사이트**의 홈페이지 및 콘텐츠 구축.",
           "회사 분할에 따른 신규 사이트 독립 개설을 위해 기존 레거시 코드를 이관하고, 구조적 결합도를 낮추는 클린코드 리팩토링 및 HTML/CSS 마크업 표준화로 유지보수성 최적화.",
           "모든 이미지 자산을 WebP 포맷으로 변환·적용하여 웹사이트의 전반적인 페이지 로딩 속도 및 웹 성능 개선.",
           "코드 구조 정리와 체계적인 유지보수 프로세스 구축을 통해 실질적인 작업 생산성 및 개발 팀 내 협업 효율 향상.",
@@ -732,6 +752,13 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       },
       {
         title: "법무법인 이든",
+        links: [
+          { label: "Live ↗", url: "https://law-eden.com/" },
+          {
+            label: "GitHub",
+            url: "https://github.com/joara-frontend/rebuild-eden",
+          },
+        ],
         items: [
           "회사 창립 시점에 맞춰 기획·디자인 직군과의 긴밀한 협업을 통해 웹사이트 구축 전반을 전담하고, 기획 의도와 디자인 시안을 높은 싱크로율로 구현.",
           "다차원적인 사용자 경험을 제공하기 위해 구글 3D 지도 삽입 등 인터랙티브하고 실용적인 사용자 중심 기능 구현 및 편의성 강화.",
@@ -742,8 +769,15 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
 
       {
         title: "법무법인 영웅",
+        links: [
+          { label: "Live ↗", url: "https://lawfirm-hero.com/" },
+          {
+            label: "GitHub",
+            url: "https://github.com/joara-frontend/rebuild-hero",
+          },
+        ],
         items: [
-          "신설 조직의 빠른 웹 인프라 구축을 위해 메인 홈페이지와 형사·이혼·민사 등 다양한 법률 분야에 특화된 서브 사이트 제작을 전담하여 브랜드 전문성 강화에 기여.",
+          "신설 조직의 빠른 웹 인프라 구축을 위해 메인 홈페이지와 형사·이혼·민사·성범죄·음주구제·회생·상속·부산지사·성범죄 피해자·법인등기 등 **10개 분야별 서브사이트** 제작을 전담하여 브랜드 전문성 강화에 기여.",
           "회사 분할 과정에서 이관된 기존 서브 페이지들의 레거시(더티코드) 소스를 클린코드로 전면 리팩토링하여 추후 유지보수성 및 협업 생산성을 획기적으로 향상.",
           "기존 PHP 기반의 폐쇄적인 캘린더를 모던한 flatpickr 라이브러리로 전면 교체하여 사용자 편의성을 고려한 UI/UX 개선 완수.",
           "교체된 캘린더 컴포넌트에 공공 API를 연동하여 실시간 공휴일 자동 표시 기능을 동적으로 구현함으로써 서비스의 실용성과 기능적 완성도 제고.",
@@ -834,9 +868,9 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
     period: "2017.04 — 2018.01",
     members: "퍼블리셔 및 프론트엔드 개발자 1명 (단독)",
     contribution: "100%",
-    role: "JT금융그룹 메인 리뉴얼 및 왕왕 콘테스트(시즌 1·2) 등 이벤트들의 반응형 웹 퍼블리싱 및 프론트엔드 개발 100% 전담.",
+    role: "JT금융그룹 메인 리뉴얼 및 **JT왕왕콘테스트**(1·2회) 등 반려동물 마케팅 이벤트의 반응형 웹 퍼블리싱 및 프론트엔드 개발 **100% 전담**.",
     description:
-      "과거 JT친애저축은행, JT저축은행, JT캐피탈 등 한국 내 계열사를 하나로 통합하여 그룹의 정체성과 신뢰도를 홍보하던 종합 금융그룹의 브랜드 포털 웹사이트입니다.",
+      "과거 JT친애저축은행, JT저축은행, JT캐피탈 등 한국 내 계열사를 하나로 통합하여 그룹의 정체성과 신뢰도를 홍보하던 종합 금융그룹의 브랜드 포털 웹사이트입니다. 그룹 인지도 제고를 위해 온라인 투표로 인기 반려견을 선발하는 **'JT왕왕콘테스트'**를 2016년부터 매년 개최하였으며, 2회차(2017년)부터는 스피드 퀴즈·만화 그리기 등 참여형 서브 이벤트와 반려묘 사진 콘테스트 **'JT포토제닉'**, 비반려인도 참여 가능한 **'JT백일장'**을 함께 운영하며 이벤트 규모를 확장했습니다.",
     siteNote: "※ 현재는 사이트가 폐쇄되어 라이브 링크로 확인이 불가합니다.",
     stacks: [
       "Node.js ",
@@ -853,7 +887,8 @@ export const PROJECT_DETAIL_DATA: Record<string, ProjectDetailData> = {
       {
         contributions: [
           "기획자와의 직접 소통을 통해 프로젝트 방향을 파악하고 콘테스트 페이지 기획-디자인-퍼블리싱 전 과정을 단독 수행.",
-          "왕왕 콘테스트 1·2회차의 퍼블리싱 및 프론트엔드 개발 100% 참여, 핵심 콘텐츠의 구조와 기능 구현 주도.",
+          "**JT왕왕콘테스트** 1·2회차 메인 투표 페이지의 퍼블리싱 및 프론트엔드 개발 **100% 담당**, 핵심 콘텐츠 구조와 투표 기능 구현 주도.",
+          "2회차 진행 시 스피드 퀴즈, 만화 그리기 등 참여형 서브 이벤트와 반려묘 사진 콘테스트 **'JT포토제닉'**, 비반려인 대상 온라인 이벤트 **'JT백일장'** 페이지를 추가로 퍼블리싱하며 단일 캠페인 내 다수 이벤트 페이지를 병행 대응.",
           "Node.js 환경에서의 운영 경험이 없어도 직접 학습하며 새로운 기술에 유연하게 대응, 실무 적용까지 성공적으로 수행.",
         ],
         result: [

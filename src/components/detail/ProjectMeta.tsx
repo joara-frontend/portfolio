@@ -1,8 +1,6 @@
-import Link from "next/link";
-import type {
-  ProjectDetailData,
-  ProjectDetailLink,
-} from "@/data/projectDetails";
+import type { ProjectDetailData } from "@/data/projectDetails";
+import LinkChip from "./LinkChip";
+import { renderBoldText } from "@/lib/utils";
 
 interface ProjectMetaProps {
   project: ProjectDetailData;
@@ -54,23 +52,9 @@ function MetaRow({
           fontVariantNumeric: "tabular-nums",
         }}
       >
-        {value}
+        {renderBoldText(value)}
       </span>
     </div>
-  );
-}
-
-function LinkChip({ link }: { link: ProjectDetailLink }) {
-  const isGitHub = link.label.toLowerCase().includes("github");
-  return (
-    <Link
-      href={link.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`detail-link-chip ${isGitHub ? "github" : "live"}`}
-    >
-      {link.label}
-    </Link>
   );
 }
 
@@ -117,12 +101,11 @@ export default function ProjectMeta({ project }: ProjectMetaProps) {
           fontSize: "17px",
           lineHeight: 1.75,
           color: "var(--ink-2)",
-          maxWidth: "680px",
           marginBottom: "22px",
           wordBreak: "keep-all",
         }}
       >
-        {project.description}
+        {renderBoldText(project.description)}
       </p>
 
       {/* Site status note (closed / renewed) */}

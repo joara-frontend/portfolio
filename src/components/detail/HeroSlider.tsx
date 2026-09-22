@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import Image from "next/image";
 
 interface HeroSliderProps {
@@ -8,20 +8,61 @@ interface HeroSliderProps {
   title: string;
 }
 
+interface ImageSize {
+  w: number;
+  h: number;
+}
+
 export default function HeroSlider({ images, title }: HeroSliderProps) {
   const [slide, setSlide] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+  const [expandedHeight, setExpandedHeight] = useState<number | null>(null);
+  const [naturalSizes, setNaturalSizes] = useState<Record<number, ImageSize>>(
+    {},
+  );
+  const trackRef = useRef<HTMLDivElement>(null);
   const count = images.length;
   const isMulti = count > 1;
 
   const goPrev = useCallback(() => {
+    setExpanded(false);
     setSlide((s) => (s - 1 + count) % count);
   }, [count]);
 
   const goNext = useCallback(() => {
+    setExpanded(false);
     setSlide((s) => (s + 1) % count);
   }, [count]);
 
+  const goTo = useCallback((i: number) => {
+    setExpanded(false);
+    setSlide(i);
+  }, []);
+
+  const handleImgLoad = useCallback(
+    (i: number) => (e: React.SyntheticEvent<HTMLImageElement>) => {
+      const img = e.currentTarget;
+      setNaturalSizes((prev) =>
+        prev[i]
+          ? prev
+          : { ...prev, [i]: { w: img.naturalWidth, h: img.naturalHeight } },
+      );
+    },
+    [],
+  );
+
   if (count === 0) return null;
+
+  const currentSize = naturalSizes[slide];
+  const isPortrait = !!currentSize && currentSize.h > currentSize.w;
+
+  const toggleExpand = () => {
+    if (!expanded && currentSize && trackRef.current) {
+      const width = trackRef.current.offsetWidth;
+      setExpandedHeight(width * (currentSize.h / currentSize.w));
+    }
+    setExpanded((v) => !v);
+  };
 
   return (
     <div
@@ -36,7 +77,13 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
       }}
     >
       {/* Track wrapper */}
-      <div className="hero-slider-track">
+      <div
+        ref={trackRef}
+        className={`hero-slider-track${expanded ? " expanded" : ""}`}
+        style={
+          expanded && expandedHeight ? { height: expandedHeight } : undefined
+        }
+      >
         {/* Sliding track */}
         <div
           style={{
@@ -55,13 +102,14 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
                 className="hero-slider-img"
                 priority={i === 0}
                 sizes="(max-width: 1040px) 100vw, 980px"
+                onLoad={handleImgLoad(i)}
               />
             </div>
           ))}
         </div>
 
-        {/* Prev / Next — only when multiple images */}
-        {isMulti && (
+        {/* Prev / Next — only when multiple images and not expanded */}
+        {isMulti && !expanded && (
           <>
             {/* Wrapping div handles vertical centering so the button transform is free for scale */}
             <div
@@ -73,7 +121,11 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
                 zIndex: 4,
               }}
             >
-              <button className="detail-nav-btn" onClick={goPrev} aria-label="이전 이미지">
+              <button
+                className="detail-nav-btn"
+                onClick={goPrev}
+                aria-label="이전 이미지"
+              >
                 ‹
               </button>
             </div>
@@ -86,16 +138,47 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
                 zIndex: 4,
               }}
             >
-              <button className="detail-nav-btn" onClick={goNext} aria-label="다음 이미지">
+              <button
+                className="detail-nav-btn"
+                onClick={goNext}
+                aria-label="다음 이미지"
+              >
                 ›
               </button>
             </div>
           </>
         )}
+
+        {/* Bottom gradient + expand toggle — only for portrait (tall) images */}
+        {isPortrait && (
+          <>
+            {!expanded && <div className="hero-slider-gradient" />}
+            <button
+              type="button"
+              className={`hero-slider-expand-btn${expanded ? " open" : ""}`}
+              onClick={toggleExpand}
+              aria-expanded={expanded}
+              aria-label={expanded ? "이미지 접기" : "전체 이미지 보기"}
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M6 9.5l6 6 6-6" />
+              </svg>
+            </button>
+          </>
+        )}
       </div>
 
       {/* Dot indicators */}
-      {isMulti && (
+      {isMulti && !expanded && (
         <div
           style={{
             display: "flex",
@@ -108,7 +191,7 @@ export default function HeroSlider({ images, title }: HeroSliderProps) {
           {images.map((_, i) => (
             <button
               key={i}
-              onClick={() => setSlide(i)}
+              onClick={() => goTo(i)}
               aria-label={`${i + 1}번 이미지로 이동`}
               style={{
                 width: i === slide ? "26px" : "9px",
