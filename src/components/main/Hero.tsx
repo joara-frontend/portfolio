@@ -43,6 +43,14 @@ export default function Hero() {
               >
                 GitHub →
               </Link>
+              <Link
+                className="btn-ghost"
+                href="https://indigo-sandwich-224.notion.site/ARA-s-Dev-Log-2871833f6e7f82c4a244818fa1aa3a24"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Tech Blog →
+              </Link>
             </div>
           </div>
           <div className="hero-photo-wrap">
