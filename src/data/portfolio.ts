@@ -73,6 +73,12 @@ export const career: TimelineItem[] = [
 
 export const education: TimelineItem[] = [
   {
+    period: "2026.10 — 진행중",
+    company: "원티드",
+    dept: "AI 네이티브 커리어 캠프 ",
+    desc: "AI 활용 역량을 실무 수준으로 끌어올리기 위해 참여 중. 구직 활동과 병행하며 학습 중.",
+  },
+  {
     period: "2025.10 — 2026.04",
     company: "코드잇",
     dept: "프론트엔드 부트캠프",
